@@ -18,3 +18,4 @@ pom.xml.asc
 tags
 .lsp/
 .rebel_readline_history
+resources/

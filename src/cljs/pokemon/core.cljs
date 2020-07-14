@@ -40,8 +40,9 @@
   (fn []
     [:span.main
      [:h1 "The items of pokemon"]
-     [:ul (map (fn [item-id]
-                 [:li {:name (str "item-" item-id) :key (str "item-" item-id)}
+     [:ul.item-list (map (fn [item-id]
+                 [:li.item {:name (str "item-" item-id)
+                       :key (str "item-" item-id)}
                   [:a {:href (path-for :item {:item-id item-id})} "Item: " item-id]])
                (range 1 60))]]))
 
