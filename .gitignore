@@ -17,3 +17,4 @@ pom.xml.asc
 *.vim
 tags
 .lsp/
+.rebel_readline_history
