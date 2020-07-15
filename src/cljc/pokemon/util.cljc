@@ -35,3 +35,27 @@
    :electric :psychic :ice
    :dragon :dark :fairy
    :unknown :shadow])
+
+#?(:cljs
+   (def
+     poketypes-info
+     {:normal {:src "https://vignette.wikia.nocookie.net/pokemongo/images/f/fb/Normal.png"}
+      :fighting {:src "https://vignette.wikia.nocookie.net/pokemongo/images/3/30/Fighting.png"}
+      :flying {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/7f/Flying.png"}
+      :poison {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/05/Poison.png"}
+      :ground {:src "https://vignette.wikia.nocookie.net/pokemongo/images/8/8f/Ground.png"}
+      :rock {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0b/Rock.png"}
+      :bug {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/7d/Bug.png"}
+      :ghost {:src "https://vignette.wikia.nocookie.net/pokemongo/images/a/ab/Ghost.png"}
+      :steel {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c9/Steel.png"}
+      :fire {:src "https://vignette.wikia.nocookie.net/pokemongo/images/3/30/Fire.png"}
+      :water {:src "https://vignette.wikia.nocookie.net/pokemongo/images/9/9d/Water.png"}
+      :grass {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c5/Grass.png"}
+      :electric {:src "https://vignette.wikia.nocookie.net/pokemongo/images/2/2f/Electric.png"}
+      :psychic {:src "https://vignette.wikia.nocookie.net/pokemongo/images/2/21/Psychic.png"}
+      :ice {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/77/Ice.png"}
+      :dragon {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c7/Dragon.png"}
+      :dark {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0e/Dark.png"}
+      :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}
+      :unknown {:src "https://i.dlpng.com/static/png/6757032_preview.png"}
+      :shadow {:src "https://i.dlpng.com/static/png/6757032_preview.png"}}))
