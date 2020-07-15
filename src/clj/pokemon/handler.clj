@@ -21,21 +21,20 @@
 (defn loading-page []
   (html5
    (head)
-   [:body {:class "body-container"}
+   [:body {:class "body-container" :id "body-container"}
     mount-target
     (include-js "/js/app.js")
     [:script "pokemon.core.init_BANG_()"]]))
 
-
 (defn cards-page []
   (html5
-    (head)
-    [:body
-     mount-target
-     (include-js "/js/app_devcards.js")]))
+   (head)
+   [:body
+    mount-target
+    (include-js "/js/app_devcards.js")]))
 
 (defn index-handler
-  [_request]
+  [_]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body (loading-page)})
@@ -52,8 +51,9 @@
     [["/" {:get {:handler index-handler}}]
      ["/items"
       ["" {:get {:handler index-handler}}]
-      ["/:item-id" {:get {:handler index-handler
-                          :parameters {:path {:item-id int?}}}}]]
+      ["/:item-id" {:get
+                    {:handler index-handler
+                     :parameters {:path {:item-id int?}}}}]]
      ["/about" {:get {:handler index-handler}}]
      ["/cards" {:get {:handler cards-handler}}]])
    (reitit-ring/routes
