@@ -23,7 +23,11 @@
        (when store-icon-src
          [:img.nav-img {:src store-icon-src}])]
       [:li.nav-li
-       [:span.nav-title "PokeStore"]]
+       [:a.nav-title
+        {:href (path-for :index)
+         :on-click (set-theme! "index")}
+        [:span "PokeStore"]]]
+
       [:li.nav-li
        [:input.nav-input-text {:type "text"
                                :placeholder "Um pokemon qualquer..."}]
