@@ -1,16 +1,24 @@
 (ns pokemon.components
   (:require
    [reitit.frontend :as reitit]
-   [pokemon.util :refer [set-theme!]]))
+   [pokemon.util :refer [set-theme!
+                         poketypes-keywords]]))
+
+(def poketypes-routes
+  ; TODO: definir rotas nesteadas para tipos de pokemon
+  (->> poketypes-keywords (mapv (fn [k] [(str "/" (name k)) k]))))
+
+(def all-routes
+  (conj
+   [["/" :index]
+    ; TODO: definir rotas nesteadas para tipos de pokemon
+    ["/items" ["" :items] ["/:item-id" :item]]
+    ["/about" :about]]
+   poketypes-routes))
 
 (def router
   "Routes"
-  (reitit/router
-   [["/" :index]
-    ["/items"
-     ["" :items]
-     ["/:item-id" :item]]
-    ["/about" :about]]))
+  (reitit/router all-routes))
 
 (defn path-for [route & [params]]
   (if params
@@ -21,7 +29,7 @@
   [poketype]
   [:a.poketype-link
    {:style {:background-color (str "var(--" poketype ")")}
-    :href (path-for :items)
+    :href (path-for (-> poketype keyword))
     :key poketype
     :on-click (set-theme! poketype)}
    poketype])

@@ -1,5 +1,6 @@
 (ns pokemon.core
   (:require
+   [clojure.string :refer [replace]]
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
    [reagent.session :as session]
@@ -11,6 +12,7 @@
                           current-page]]
    [pokemon.components :refer [router]]
    [pokemon.util :refer [poke-url
+                         set-theme!
                          poke-url-type
                          fetch-then]]))
 
@@ -35,14 +37,16 @@
     (fn [path]
       (let [match (reitit/match-by-path router path)
             current-page (:name (:data match))
-            route-params (:path-params match)]
+            route-params (:path-params match)
+            theme (-> match
+                      :path
+                      (replace #"/" "")
+                      (#(if (= % "") "home" %)))]
         (reagent/after-render clerk/after-render!)
         (session/put! :route {:current-page (page-for current-page)
                               :route-params route-params})
         (clerk/navigate-page! path)
-        ; TODO: mudar tema a partir de navegação do histórico
-        (-> match :path print)
-        ))
+        ((set-theme! theme))))
     :path-exists?
     (fn [path]
       (boolean (reitit/match-by-path router path)))})

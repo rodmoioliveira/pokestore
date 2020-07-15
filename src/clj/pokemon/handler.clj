@@ -51,6 +51,7 @@
     [["/" {:get {:handler index-handler}}]
      ["/items"
       ["" {:get {:handler index-handler}}]
+      ; TODO: definir rotas nesteadas para tipos de pokemon
       ["/:item-id" {:get
                     {:handler index-handler
                      :parameters {:path {:item-id int?}}}}]]

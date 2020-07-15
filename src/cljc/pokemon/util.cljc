@@ -23,3 +23,13 @@
      (fn []
        (swap! store merge {:select-store theme})
        (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) theme)))))
+
+(def
+  poketypes-keywords
+  [:normal :fighting :flying
+   :poison :ground :rock
+   :bug :ghost :steel
+   :fire :water :grass
+   :electric :psychic :ice
+   :dragon :dark :fairy
+   :unknown :shadow])
