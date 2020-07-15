@@ -21,8 +21,16 @@
      [:ul.nav-ul
       [:li.nav-li
        (when store-icon-src
-         [:img.nav-img {:src store-icon-src}])
-       [:span.nav-title "PokeStore"]]]]))
+         [:img.nav-img {:src store-icon-src}])]
+      [:li.nav-li
+       [:span.nav-title "PokeStore"]]
+      [:li.nav-li
+       [:input.nav-input-text {:type "text"
+                               :placeholder "Um pokemon qualquer..."}]
+       [:input.nav-input-btn {:type "button"
+                              :value "Buscar"}]]
+      [:li.nav-li
+       [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]]]))
 
 (defn footer
   []
