@@ -39,7 +39,8 @@
 #?(:cljs
    (def
      poketypes-info
-     {:normal {:src "https://vignette.wikia.nocookie.net/pokemongo/images/f/fb/Normal.png"}
+     {:index {:src "https://icons-for-free.com/iconfiles/png/512/game+go+play+pokemon+icon-1320186971163542651.png"}
+      :normal {:src "https://vignette.wikia.nocookie.net/pokemongo/images/f/fb/Normal.png"}
       :fighting {:src "https://vignette.wikia.nocookie.net/pokemongo/images/3/30/Fighting.png"}
       :flying {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/7f/Flying.png"}
       :poison {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/05/Poison.png"}

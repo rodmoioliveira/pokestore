@@ -1,6 +1,7 @@
 (ns pokemon.components
   (:require
    [pokemon.routes :refer [path-for]]
+   [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme! poketypes-info]]))
 
 (defn poke-store-type
@@ -15,9 +16,13 @@
 
 (defn nav
   []
-  [:nav.nav
-   [:ul.nav-ul
-    [:li.nav-li "PokeStore"]]])
+  (let [store-icon-src (-> @store :select-store keyword poketypes-info :src)]
+    [:nav.nav
+     [:ul.nav-ul
+      [:li.nav-li
+       (when store-icon-src
+         [:img.nav-img {:src store-icon-src}])
+       [:span.nav-title "PokeStore"]]]]))
 
 (defn footer
   []
