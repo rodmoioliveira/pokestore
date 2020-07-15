@@ -14,6 +14,8 @@
                          poke-url-type
                          fetch-then]]))
 
+; TODO: imagens dos pokemons
+; https://medium.com/@sergio13prez/fetching-them-all-poke-api-62ca580981a2
 (fetch-then
  (str poke-url poke-url-type)
  [(fn [data] (->> data
