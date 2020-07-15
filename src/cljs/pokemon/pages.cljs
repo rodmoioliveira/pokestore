@@ -10,15 +10,15 @@
 
 (defn home-page []
   (fn []
-    [:section
-     [:h1 "Escolha sua loja de pokemon"]
+    [:section.poketype
+     [:h1.poketype-title "Escolha sua loja de pokemon"]
      [:ul.poketype-list
       (->> @store :types (map poke-store-type))]]))
 
 (defn poketype-list-page []
   (fn []
     (let [current-page (-> @store :select-store)]
-      [:span
+      [:<>
        [:h1 "The items of pokemon"]
        [:ul.item-list (map (fn [poke-id]
                              [:li.item {:name (str current-page "-" poke-id)
@@ -33,12 +33,12 @@
   (fn []
     (let [routing-data (session/get :route)
           item (get-in routing-data [:route-params :poke-id])]
-      [:span
+      [:<>
        [:h1 (str "Item " item " of pokemon")]
        [:p [:a {:href (path-for :index)} "Back to the list of items"]]])))
 
 (defn about-page []
-  (fn [] [:span
+  (fn [] [:<>
           [:h1 "About pokemon"]]))
 
 (defn current-page
