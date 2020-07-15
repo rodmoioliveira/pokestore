@@ -6,23 +6,15 @@
    [reitit.frontend :as reitit]
    [clerk.core :as clerk]
    [accountant.core :as accountant]
-   [pokemon.store :refer [store]]
+   [pokemon.fetches :refer [fetch-poke-types]]
    [pokemon.pages :refer [page-for
                           current-page]]
    [pokemon.routes :refer [router]]
-   [pokemon.util :refer [poke-url
-                         set-theme!
-                         poke-url-type
-                         fetch-then]]))
+   [pokemon.util :refer [set-theme!]]))
 
 ; TODO: imagens dos pokemons
 ; https://medium.com/@sergio13prez/fetching-them-all-poke-api-62ca580981a2
-(fetch-then
- (str poke-url poke-url-type)
- [(fn [data] (->> data
-                  :results
-                  (map :name)
-                  (#(swap! store merge {:types %}))))])
+(fetch-poke-types)
 
 (defn mount-root
   "Initialize app"
