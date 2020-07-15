@@ -1,6 +1,5 @@
 (ns pokemon.core
   (:require
-   [clojure.string :refer [replace]]
    [reagent.core :as reagent]
    [reagent.dom :as rdom]
    [reagent.session :as session]
@@ -10,7 +9,7 @@
    [pokemon.store :refer [store]]
    [pokemon.pages :refer [page-for
                           current-page]]
-   [pokemon.components :refer [router]]
+   [pokemon.routes :refer [router]]
    [pokemon.util :refer [poke-url
                          set-theme!
                          poke-url-type
@@ -38,10 +37,7 @@
       (let [match (reitit/match-by-path router path)
             current-page (:name (:data match))
             route-params (:path-params match)
-            theme (-> match
-                      :path
-                      (replace #"/" "")
-                      (#(if (= % "") "home" %)))]
+            theme (-> current-page name)]
         (reagent/after-render clerk/after-render!)
         (session/put! :route {:current-page (page-for current-page)
                               :route-params route-params})

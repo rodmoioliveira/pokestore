@@ -1,6 +1,7 @@
 (ns pokemon.util
   #?(:cljs
      (:require
+      [clojure.string :refer [replace]]
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
 
@@ -21,8 +22,9 @@
    (defn set-theme!
      [theme]
      (fn []
-       (swap! store merge {:select-store theme})
-       (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) theme)))))
+       (let [t (replace theme #"-poke" "")]
+         (swap! store merge {:select-store t})
+         (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) t))))))
 
 (def
   poketypes-keywords

@@ -1,9 +1,11 @@
 (ns pokemon.handler
   (:require
    [reitit.ring :as reitit-ring]
-   [pokemon.middleware :refer [middleware]]
    [hiccup.page :refer [include-js include-css html5]]
-   [config.core :refer [env]]))
+   [config.core :refer [env]]
+
+   [pokemon.util :refer [poketypes-keywords]]
+   [pokemon.middleware :refer [middleware]]))
 
 (def mount-target
   [:div#app
@@ -45,18 +47,23 @@
    :headers {"Content-Type" "text/html"}
    :body (cards-page)})
 
+(def poke-handlers
+  (->> poketypes-keywords
+       (map (fn [pokemon]
+              [(str "/" (name pokemon))
+               ["" {:get {:handler index-handler}}]
+               ["/:poke-id" {:get
+                             {:handler index-handler
+                              :parameters {:path {:poke-id int?}}}}]]))))
+
 (def app
   (reitit-ring/ring-handler
    (reitit-ring/router
-    [["/" {:get {:handler index-handler}}]
-     ["/items"
-      ["" {:get {:handler index-handler}}]
-      ; TODO: definir rotas nesteadas para tipos de pokemon
-      ["/:item-id" {:get
-                    {:handler index-handler
-                     :parameters {:path {:item-id int?}}}}]]
-     ["/about" {:get {:handler index-handler}}]
-     ["/cards" {:get {:handler cards-handler}}]])
+    (conj
+     [["/" {:get {:handler index-handler}}]
+      ["/about" {:get {:handler index-handler}}]
+      ["/cards" {:get {:handler cards-handler}}]]
+     poke-handlers))
    (reitit-ring/routes
     (reitit-ring/create-resource-handler {:path "/" :root "/public"})
     (reitit-ring/create-default-handler))

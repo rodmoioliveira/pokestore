@@ -3,8 +3,8 @@
    [reagent.session :as session]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!]]
-   [pokemon.components :refer [poke-store-type
-                               path-for]]))
+   [pokemon.routes :refer [path-for]]
+   [pokemon.components :refer [poke-store-type]]))
 
 (defn home-page []
   (fn []
@@ -15,21 +15,25 @@
 
 (defn items-page []
   (fn []
-    [:span
-     [:h1 "The items of pokemon"]
-     [:ul.item-list (map (fn [item-id]
-                           [:li.item {:name (str "item-" item-id)
-                                      :key (str "item-" item-id)}
-                            [:a {:href (path-for :item {:item-id item-id})} "Item: " item-id]])
-                         (range 1 60))]]))
+    (let [current-page (-> @store :select-store)]
+      [:span
+       [:h1 "The items of pokemon"]
+       [:ul.item-list (map (fn [poke-id]
+                             [:li.item {:name (str current-page "-" poke-id)
+                                        :key (str current-page "-" poke-id)}
+                              [:a {:href (path-for
+                                          (-> (str current-page "-" "poke") keyword)
+                                          {:poke-id poke-id})}
+                               "Item: " poke-id]])
+                           (range 1 60))]])))
 
 (defn item-page []
   (fn []
     (let [routing-data (session/get :route)
-          item (get-in routing-data [:route-params :item-id])]
+          item (get-in routing-data [:route-params :poke-id])]
       [:span
        [:h1 (str "Item " item " of pokemon")]
-       [:p [:a {:href (path-for :items)} "Back to the list of items"]]])))
+       [:p [:a {:href (path-for :index)} "Back to the list of items"]]])))
 
 (defn about-page []
   (fn [] [:span
@@ -56,12 +60,45 @@
 
 (defn page-for [route]
   (case route
-    :index #'home-page
-    :about #'about-page
-    :items #'items-page
-    (:normal :fighting :flying :poison
-             :ground :rock :bug :ghost
-             :steel :fire :water :grass
-             :electric :psychic :ice :dragon
-             :dark :fairy :unknown :shadow) #'items-page
-    :item #'item-page))
+    :index home-page
+    :about about-page
+    (:normal
+     :fighting
+     :flying
+     :poison
+     :ground
+     :rock
+     :bug
+     :ghost
+     :steel
+     :fire
+     :water
+     :grass
+     :electric
+     :psychic
+     :ice
+     :dragon
+     :dark
+     :fairy
+     :unknown
+     :shadow) items-page
+    (:normal-poke
+     :fighting-poke
+     :flying-poke
+     :poison-poke
+     :ground-poke
+     :rock-poke
+     :bug-poke
+     :ghost-poke
+     :steel-poke
+     :fire-poke
+     :water-poke
+     :grass-poke
+     :electric-poke
+     :psychic-poke
+     :ice-poke
+     :dragon-poke
+     :dark-poke
+     :fairy-poke
+     :unknown-poke
+     :shadow-poke) item-page))
