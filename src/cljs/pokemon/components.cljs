@@ -1,8 +1,7 @@
 (ns pokemon.components
   (:require
    [reitit.frontend :as reitit]
-   [pokemon.store :refer [store]]
-   [pokemon.dom :as pokedom]))
+   [pokemon.util :refer [set-theme!]]))
 
 (def router
   "Routes"
@@ -24,8 +23,5 @@
    {:style {:background-color (str "var(--" poketype ")")}
     :href (path-for :items)
     :key poketype
-    :on-click (fn []
-                (swap! store merge {:select-store poketype})
-                (-> pokedom/dom :body
-                    (.setAttribute (-> pokedom/data-attr :theme) poketype)))}
+    :on-click (set-theme! poketype)}
    poketype])

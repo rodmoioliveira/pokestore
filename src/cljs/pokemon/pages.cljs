@@ -2,7 +2,7 @@
   (:require
    [reagent.session :as session]
    [pokemon.store :refer [store]]
-   [pokemon.dom :as pokedom]
+   [pokemon.util :refer [set-theme!]]
    [pokemon.components :refer [poke-store-type
                                path-for]]))
 
@@ -40,17 +40,13 @@
   []
   (fn []
     (let [page (:current-page (session/get :route))]
-      [:main {:data-theme (-> @store :select-store)
-              :class "main"}
+      [:main.main
        [:nav
         [:ul
-         [:li {:on-click (fn []
-                           (swap! store merge {:select-store "home"})
-                           (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) "home")))}
+         [:li {:name "home"
+               :on-click (set-theme! "home")}
           [:a {:href (path-for :index)} "Home"]]
-         [:li {:on-click (fn []
-                           (swap! store merge {:select-store "about"})
-                           (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) "about")))}
+         [:li {:on-click (set-theme! "about")}
           [:a {:href (path-for :about)} "About pokemon"]]]]
 
        [page]
