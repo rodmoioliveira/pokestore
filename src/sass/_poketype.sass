@@ -1,5 +1,4 @@
 .poketype
-  max-width: 80rem
   margin: 0 auto 2rem
   padding: 0 10px
 
@@ -11,32 +10,37 @@
   padding: 0
   display: flex
   flex-wrap: wrap
-  max-width: 50rem
   margin: 0 auto
   justify-content: center
   align-items: center
 
 .poketype-link
-  flex: 1 0 20%
+  flex: 0 0 15%
   font-size: calc(var(--font-size) * 1.5)
   border-radius: 5px
   display: flex
   flex-wrap: wrap
   justify-content: center
   text-align: center
-  margin: 0.2rem
+  margin: 1rem
   padding: 1rem 0.2rem
   color: var(--main-font-color)
   text-decoration: none
+  transition: transform 300ms ease
+
+  @media screen and (max-width: $wide-width)
+    flex: 0 0 27%
 
   @media screen and (max-width: $tablet-width)
     flex: 0 0 40%
 
   @media screen and (max-width: $mobile-width)
     flex: 1 0 50%
+    margin: 1rem 0
 
   &:hover
     text-decoration: none
+    transform: scale(1.1)
 
 .poketype-img
   max-height: 80px
