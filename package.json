@@ -23,6 +23,9 @@
   "dependencies": {},
   "scripts": {
     "start:sass": "lein sass4clj auto",
-    "start:clj": "lein figwheel app"
+    "start:clj": "lein figwheel app",
+    "build": "lein do clean, uberjar",
+    "run-app": "java -jar target/pokemon.jar",
+    "deploy": "npm-run-all --serial build run-app"
   }
 }
