@@ -1,6 +1,7 @@
 .poketype
   margin: 0 auto 2rem
   padding: 0 10px
+  max-width: 70rem
 
 .poketype-title
   text-align: center
@@ -15,7 +16,7 @@
   align-items: center
 
 .poketype-link
-  flex: 0 0 15%
+  flex: 0 0 22%
   font-size: calc(var(--font-size) * 1.5)
   border-radius: 5px
   display: flex
@@ -27,9 +28,6 @@
   color: var(--main-font-color)
   text-decoration: none
   transition: transform 300ms ease
-
-  @media screen and (max-width: $wide-width)
-    flex: 0 0 27%
 
   @media screen and (max-width: $tablet-width)
     flex: 0 0 40%

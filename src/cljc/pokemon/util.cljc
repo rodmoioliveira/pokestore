@@ -33,8 +33,7 @@
    :bug :ghost :steel
    :fire :water :grass
    :electric :psychic :ice
-   :dragon :dark :fairy
-   :unknown :shadow])
+   :dragon :dark :fairy])
 
 #?(:cljs
    (def
@@ -57,6 +56,4 @@
       :ice {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/77/Ice.png"}
       :dragon {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c7/Dragon.png"}
       :dark {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0e/Dark.png"}
-      :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}
-      :unknown {:src "https://i.dlpng.com/static/png/6757032_preview.png"}
-      :shadow {:src "https://i.dlpng.com/static/png/6757032_preview.png"}}))
+      :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}}))
