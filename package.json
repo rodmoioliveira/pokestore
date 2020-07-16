@@ -25,7 +25,8 @@
     "start:sass": "lein sass4clj auto",
     "start:clj": "lein figwheel app",
     "build": "lein do clean, uberjar",
+    "ins": "npm i",
     "run-app": "java -jar target/pokemon.jar",
-    "deploy": "npm-run-all --serial build run-app"
+    "deploy": "npm-run-all --serial ins build run-app"
   }
 }

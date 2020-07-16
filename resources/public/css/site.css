@@ -1,0 +1,208 @@
+:root {
+  --normal: #75505B;
+  --fighting: #994025;
+  --flying: #49667C;
+  --poison: #5E2D88;
+  --ground: #A7702F;
+  --rock: #48180B;
+  --bug: #1C4B27;
+  --ghost: #33336B;
+  --steel: #61746D;
+  --fire: #B01C25;
+  --water: #1453E1;
+  --grass: #147B3E;
+  --electric: #E1E328;
+  --psychic: #A42A6C;
+  --ice: #86D1F3;
+  --dragon: #468A99;
+  --dark: #040706;
+  --fairy: #971844;
+  --unknown: rebeccapurple;
+  --shadow: #705898;
+  --font-size: 1rem;
+  --main-font-color: white; }
+
+[data-theme='index'],
+[data-theme='about'] {
+  --main-color: black;
+  --main-font-color: white; }
+
+[data-theme='normal'] {
+  --main-color: var(--normal); }
+
+[data-theme='fighting'] {
+  --main-color: var(--fighting); }
+
+[data-theme='flying'] {
+  --main-color: var(--flying); }
+
+[data-theme='poison'] {
+  --main-color: var(--poison); }
+
+[data-theme='ground'] {
+  --main-color: var(--ground); }
+
+[data-theme='rock'] {
+  --main-color: var(--rock); }
+
+[data-theme='bug'] {
+  --main-color: var(--bug); }
+
+[data-theme='ghost'] {
+  --main-color: var(--ghost); }
+
+[data-theme='steel'] {
+  --main-color: var(--steel); }
+
+[data-theme='fire'] {
+  --main-color: var(--fire); }
+
+[data-theme='water'] {
+  --main-color: var(--water); }
+
+[data-theme='grass'] {
+  --main-color: var(--grass); }
+
+[data-theme='electric'] {
+  --main-color: var(--electric);
+  --main-font-color: black; }
+
+[data-theme='psychic'] {
+  --main-color: var(--psychic); }
+
+[data-theme='ice'] {
+  --main-color: var(--ice);
+  --main-font-color: black; }
+
+[data-theme='dragon'] {
+  --main-color: var(--dragon); }
+
+[data-theme='dark'] {
+  --main-color: var(--dark); }
+
+[data-theme='fairy'] {
+  --main-color: var(--fairy); }
+
+[data-theme='unknown'] {
+  --main-color: var(--unknown); }
+
+[data-theme='shadow'] {
+  --main-color: var(--shadow); }
+
+.poketype {
+  margin: 0 auto 2rem;
+  padding: 0 10px; }
+
+.poketype-title {
+  text-align: center; }
+
+.poketype-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center; }
+
+.poketype-link {
+  flex: 0 0 15%;
+  font-size: calc(var(--font-size) * 1.5);
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  margin: 1rem;
+  padding: 1rem 0.2rem;
+  color: var(--main-font-color);
+  text-decoration: none;
+  transition: transform 300ms ease; }
+  @media screen and (max-width: 1200px) {
+    .poketype-link {
+      flex: 0 0 27%; } }
+  @media screen and (max-width: 768px) {
+    .poketype-link {
+      flex: 0 0 40%; } }
+  @media screen and (max-width: 480px) {
+    .poketype-link {
+      flex: 1 0 50%;
+      margin: 1rem 0; } }
+  .poketype-link:hover {
+    text-decoration: none;
+    transform: scale(1.1); }
+
+.poketype-img {
+  max-height: 80px; }
+
+.poketype-name {
+  flex: 1 1 100%;
+  margin-top: 10px; }
+
+.footer {
+  background: red;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: calc(var(--font-size) * 1.2);
+  color: var(--main-font-color);
+  background-color: var(--main-color); }
+
+.nav {
+  background: red;
+  padding: 15px 10px;
+  text-align: center;
+  font-size: calc(var(--font-size) * 1.2);
+  background-color: var(--main-color); }
+
+.nav-ul {
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  max-width: 70rem;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between; }
+
+.nav-li {
+  display: flex;
+  color: var(--main-font-color);
+  font-size: calc(var(--font-size) * 3);
+  align-items: center;
+  justify-content: center; }
+
+.nav-a {
+  color: var(--main-font-color); }
+
+.nav-img {
+  max-height: 1.2em;
+  margin-right: 0.2em; }
+
+.nav-input-text {
+  width: 550px;
+  height: 35px;
+  font-size: calc(var(--font-size) * 1.1);
+  padding: 0 0.5rem; }
+
+.nav-input-btn {
+  height: 39px;
+  font-size: calc(var(--font-size) * 1.1); }
+
+.nav-title {
+  color: var(--main-font-color); }
+  .nav-title:active {
+    text-decoration: none; }
+  .nav-title:visited {
+    text-decoration: none; }
+  .nav-title:hover {
+    text-decoration: none; }
+  .nav-title:link {
+    text-decoration: none; }
+
+.nav,
+.footer {
+  transition: background-color 300ms ease, color 300ms ease; }
+
+.body-container {
+  margin: 0;
+  padding: 0; }
