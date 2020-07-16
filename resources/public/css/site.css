@@ -96,7 +96,13 @@
   max-width: 70rem; }
 
 .poketype-title {
-  text-align: center; }
+  text-align: center;
+  font-size: calc(var(--font-size) * 3);
+  margin: 2rem auto 0.5rem; }
+  @media screen and (max-width: 768px) {
+    .poketype-title {
+      font-size: calc(var(--font-size) * 2);
+      margin: 1rem; } }
 
 .poketype-list {
   list-style-type: none;
@@ -126,14 +132,17 @@
       flex: 0 0 40%; } }
   @media screen and (max-width: 480px) {
     .poketype-link {
-      flex: 1 0 50%;
-      margin: 1rem 0; } }
+      flex: 1 0 40%;
+      margin: 0.3rem; } }
   .poketype-link:hover {
     text-decoration: none;
     transform: scale(1.1); }
 
 .poketype-img {
   max-height: 80px; }
+  @media screen and (max-width: 480px) {
+    .poketype-img {
+      max-height: 50px; } }
 
 .poketype-name {
   flex: 1 1 100%;
@@ -166,6 +175,9 @@
   margin: 0 auto;
   align-items: center;
   justify-content: space-between; }
+  @media screen and (max-width: 1024px) {
+    .nav-ul {
+      flex-wrap: wrap; } }
 
 .nav-li {
   display: flex;
@@ -173,6 +185,9 @@
   font-size: calc(var(--font-size) * 3);
   align-items: center;
   justify-content: center; }
+  @media screen and (max-width: 768px) {
+    .nav-li {
+      font-size: calc(var(--font-size) * 2.2); } }
 
 .nav-a {
   color: var(--main-font-color); }
@@ -186,21 +201,30 @@
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
   padding: 0 0.5rem; }
+  @media screen and (max-width: 1024px) {
+    .nav-input-text {
+      width: 100%; } }
 
 .nav-input-btn {
   height: 39px;
   font-size: calc(var(--font-size) * 1.1); }
 
-.nav-title {
+.nav-a {
   color: var(--main-font-color); }
-  .nav-title:active {
+  .nav-a:active {
     text-decoration: none; }
-  .nav-title:visited {
+  .nav-a:visited {
     text-decoration: none; }
-  .nav-title:hover {
+  .nav-a:hover {
     text-decoration: none; }
-  .nav-title:link {
+  .nav-a:link {
     text-decoration: none; }
+
+@media screen and (max-width: 1024px) {
+  .nav-li--inputs {
+    margin-top: 1rem;
+    flex: 1 1 100%;
+    order: 2; } }
 
 .nav,
 .footer {

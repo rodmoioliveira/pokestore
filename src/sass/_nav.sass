@@ -17,12 +17,18 @@
   align-items: center
   justify-content: space-between
 
+  @media screen and (max-width: $desktop-width)
+    flex-wrap: wrap
+
 .nav-li
   display: flex
   color: var(--main-font-color)
   font-size: calc(var(--font-size) * 3)
   align-items: center
   justify-content: center
+
+  @media screen and (max-width: $tablet-width)
+    font-size: calc(var(--font-size) * 2.2)
 
 .nav-a
   color: var(--main-font-color)
@@ -37,11 +43,14 @@
   font-size: calc(var(--font-size) * 1.1)
   padding: 0 0.5rem
 
+  @media screen and (max-width: $desktop-width)
+    width: 100%;
+
 .nav-input-btn
   height: 39px;
   font-size: calc(var(--font-size) * 1.1)
 
-.nav-title
+.nav-a
   color: var(--main-font-color)
 
   &:active
@@ -52,3 +61,9 @@
     text-decoration: none
   &:link
     text-decoration: none;
+
+.nav-li--inputs
+  @media screen and (max-width: $desktop-width)
+    margin-top: 1rem
+    flex: 1 1 100%
+    order: 2

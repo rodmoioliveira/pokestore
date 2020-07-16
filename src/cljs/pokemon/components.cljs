@@ -13,27 +13,42 @@
    [:img.poketype-img {:src (-> poketype keyword poketypes-info :src)}]
    [:span.poketype-name poketype]])
 
-(defn nav
+(defn search-bar
+  []
+  [:li.nav-li.nav-li--inputs
+   [:input.nav-input-text {:type "text"
+                           :placeholder "Um pokemon qualquer..."}]
+   [:input.nav-input-btn {:type "button"
+                          :value "Buscar"}]])
+
+(defn pokeball
+  []
+  [:li.nav-li.nav-li--pokeball
+   [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
+
+(defn nav-title
+  []
+  [:li.nav-li.nav-li--title
+   [:a.nav-a
+    {:href (path-for :index)
+     :on-click (set-theme! "index")}
+    [:span "PokeStore"]]])
+
+(defn store-icon
   []
   (let [store-icon-src (-> @store :select-store keyword poketypes-info :src)]
-    [:nav.nav
-     [:ul.nav-ul
-      [:li.nav-li
-       (when store-icon-src
-         [:img.nav-img {:src store-icon-src}])]
-      [:li.nav-li
-       [:a.nav-title
-        {:href (path-for :index)
-         :on-click (set-theme! "index")}
-        [:span "PokeStore"]]]
+    [:li.nav-li.nav-li--store-icon
+     (when store-icon-src
+       [:img.nav-img {:src store-icon-src}])]))
 
-      [:li.nav-li
-       [:input.nav-input-text {:type "text"
-                               :placeholder "Um pokemon qualquer..."}]
-       [:input.nav-input-btn {:type "button"
-                              :value "Buscar"}]]
-      [:li.nav-li
-       [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]]]))
+(defn nav
+  []
+  [:nav.nav
+   [:ul.nav-ul
+    [store-icon]
+    [nav-title]
+    [search-bar]
+    [pokeball]]])
 
 (defn footer
   []

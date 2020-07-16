@@ -5,6 +5,12 @@
 
 .poketype-title
   text-align: center
+  font-size: calc(var(--font-size) * 3)
+  margin: 2rem auto 0.5rem
+
+  @media screen and (max-width: $tablet-width)
+    font-size: calc(var(--font-size) * 2)
+    margin: 1rem
 
 .poketype-list
   list-style-type: none
@@ -34,8 +40,8 @@
     flex: 0 0 40%
 
   @media screen and (max-width: $mobile-width)
-    flex: 1 0 50%
-    margin: 1rem 0
+    flex: 1 0 40%
+    margin: 0.3rem
 
   &:hover
     text-decoration: none
@@ -43,6 +49,9 @@
 
 .poketype-img
   max-height: 80px
+
+  @media screen and (max-width: $mobile-width)
+    max-height: 50px
 
 .poketype-name
   flex: 1 1 100%
