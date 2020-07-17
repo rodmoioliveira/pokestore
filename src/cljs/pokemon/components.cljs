@@ -19,7 +19,7 @@
     [:li.poke-item
      ; TODO: colocar a imagem do pokemon por id
      ; `https://pokeres.bastionbot.org/images/pokemon/${pokeID}.png`
-     [:img.poke-img {:src "https://pokeres.bastionbot.org/images/pokemon/1.png"}]
+     [:img.poke-img {:src "https://pokeres.bastionbot.org/images/pokemon/70.png"}]
      [:p.poke-name poke-id]
      [:button.poke-add "Add to cart"]]))
 
