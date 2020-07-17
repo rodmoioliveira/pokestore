@@ -4,5 +4,6 @@
 
 (defonce initial-state
   {:types {}
+   :pokemon {:index true}
    :select-store nil})
 (defonce store (atom initial-state))

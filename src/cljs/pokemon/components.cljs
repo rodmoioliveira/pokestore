@@ -2,7 +2,8 @@
   (:require
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
-   [pokemon.util :refer [set-theme! poketypes-info]]))
+   [pokemon.util :refer [set-theme!
+                         poketypes-info]]))
 
 (defn poke-store-type
   [poketype]
@@ -14,13 +15,13 @@
    [:span.poketype-name poketype]])
 
 (defn poke-item
-  [{:keys [poke-id]}]
+  [{:keys [poke-id name]}]
   (fn []
     [:li.poke-item
      ; TODO: colocar a imagem do pokemon por id
      ; `https://pokeres.bastionbot.org/images/pokemon/${pokeID}.png`
-     [:img.poke-img {:src "https://pokeres.bastionbot.org/images/pokemon/70.png"}]
-     [:p.poke-name poke-id]
+     [:img.poke-img {:src (str "https://pokeres.bastionbot.org/images/pokemon/" poke-id ".png")}]
+     [:p.poke-name name]
      [:button.poke-add "Add to cart"]]))
 
 (defn search-bar

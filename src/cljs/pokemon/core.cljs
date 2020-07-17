@@ -6,14 +6,13 @@
    [reitit.frontend :as reitit]
    [clerk.core :as clerk]
    [accountant.core :as accountant]
-   [pokemon.fetches :refer [set-poke-types!]]
+   [pokemon.fetches :refer [set-poke-types!
+                            fetch-pokemon]]
    [pokemon.pages :refer [page-for
                           current-page]]
    [pokemon.routes :refer [router]]
    [pokemon.util :refer [set-theme!]]))
 
-; TODO: imagens dos pokemons
-; https://medium.com/@sergio13prez/fetching-them-all-poke-api-62ca580981a2
 (set-poke-types!)
 
 (defn mount-root
@@ -34,6 +33,8 @@
         (session/put! :route {:current-page (page-for current-page)
                               :route-params route-params})
         (clerk/navigate-page! path)
+        ; FIXME: fetch duplicado
+        (fetch-pokemon theme)
         ((set-theme! theme))))
     :path-exists?
     (fn [path]
