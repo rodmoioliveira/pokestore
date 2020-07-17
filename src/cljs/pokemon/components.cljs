@@ -18,9 +18,8 @@
   [{:keys [poke-id name]}]
   (fn []
     [:li.poke-item
-     ; TODO: colocar a imagem do pokemon por id
-     ; `https://pokeres.bastionbot.org/images/pokemon/${pokeID}.png`
-     [:img.poke-img {:src (str "https://pokeres.bastionbot.org/images/pokemon/" poke-id ".png")}]
+     [:img.poke-img
+      {:src (str "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/" poke-id ".png")}]
      [:p.poke-name name]
      [:button.poke-add "Add to cart"]]))
 
