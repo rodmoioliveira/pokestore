@@ -19,9 +19,8 @@
 (defn poketype-list-page []
   (fn []
     (let [current-page (-> @store :select-store)]
-      [:section.padding-nav
-       [:h1 "The items of pokemon"]
-       [:ul.item-list (->>
+      [:section.poke.padding-nav
+       [:ul.poke-list (->>
                        (range 1 60)
                        (map (fn [poke-id]
                               [poke-item
