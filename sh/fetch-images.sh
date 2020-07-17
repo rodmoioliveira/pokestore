@@ -4,4 +4,4 @@ do
 done
 
 cd src/images
-mogrify -format png -thumbnail 120x100  *
+mogrify -format png -thumbnail 244x244 *
