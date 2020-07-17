@@ -19,13 +19,14 @@
   --fairy: #971844;
   --unknown: rebeccapurple;
   --shadow: #705898;
+  --border-color: gray;
   --font-size: 1rem;
   --main-font-color: white; }
 
 [data-theme='index'],
 [data-theme='about'] {
-  --main-color: black;
-  --main-font-color: white; }
+  --main-color: #F4F4F4;
+  --main-font-color: #222; }
 
 [data-theme='normal'] {
   --main-color: var(--normal); }
@@ -91,10 +92,17 @@
 
 .poketype {
   margin: 0 auto 2rem;
-  padding: 0 10px; }
+  padding: 0 10px;
+  max-width: 70rem; }
 
 .poketype-title {
-  text-align: center; }
+  text-align: center;
+  font-size: calc(var(--font-size) * 3);
+  margin: 2rem auto 0.5rem; }
+  @media screen and (max-width: 768px) {
+    .poketype-title {
+      font-size: calc(var(--font-size) * 2);
+      margin: 1rem; } }
 
 .poketype-list {
   list-style-type: none;
@@ -106,9 +114,10 @@
   align-items: center; }
 
 .poketype-link {
-  flex: 0 0 15%;
+  flex: 0 0 22%;
   font-size: calc(var(--font-size) * 1.5);
-  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -118,22 +127,25 @@
   color: var(--main-font-color);
   text-decoration: none;
   transition: transform 300ms ease; }
-  @media screen and (max-width: 1200px) {
-    .poketype-link {
-      flex: 0 0 27%; } }
   @media screen and (max-width: 768px) {
     .poketype-link {
       flex: 0 0 40%; } }
   @media screen and (max-width: 480px) {
     .poketype-link {
-      flex: 1 0 50%;
-      margin: 1rem 0; } }
+      flex: 1 0 40%; }
+      .poketype-link:nth-of-type(1n) {
+        margin: 0.3rem 0.3rem 0.3rem 0; }
+      .poketype-link:nth-of-type(2n) {
+        margin: 0.3rem 0 0.3rem 0.3rem; } }
   .poketype-link:hover {
     text-decoration: none;
     transform: scale(1.1); }
 
 .poketype-img {
   max-height: 80px; }
+  @media screen and (max-width: 480px) {
+    .poketype-img {
+      max-height: 50px; } }
 
 .poketype-name {
   flex: 1 1 100%;
@@ -145,14 +157,21 @@
   text-align: center;
   font-size: calc(var(--font-size) * 1.2);
   color: var(--main-font-color);
-  background-color: var(--main-color); }
+  background-color: var(--main-color);
+  border-top: 1px solid var(--border-color); }
 
 .nav {
   background: red;
-  padding: 15px 10px;
+  padding: 15px 0;
   text-align: center;
   font-size: calc(var(--font-size) * 1.2);
-  background-color: var(--main-color); }
+  background-color: var(--main-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--border-color);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2; }
 
 .nav-ul {
   list-style-type: none;
@@ -163,6 +182,9 @@
   margin: 0 auto;
   align-items: center;
   justify-content: space-between; }
+  @media screen and (max-width: 1024px) {
+    .nav-ul {
+      flex-wrap: wrap; } }
 
 .nav-li {
   display: flex;
@@ -170,34 +192,60 @@
   font-size: calc(var(--font-size) * 3);
   align-items: center;
   justify-content: center; }
+  @media screen and (max-width: 768px) {
+    .nav-li {
+      font-size: calc(var(--font-size) * 2.2); } }
 
 .nav-a {
   color: var(--main-font-color); }
 
 .nav-img {
-  max-height: 1.2em;
-  margin-right: 0.2em; }
+  max-height: 1.2em; }
 
 .nav-input-text {
   width: 550px;
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
   padding: 0 0.5rem; }
+  @media screen and (max-width: 1024px) {
+    .nav-input-text {
+      width: 100%; } }
 
 .nav-input-btn {
   height: 39px;
   font-size: calc(var(--font-size) * 1.1); }
 
-.nav-title {
+.nav-a {
   color: var(--main-font-color); }
-  .nav-title:active {
+  .nav-a:active {
     text-decoration: none; }
-  .nav-title:visited {
+  .nav-a:visited {
     text-decoration: none; }
-  .nav-title:hover {
+  .nav-a:hover {
     text-decoration: none; }
-  .nav-title:link {
+  .nav-a:link {
     text-decoration: none; }
+
+@media screen and (max-width: 1200px) {
+  .nav-li--store-icon {
+    margin-left: 10px; } }
+
+@media screen and (max-width: 1200px) {
+  .nav-li--pokeball {
+    margin-right: 10px; } }
+
+@media screen and (max-width: 1024px) {
+  .nav-li--inputs {
+    padding: 0 10px;
+    margin-top: 1rem;
+    flex: 1 1 100%;
+    order: 2; } }
+
+.padding-nav {
+  padding-top: 5rem; }
+  @media screen and (max-width: 1024px) {
+    .padding-nav {
+      padding-top: 9rem; } }
 
 .nav,
 .footer {

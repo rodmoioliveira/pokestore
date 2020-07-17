@@ -6,7 +6,7 @@
    [reitit.frontend :as reitit]
    [clerk.core :as clerk]
    [accountant.core :as accountant]
-   [pokemon.fetches :refer [fetch-poke-types]]
+   [pokemon.fetches :refer [set-poke-types!]]
    [pokemon.pages :refer [page-for
                           current-page]]
    [pokemon.routes :refer [router]]
@@ -14,7 +14,7 @@
 
 ; TODO: imagens dos pokemons
 ; https://medium.com/@sergio13prez/fetching-them-all-poke-api-62ca580981a2
-(fetch-poke-types)
+(set-poke-types!)
 
 (defn mount-root
   "Initialize app"
