@@ -3,6 +3,5 @@ do
   wget -P src/images  https://pokeres.bastionbot.org/images/pokemon/"$i".png
 done
 
-# cd src/images
-# convert *.png -thumbnail 120x90 -set filename:fname '%t_op' +adjoin '%[filename:fname].png'
-
+cd src/images
+mogrify -format png -thumbnail 120x100  *
