@@ -1,11 +1,15 @@
 .nav
   background: red
-  padding: 15px 10px
+  padding: 15px 0
   text-align: center
   font-size: calc(var(--font-size) * 1.2)
   background-color: var(--main-color)
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3)
   border-bottom: 1px solid var(--border-color)
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 2
 
 .nav-ul
   list-style-type: none
@@ -35,7 +39,6 @@
 
 .nav-img
   max-height: 1.2em
-  margin-right: 0.2em
 
 .nav-input-text
   width: 550px;
@@ -62,8 +65,23 @@
   &:link
     text-decoration: none;
 
+.nav-li--store-icon
+  @media screen and (max-width: $wide-width)
+    margin-left: 10px
+
+.nav-li--pokeball
+  @media screen and (max-width: $wide-width)
+    margin-right: 10px
+
 .nav-li--inputs
   @media screen and (max-width: $desktop-width)
+    padding: 0 10px
     margin-top: 1rem
     flex: 1 1 100%
     order: 2
+
+.padding-nav
+  padding-top: 5rem
+
+  @media screen and (max-width: $desktop-width)
+    padding-top: 9rem
