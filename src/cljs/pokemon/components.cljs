@@ -14,15 +14,11 @@
    [:span.poketype-name poketype]])
 
 (defn poke-item
-  [{:keys [current-page poke-id]}]
+  [{:keys [poke-id]}]
   (fn []
     [:li.poke-item
      [:img.poke-img {:src "https://via.placeholder.com/300"}]
      [:p.poke-name poke-id]
-     ; [:a {:href (path-for
-     ;             (-> (str current-page "-" "poke") keyword)
-     ;             {:poke-id poke-id})}
-     ;  poke-id]
      [:button.poke-add "Add to cart"]]))
 
 (defn search-bar
