@@ -18,15 +18,16 @@
 
 (defn poketype-list-page []
   (fn []
-    (let [current-page (-> @store :select-store)]
+    (let [current-page (-> @store :select-store)
+          pokemons (get-in @store [:pokemon (keyword current-page)])]
       [:section.poke.padding-nav
        [:ul.poke-list (->>
-                       (range 1 60)
-                       (map (fn [poke-id]
+                       pokemons
+                       (map (fn [{:keys [id name]}]
                               [poke-item
-                               {:name (str current-page "-" poke-id)
-                                :key (str current-page "-" poke-id)
-                                :poke-id poke-id
+                               {:name name
+                                :key (str current-page "-" name "-" id)
+                                :poke-id id
                                 :current-page current-page}])))]])))
 
 (defn pokemon-page []

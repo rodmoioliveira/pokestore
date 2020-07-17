@@ -1,5 +1,7 @@
 (ns pokemon.fetches
   (:require
+   [clojure.string :refer [split]]
+
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poke-url
                          poketypes-keywords
@@ -14,6 +16,25 @@
                     :results
                     (map :name)
                     (#(swap! store merge {:types %}))))]))
+
+(defn fetch-pokemon
+  [poketype]
+  (when-not
+   (-> @store (get-in [:pokemon (-> poketype keyword)]))
+    (fetch-then
+     (str
+      poke-url
+      poke-url-type
+      poketype)
+     [(fn [res]
+        (->> res
+             :pokemon
+             (mapv :pokemon)
+             (mapv (fn [p] (merge p {:id
+                                     (-> (split (-> p :url) #"/")
+                                         last
+                                         int)})))
+             (#(swap! store update-in [:pokemon] assoc (-> poketype keyword) %))))])))
 
 (defn set-poke-types!
   []
