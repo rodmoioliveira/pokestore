@@ -13,6 +13,15 @@
    [:img.poketype-img {:src (-> poketype keyword poketypes-info :src)}]
    [:span.poketype-name poketype]])
 
+(defn poke-item
+  [{:keys [current-page poke-id]}]
+  (fn []
+    [:li.item
+     [:a {:href (path-for
+                 (-> (str current-page "-" "poke") keyword)
+                 {:poke-id poke-id})}
+      "Item: " poke-id]]))
+
 (defn search-bar
   []
   [:li.nav-li.nav-li--inputs

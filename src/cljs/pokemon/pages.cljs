@@ -5,6 +5,7 @@
    [pokemon.routes :refer [path-for]]
    [pokemon.util :refer [poketypes-keywords]]
    [pokemon.components :refer [poke-store-type
+                               poke-item
                                nav
                                footer]]))
 
@@ -20,14 +21,14 @@
     (let [current-page (-> @store :select-store)]
       [:section.padding-nav
        [:h1 "The items of pokemon"]
-       [:ul.item-list (map (fn [poke-id]
-                             [:li.item {:name (str current-page "-" poke-id)
-                                        :key (str current-page "-" poke-id)}
-                              [:a {:href (path-for
-                                          (-> (str current-page "-" "poke") keyword)
-                                          {:poke-id poke-id})}
-                               "Item: " poke-id]])
-                           (range 1 60))]])))
+       [:ul.item-list (->>
+                       (range 1 60)
+                       (map (fn [poke-id]
+                              [poke-item
+                               {:name (str current-page "-" poke-id)
+                                :key (str current-page "-" poke-id)
+                                :poke-id poke-id
+                                :current-page current-page}])))]])))
 
 (defn pokemon-page []
   (fn []
