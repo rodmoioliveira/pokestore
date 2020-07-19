@@ -19,7 +19,11 @@
   (fn []
     [:li.poke-item
      [:img.poke-img
-      {:src (str "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/" poke-id ".png")}]
+      {:src
+       (str
+        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+        poke-id
+        ".png")}]
      [:p.poke-name name]
      [:button.poke-add "Add to cart"]]))
 

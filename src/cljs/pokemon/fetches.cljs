@@ -34,6 +34,9 @@
                                      (-> (split (-> p :url) #"/")
                                          last
                                          int)})))
+             (remove (fn [{:keys [id]}] (or
+                                         (> id 9999)
+                                         (some #{id} (-> @store :unavailable-pokemon)))))
              (#(swap! store update-in [:pokemon] assoc (-> poketype keyword) %))))])))
 
 (defn set-poke-types!
