@@ -153,20 +153,24 @@
 
 .poke {
   margin: 1rem auto;
-  max-width: 70rem;
-  padding: 0 10px; }
+  max-width: 70rem; }
+  @media screen and (max-width: 480px) {
+    .poke {
+      padding: 0 10px; } }
 
 .poke-list {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0; }
+  @media screen and (max-width: 480px) {
+    .poke-list {
+      justify-content: space-between; } }
 
 .poke-item {
   display: flex;
   flex-direction: column;
-  flex: 0 0 15%;
+  flex: 0 0 14%;
   font-size: calc(var(--font-size) * 1.5);
   border: 1px solid var(--border-color);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -175,16 +179,25 @@
   justify-content: center;
   text-align: center;
   padding: 1rem 0.2rem 0.2rem;
-  margin-bottom: 1rem;
+  margin: 10px;
   color: var(--main-font-color);
   text-decoration: none;
   transition: transform 300ms ease; }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 70rem) {
     .poke-item {
-      flex: 0 0 31%; } }
+      flex: 0 0 22vw;
+      margin: 1vw; } }
+  @media screen and (max-width: 832px) {
+    .poke-item {
+      flex: 0 0 30vw;
+      margin: 1vw; } }
+  @media screen and (max-width: 625px) {
+    .poke-item {
+      flex: 0 0 44vw;
+      margin: 2vw; } }
   @media screen and (max-width: 480px) {
     .poke-item {
-      flex: 1 0 45%; }
+      flex: 0 0 45%; }
       .poke-item:nth-of-type(1n) {
         margin: 0.3rem 0.3rem 0.3rem 0; }
       .poke-item:nth-of-type(2n) {
@@ -198,7 +211,8 @@
 .poke-name {
   color: #222;
   margin: 0.5rem auto;
-  font-size: calc(var(--font-size) * 1.3); }
+  font-size: calc(var(--font-size) * 1.3);
+  text-transform: capitalize; }
 
 .poke-add {
   background-color: var(--main-color);
