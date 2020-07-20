@@ -3,6 +3,7 @@
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!
+                         poketypes-keywords
                          poketypes-info]]))
 
 (defn poke-store-type
@@ -59,12 +60,14 @@
 
 (defn nav
   []
-  [:nav.nav
-   [:ul.nav-ul
-    [store-icon]
-    [nav-title]
-    [search-bar]
-    [pokeball]]])
+  (let [current-pokestore (-> @store :select-store keyword)
+        nav-active? (some #{current-pokestore} poketypes-keywords)]
+    [:nav.nav
+     [:ul.nav-ul
+      [store-icon]
+      [nav-title]
+      (when nav-active? [search-bar])
+      [pokeball]]]))
 
 (defn footer
   []
