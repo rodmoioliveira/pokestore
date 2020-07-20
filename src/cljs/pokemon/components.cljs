@@ -48,9 +48,10 @@
    [:input.nav-input-text {:type "text"
                            :placeholder "search for a pokemon..."
                            :value (-> @store :search)
-                           :on-change #(swap! store merge
-                                              {:search
-                                               (-> % .-target .-value lower-case)})}]])
+                           ; FIXME: duplicando texto no mobile...
+                           :on-change
+                           (fn [e] (swap! store
+                                          assoc :search (-> e .-target .-value lower-case)))}]])
 
 (defn pokeball
   []
