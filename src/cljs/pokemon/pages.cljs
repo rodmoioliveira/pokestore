@@ -12,7 +12,7 @@
 (defn home-page []
   (fn []
     [:section.poketype.padding-nav
-     [:h1.poketype-title "Escolha sua loja de pokemon"]
+     [:h1.poketype-title "Choose your store"]
      [:ul.poketype-list
       (->> @store :types (map poke-store-type))]]))
 
@@ -21,13 +21,17 @@
     (let [current-page (-> @store :select-store)
           pokemons (get-in @store [:pokemon (keyword current-page)])]
       [:section.poke.padding-nav
+       [:h1.poke-title (str "The " current-page " ones:")]
        [:ul.poke-list (->>
                        pokemons
-                       (map (fn [{:keys [id name]}]
+                       ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
+                       ; Warning: Reactive deref not supported in lazy seq, it should be wrapped in doall
+                       (map (fn [{:keys [id name price]}]
                               [poke-item
                                {:name name
                                 :key (str current-page "-" name "-" id)
                                 :poke-id id
+                                :price price
                                 :current-page current-page}])))]])))
 
 (defn pokemon-page []

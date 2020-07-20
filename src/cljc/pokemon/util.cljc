@@ -7,6 +7,27 @@
 
 (def poke-url "https://pokeapi.co/api/v2/")
 (def poke-url-type "type/")
+(def pages-themes
+  {:index "#f4f4f4"
+   :normal "#75505B"
+   :fighting "#994025"
+   :flying "#49667C"
+   :poison "#5E2D88"
+   :ground "#A7702F"
+   :rock "#48180B"
+   :bug "#1C4B27"
+   :ghost "#33336B"
+   :steel "#61746D"
+   :fire "#B01C25"
+   :water "#1453E1"
+   :grass "#147B3E"
+   :electric "#E1E328"
+   :psychic "#A42A6C"
+   :ice "#86D1F3"
+   :dragon "#468A99"
+   :dark "#040706"
+   :fairy "#971844"
+   :shadow "#705898"})
 
 #?(:cljs
    (defn fetch-then
@@ -24,6 +45,8 @@
      (fn []
        (let [t (replace theme #"-poke" "")]
          (swap! store merge {:select-store t})
+         (-> pokedom/dom :chrome-theme (.setAttribute (-> pokedom/data-attr :content)
+                                                      (get-in pages-themes [(keyword t)])))
          (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) t))))))
 
 (def

@@ -3,6 +3,7 @@
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!
+                         poketypes-keywords
                          poketypes-info]]))
 
 (defn poke-store-type
@@ -15,21 +16,27 @@
    [:span.poketype-name poketype]])
 
 (defn poke-item
-  [{:keys [poke-id name]}]
+  [{:keys [poke-id name price]}]
   (fn []
     [:li.poke-item
      [:img.poke-img
-      {:src (str "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/" poke-id ".png")}]
-     [:p.poke-name name]
+      {:src
+       (str
+        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+        poke-id
+        ".png")}]
+     [:p.poke-info
+      [:span.poke-name name]
+      [:span.poke-price (str "$" price)]]
      [:button.poke-add "Add to cart"]]))
 
 (defn search-bar
   []
   [:li.nav-li.nav-li--inputs
    [:input.nav-input-text {:type "text"
-                           :placeholder "Um pokemon qualquer..."}]
+                           :placeholder "search for a pokémon..."}]
    [:input.nav-input-btn {:type "button"
-                          :value "Buscar"}]])
+                          :value "search"}]])
 
 (defn pokeball
   []
@@ -53,12 +60,14 @@
 
 (defn nav
   []
-  [:nav.nav
-   [:ul.nav-ul
-    [store-icon]
-    [nav-title]
-    [search-bar]
-    [pokeball]]])
+  (let [current-pokestore (-> @store :select-store keyword)
+        nav-active? (some #{current-pokestore} poketypes-keywords)]
+    [:nav.nav
+     [:ul.nav-ul
+      [store-icon]
+      [nav-title]
+      (when nav-active? [search-bar])
+      [pokeball]]]))
 
 (defn footer
   []
