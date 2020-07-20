@@ -166,7 +166,6 @@
       justify-content: space-between; } }
 
 .poke-item {
-  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 14%;
@@ -203,9 +202,6 @@
   margin: 0;
   width: 100%;
   margin: 0 auto; }
-  @media screen and (max-width: 480px) {
-    .poke-img {
-      width: 80%; } }
 
 .poke-info {
   margin: 0.5rem auto;
@@ -216,23 +212,23 @@
 
 .poke-name {
   color: #222;
-  font-size: calc(var(--font-size) * 1);
+  font-size: calc(var(--font-size) * 0.95);
   text-transform: capitalize;
   font-weight: bold; }
   @media screen and (max-width: 480px) {
     .poke-name {
-      font-size: calc(var(--font-size) * 0.8); } }
+      font-size: calc(var(--font-size) * 0.9); } }
 
 .poke-price {
   color: white;
-  font-size: calc(var(--font-size) * 0.9);
+  font-size: calc(var(--font-size) * 0.95);
   text-transform: capitalize;
   background: #737373;
   padding: 2px 5px;
   border-radius: 3px; }
   @media screen and (max-width: 480px) {
     .poke-price {
-      font-size: calc(var(--font-size) * 0.8); } }
+      font-size: calc(var(--font-size) * 0.9); } }
 
 .poke-add {
   background-color: var(--main-color);
