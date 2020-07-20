@@ -385,18 +385,15 @@
   max-height: 1.2em; }
 
 .nav-input-text {
+  border-radius: 3px;
+  border: none;
   width: 550px;
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
-  padding: 0 0.5rem; }
+  padding: 0.3rem 0.5rem; }
   @media screen and (max-width: 1024px) {
     .nav-input-text {
       width: 100%; } }
-
-.nav-input-btn {
-  height: 39px;
-  font-size: calc(var(--font-size) * 0.9);
-  text-transform: uppercase; }
 
 .nav-a {
   color: var(--main-font-color); }

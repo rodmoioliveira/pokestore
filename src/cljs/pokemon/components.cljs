@@ -45,9 +45,10 @@
   []
   [:li.nav-li.nav-li--inputs
    [:input.nav-input-text {:type "text"
-                           :placeholder "search for a pokémon..."}]
-   [:input.nav-input-btn {:type "button"
-                          :value "search"}]])
+                           :placeholder "search for a pokemon..."
+                           :value (-> @store :search)
+                           :on-change #(swap! store assoc-in [:search]
+                                              (-> % .-target .-value))}]])
 
 (defn pokeball
   []
