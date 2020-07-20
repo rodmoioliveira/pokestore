@@ -27,19 +27,28 @@
            offer?
            discount-rate]}]
   (fn []
-    [:li.poke-item
-     [:img.poke-img
-      {:src
-       (str
-        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
-        poke-id
-        ".png")}]
-     [:p.poke-info
-      [:span.poke-name name]
-      [:span.poke-price (str "$" price)]
-      (when offer?
-        [:span.poke-discount (str discount-rate "%")])]
-     [:button.poke-add "Add to cart"]]))
+    (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
+      [:li.poke-item
+       [:img.poke-img
+        {:src
+         (str
+          "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+          poke-id
+          ".png")}]
+       [:p.poke-info
+        [:span.poke-name name]
+        [:span.poke-price (str "$" price)]
+        (when offer?
+          [:span.poke-discount (str discount-rate "%")])
+        (when in-cart?
+          [:img.poke-in-cart
+           {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])]
+       [:button.poke-add {:class (when in-cart? "poke-add--in-cart")
+                          :on-click (fn []
+                                      (if in-cart?
+                                        (swap! store update-in [:cart] disj poke-id)
+                                        (swap! store update-in [:cart] conj poke-id)))}
+        (str (if in-cart? "Remove from " "Add to ") "cart")]])))
 
 (defn nav-input-text
   []

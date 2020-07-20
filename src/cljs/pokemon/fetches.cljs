@@ -6,6 +6,7 @@
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poke-url
                          poketypes-keywords
+                         hash-by-id
                          poke-url-type
                          fetch-then]]))
 
@@ -38,7 +39,9 @@
                                          (some #{id} (-> @store :unavailable-pokemon)))))
              (mapv (fn [{:keys [discount-rate price] :as p}]
                      (merge p {:price (* (/ (- 100 (- discount-rate)) 100) price)})))
-             (#(swap! store update-in [:pokemon] assoc (-> poketype keyword) %))))])))
+             ((fn [pokemons]
+                (swap! store update-in [:pokemon] assoc (-> poketype keyword) pokemons)
+                (swap! store assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
 
 (defn set-poke-types!
   []

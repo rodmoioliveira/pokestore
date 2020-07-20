@@ -27,5 +27,7 @@
      956 413 893 925 957 894
      926 958 895 927 959}
    :pokemon {:index true}
+   :pokemon-hash {}
+   :cart #{}
    :select-store nil})
 (defonce store (atom initial-state))
