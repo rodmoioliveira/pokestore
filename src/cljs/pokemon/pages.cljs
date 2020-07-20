@@ -1,6 +1,7 @@
 (ns pokemon.pages
   (:require
    [reagent.session :as session]
+
    [pokemon.store :refer [store]]
    [pokemon.routes :refer [path-for]]
    [pokemon.util :refer [poketypes-keywords]]

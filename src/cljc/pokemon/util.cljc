@@ -2,6 +2,7 @@
   #?(:cljs
      (:require
       [clojure.string :refer [replace]]
+
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
 

@@ -6,6 +6,7 @@
    [reitit.frontend :as reitit]
    [clerk.core :as clerk]
    [accountant.core :as accountant]
+
    [pokemon.fetches :refer [set-poke-types!
                             fetch-pokemon]]
    [pokemon.pages :refer [page-for
