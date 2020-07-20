@@ -1,17 +1,55 @@
 .poke
   margin: 1rem auto
+
+.poke-nav-wrapper
+  border-bottom: 1px solid #dadada
+  width: 100%
+
+.poke-nav
+  padding: 1rem 10px
+  display: flex
+  align-items: baseline
   max-width: 70rem
+  margin: 0 auto
+
+.poke-select
+  font-weight: 900
+  font-size: calc(var(--font-size) * 1.7)
+  margin: 0 0.5rem
+  border-radius: 3px
+  border: 2px solid #dadada
+  color: #222
+  background-color: white
+  padding: 0 0.5rem
 
   @media screen and (max-width: $mobile-width)
-    padding: 0 10px
+    font-size: calc(var(--font-size) * 1.2)
+    margin: 0 0.3rem
+
+.poke-option
+  font-size: calc(var(--font-size) * 1)
 
 .poke-title
+  font-weight: 900
   color: #222
-  margin: 1rem auto
-  font-size: calc(var(--font-size) * 1.7)
+  font-size: calc(var(--font-size) * 1.9)
 
-  @media screen and (min-width: 481px)
-    padding: 0 10px
+  @media screen and (max-width: $mobile-width)
+    font-size: calc(var(--font-size) * 1.2)
+
+.poke-count
+  font-weight: 400
+  font-size: calc(var(--font-size) * 1.9)
+  margin-left: 0.5rem
+  color: #858585
+
+  @media screen and (max-width: $mobile-width)
+    font-size: calc(var(--font-size) * 1.2)
+    margin-left: 0.3rem
+
+.poke-results
+  @media screen and (max-width: 560px)
+    display: none
 
 .poke-list
   display: flex
@@ -19,9 +57,12 @@
   list-style-type: none
   padding: 0
   align-items: flex-end
+  max-width: 70rem
+  margin: 0 auto
 
   @media screen and (max-width: $mobile-width)
     justify-content: space-between
+    padding: 0 10px
 
 .poke-item
   display: flex
@@ -72,7 +113,7 @@
 
 .poke-name
   color: #222
-  font-size: calc(var(--font-size) * 0.95)
+  font-size: calc(var(--font-size) * 1)
   text-transform: capitalize
   font-weight: bold;
 

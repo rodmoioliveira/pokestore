@@ -1,5 +1,8 @@
 (ns pokemon.components
   (:require
+   [accountant.core :as accountant]
+   [clojure.string :refer [capitalize]]
+
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!
@@ -57,6 +60,17 @@
     [:li.nav-li.nav-li--store-icon
      (when store-icon-src
        [:img.nav-img {:src store-icon-src}])]))
+
+(defn selects
+  [current-page]
+  [:select.poke-select {:name "poke-store"
+                        :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
+                        :defaultValue current-page}
+   (->> poketypes-keywords
+        (map name)
+        sort
+        (map (fn [p]
+               [:option.poke-option {:value p :key p} (capitalize p)])))])
 
 (defn nav
   []
