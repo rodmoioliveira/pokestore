@@ -116,8 +116,6 @@
 .poketype-link {
   flex: 0 0 22%;
   font-size: calc(var(--font-size) * 1.5);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -125,8 +123,7 @@
   margin: 1rem;
   padding: 1rem 0.2rem;
   color: var(--main-font-color);
-  text-decoration: none;
-  transition: transform 300ms ease; }
+  text-decoration: none; }
   @media screen and (max-width: 768px) {
     .poketype-link {
       flex: 0 0 40%; } }
@@ -138,18 +135,18 @@
       .poketype-link:nth-of-type(2n) {
         margin: 0.3rem 0 0.3rem 0.3rem; } }
   .poketype-link:hover {
-    text-decoration: none;
-    transform: scale(1.1); }
+    text-decoration: none; }
 
 .poketype-img {
-  max-height: 80px; }
+  max-height: 100px; }
   @media screen and (max-width: 480px) {
     .poketype-img {
-      max-height: 50px; } }
+      max-height: 70px; } }
 
 .poketype-name {
   flex: 1 1 100%;
-  margin-top: 10px; }
+  margin-top: 10px;
+  text-transform: capitalize; }
 
 .poke {
   margin: 1rem auto;
@@ -162,22 +159,21 @@
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  padding: 0; }
+  padding: 0;
+  align-items: flex-end; }
   @media screen and (max-width: 480px) {
     .poke-list {
       justify-content: space-between; } }
 
 .poke-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 14%;
   font-size: calc(var(--font-size) * 1.5);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  text-align: center;
   padding: 1rem 0.2rem 0.2rem;
   margin: 10px;
   color: var(--main-font-color);
@@ -205,27 +201,55 @@
 
 .poke-img {
   margin: 0;
-  width: 80%;
+  width: 100%;
   margin: 0 auto; }
+  @media screen and (max-width: 480px) {
+    .poke-img {
+      width: 80%; } }
+
+.poke-info {
+  margin: 0.5rem auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; }
 
 .poke-name {
   color: #222;
-  margin: 0.5rem auto;
-  font-size: calc(var(--font-size) * 1.3);
-  text-transform: capitalize; }
+  font-size: calc(var(--font-size) * 1);
+  text-transform: capitalize;
+  font-weight: bold; }
+  @media screen and (max-width: 480px) {
+    .poke-name {
+      font-size: calc(var(--font-size) * 0.8); } }
+
+.poke-price {
+  color: white;
+  font-size: calc(var(--font-size) * 0.9);
+  text-transform: capitalize;
+  background: #737373;
+  padding: 2px 5px;
+  border-radius: 3px; }
+  @media screen and (max-width: 480px) {
+    .poke-price {
+      font-size: calc(var(--font-size) * 0.8); } }
 
 .poke-add {
   background-color: var(--main-color);
-  border: 1px solid var(--main-color);
   color: var(--main-font-color);
-  font-size: calc(var(--font-size) * 0.9);
+  border: 2px solid var(--main-color);
+  font-size: calc(var(--font-size) * 0.8);
   text-transform: uppercase;
-  padding: 0.7rem 0;
-  cursor: pointer; }
+  padding: 0.5rem 0;
+  cursor: pointer;
+  border-radius: 3px; }
+  @media screen and (max-width: 480px) {
+    .poke-add {
+      font-size: calc(var(--font-size) * 0.8); } }
   .poke-add:hover {
     color: white;
     background-color: #FE0505;
-    border: 1px solid black; }
+    border: 2px solid black; }
 
 .footer {
   background: red;
@@ -289,7 +313,8 @@
 
 .nav-input-btn {
   height: 39px;
-  font-size: calc(var(--font-size) * 1.1); }
+  font-size: calc(var(--font-size) * 0.9);
+  text-transform: uppercase; }
 
 .nav-a {
   color: var(--main-font-color); }
@@ -322,6 +347,9 @@
   @media screen and (max-width: 1024px) {
     .padding-nav {
       padding-top: 9rem; } }
+
+* {
+  font-family: 'Lato', sans-serif; }
 
 .nav,
 .footer {
