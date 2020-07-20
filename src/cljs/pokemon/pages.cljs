@@ -21,6 +21,7 @@
     (let [current-page (-> @store :select-store)
           pokemons (get-in @store [:pokemon (keyword current-page)])]
       [:section.poke.padding-nav
+       [:h1.poke-title (str "The " current-page " ones:")]
        [:ul.poke-list (->>
                        pokemons
                        ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
