@@ -6,6 +6,7 @@
    [pokemon.util :refer [poketypes-keywords]]
    [pokemon.components :refer [poke-store-type
                                poke-item
+                               selects
                                nav
                                footer]]))
 
@@ -21,7 +22,15 @@
     (let [current-page (-> @store :select-store)
           pokemons (get-in @store [:pokemon (keyword current-page)])]
       [:section.poke.padding-nav
-       [:h1.poke-title (str "The " current-page " ones:")]
+       [:div.poke-nav-wrapper
+        [:nav.poke-nav
+         [:span.poke-title "Top"]
+         [selects current-page]
+         [:span.poke-title "pokemons"]
+         [:span.poke-count
+          [:span (str "(" (count pokemons))]
+          [:span.poke-results " results"]
+          [:span ")"]]]]
        [:ul.poke-list (->>
                        pokemons
                        ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
