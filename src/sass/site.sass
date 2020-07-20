@@ -5,7 +5,18 @@
 @import "nav"
 
 *
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif
+
+  @media (max-width: $tablet-width)
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+::selection
+  color: var(--main-font-color)
+  background: var(--main-color)
 
 .nav,
 .footer
