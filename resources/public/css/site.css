@@ -236,6 +236,7 @@
       padding: 0 10px; } }
 
 .poke-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 14%;
@@ -298,6 +299,20 @@
   border-radius: 3px; }
   @media screen and (max-width: 480px) {
     .poke-price {
+      font-size: calc(var(--font-size) * 0.9); } }
+
+.poke-discount {
+  position: absolute;
+  color: white;
+  font-size: calc(var(--font-size) * 0.95);
+  text-transform: capitalize;
+  background: #FF7F00;
+  padding: 2px 5px;
+  border-radius: 3px;
+  top: 2rem;
+  right: 0; }
+  @media screen and (max-width: 480px) {
+    .poke-discount {
       font-size: calc(var(--font-size) * 0.9); } }
 
 .poke-add {

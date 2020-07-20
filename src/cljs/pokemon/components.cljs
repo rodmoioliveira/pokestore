@@ -1,7 +1,8 @@
 (ns pokemon.components
   (:require
    [accountant.core :as accountant]
-   [clojure.string :refer [capitalize]]
+   [clojure.string :refer [capitalize
+                           split]]
 
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
@@ -19,7 +20,11 @@
    [:span.poketype-name poketype]])
 
 (defn poke-item
-  [{:keys [poke-id name price]}]
+  [{:keys [poke-id
+           name
+           price
+           offer?
+           discount-rate]}]
   (fn []
     [:li.poke-item
      [:img.poke-img
@@ -30,7 +35,10 @@
         ".png")}]
      [:p.poke-info
       [:span.poke-name name]
-      [:span.poke-price (str "$" price)]]
+      [:span.poke-price (str "$" price)]
+      (when offer?
+        [:span.poke-discount (str discount-rate "%")])]
+
      [:button.poke-add "Add to cart"]]))
 
 (defn search-bar
@@ -81,11 +89,12 @@
                  (->> e .-target .-value keyword
                       (#(swap! store assoc-in [:sorting] %))))
     :defaultValue (-> @store :sorting name)}
-   (->> [:name :popularity :price]
+   (->> [:name :popularity :price :discount-rate]
         (map name)
         sort
         (map (fn [p]
-               [:option.poke-option {:value p :key p} (capitalize p)])))])
+               [:option.poke-option {:value p :key p}
+                (-> p (split #"-") first capitalize)])))])
 
 (defn nav
   []

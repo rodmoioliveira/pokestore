@@ -47,13 +47,13 @@
                        (sort-by sorting)
                        ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
                        ; Warning: Reactive deref not supported in lazy seq, it should be wrapped in doall
-                       (map (fn [{:keys [id name price]}]
+                       (map (fn [{:keys [id name] :as p}]
                               [poke-item
-                               {:name name
-                                :key (str current-page "-" name "-" id)
-                                :poke-id id
-                                :price price
-                                :current-page current-page}])))]])))
+                               (merge
+                                p
+                                {:key (str current-page "-" name "-" id)
+                                 :poke-id id
+                                 :current-page current-page})])))]])))
 
 (defn pokemon-page []
   (fn []
