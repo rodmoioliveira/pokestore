@@ -4,6 +4,7 @@
 
 (defonce initial-state
   {:types {}
+   :sorting :popularity
    :unavailable-pokemon
    #{896 928 960 641 897 929
      961 642 898 930 962 899

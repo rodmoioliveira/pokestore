@@ -61,12 +61,25 @@
      (when store-icon-src
        [:img.nav-img {:src store-icon-src}])]))
 
-(defn selects
+(defn poke-store-select
   [current-page]
   [:select.poke-select {:name "poke-store"
                         :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
                         :defaultValue current-page}
    (->> poketypes-keywords
+        (map name)
+        sort
+        (map (fn [p]
+               [:option.poke-option {:value p :key p} (capitalize p)])))])
+
+(defn sorting-poke-select
+  []
+  [:select.poke-select {:name "poke-sorting"
+                        :on-change (fn [e]
+                                     (->> e .-target .-value keyword
+                                          (#(swap! store assoc-in [:sorting] %))))
+                        :defaultValue (-> @store :sorting name)}
+   (->> [:name :popularity :price]
         (map name)
         sort
         (map (fn [p]

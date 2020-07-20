@@ -29,7 +29,8 @@
    [:body {:class "body-container" :id "body-container"}
     mount-target
     (include-js "/js/app.js")
-    [:script "pokemon.core.init_BANG_()"]]))
+    ; [:script "pokemon.core.init_BANG_()"]
+    ]))
 
 (defn cards-page []
   (html5

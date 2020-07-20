@@ -172,11 +172,12 @@
   border: 2px solid #dadada;
   color: #222;
   background-color: white;
-  padding: 0 0.5rem; }
+  padding: 0.5rem; }
   @media screen and (max-width: 480px) {
     .poke-select {
       font-size: calc(var(--font-size) * 1.2);
-      margin: 0 0.3rem; } }
+      margin: 0 0.3rem;
+      padding: 0.3rem; } }
 
 .poke-option {
   font-size: calc(var(--font-size) * 1); }
