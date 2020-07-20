@@ -63,9 +63,10 @@
 
 (defn poke-store-select
   [current-page]
-  [:select.poke-select {:name "poke-store"
-                        :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
-                        :defaultValue current-page}
+  [:select.poke-select.poke-select--store
+   {:name "poke-store"
+    :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
+    :defaultValue current-page}
    (->> poketypes-keywords
         (map name)
         sort
@@ -74,11 +75,12 @@
 
 (defn sorting-poke-select
   []
-  [:select.poke-select {:name "poke-sorting"
-                        :on-change (fn [e]
-                                     (->> e .-target .-value keyword
-                                          (#(swap! store assoc-in [:sorting] %))))
-                        :defaultValue (-> @store :sorting name)}
+  [:select.poke-select.poke-select--sort
+   {:name "poke-sorting"
+    :on-change (fn [e]
+                 (->> e .-target .-value keyword
+                      (#(swap! store assoc-in [:sorting] %))))
+    :defaultValue (-> @store :sorting name)}
    (->> [:name :popularity :price]
         (map name)
         sort
