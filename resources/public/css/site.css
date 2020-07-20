@@ -332,6 +332,18 @@
     background-color: #FE0505;
     border: 2px solid black; }
 
+.poke-no-results {
+  color: #222;
+  padding: 0 10px;
+  width: 100%;
+  text-align: center;
+  font-size: calc(var(--font-size) * 5);
+  font-weight: 900;
+  margin: 2rem auto; }
+  @media screen and (max-width: 480px) {
+    .poke-no-results {
+      font-size: calc(var(--font-size) * 3); } }
+
 .footer {
   background: red;
   padding: 0.5rem;

@@ -2,6 +2,7 @@
   (:require
    [accountant.core :as accountant]
    [clojure.string :refer [capitalize
+                           lower-case
                            split]]
 
    [pokemon.routes :refer [path-for]]
@@ -48,7 +49,7 @@
                            :placeholder "search for a pokemon..."
                            :value (-> @store :search)
                            :on-change #(swap! store assoc-in [:search]
-                                              (-> % .-target .-value))}]])
+                                              (-> % .-target .-value lower-case))}]])
 
 (defn pokeball
   []
