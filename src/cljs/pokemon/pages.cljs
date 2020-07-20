@@ -33,7 +33,9 @@
       [sorting-poke-select]
       [:span.poke-count
        [:span (str "(" (count pokemons))]
-       [:span.poke-results " results"]
+       [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                             " result"
+                             " results")]
        [:span ")"]]]]))
 
 (defn poketype-list-page []
