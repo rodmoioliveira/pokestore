@@ -52,8 +52,7 @@
                              ; FIXME: duplicando texto no mobile...
                              :on-change
                              (fn [e] (swap! store
-                                            assoc :search (-> e .-target .-value lower-case)))}]
-     [:span value]]))
+                                            assoc :search (-> e .-target .-value lower-case)))}]]))
 
 (defn pokeball
   []

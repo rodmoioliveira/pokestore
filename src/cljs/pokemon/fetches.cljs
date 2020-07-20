@@ -23,7 +23,7 @@
              :pokemon
              (mapv :pokemon)
              (map-indexed (fn [index p]
-                            (let [offer? (> (rand-int 101) 85)]
+                            (let [offer? (> (rand-int 101) 90)]
                               (merge p {:id
                                         (-> (split (-> p :url) #"/")
                                             last
