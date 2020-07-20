@@ -96,6 +96,7 @@
   max-width: 70rem; }
 
 .poketype-title {
+  color: #222;
   text-align: center;
   font-size: calc(var(--font-size) * 3);
   margin: 2rem auto 0.5rem; }
@@ -156,6 +157,7 @@
       padding: 0 10px; } }
 
 .poke-title {
+  color: #222;
   margin: 1rem auto;
   font-size: calc(var(--font-size) * 1.7); }
   @media screen and (min-width: 481px) {

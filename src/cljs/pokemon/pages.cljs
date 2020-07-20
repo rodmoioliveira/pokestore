@@ -12,7 +12,7 @@
 (defn home-page []
   (fn []
     [:section.poketype.padding-nav
-     [:h1.poketype-title "Chose your store"]
+     [:h1.poketype-title "Choose your store"]
      [:ul.poketype-list
       (->> @store :types (map poke-store-type))]]))
 
