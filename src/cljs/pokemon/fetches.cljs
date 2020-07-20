@@ -22,17 +22,22 @@
         (->> res
              :pokemon
              (mapv :pokemon)
-             (map-indexed (fn [index p] (merge p {:id
-                                     (-> (split (-> p :url) #"/")
-                                         last
-                                         int)
-                                     :popularity index
-                                     :price
-                                     (->> p :name (map char-code) (reduce +))})))
+             (map-indexed (fn [index p]
+                            (let [offer? (> (rand-int 101) 85)]
+                              (merge p {:id
+                                        (-> (split (-> p :url) #"/")
+                                            last
+                                            int)
+                                        :popularity index
+                                        :offer? offer?
+                                        :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+                                        :price
+                                        (->> p :name (map char-code) (reduce +))}))))
              (remove (fn [{:keys [id]}] (or
                                          (> id 9999)
                                          (some #{id} (-> @store :unavailable-pokemon)))))
-             vec
+             (mapv (fn [{:keys [discount-rate price] :as p}]
+                     (merge p {:price (* (/ (- 100 (- discount-rate)) 100) price)})))
              (#(swap! store update-in [:pokemon] assoc (-> poketype keyword) %))))])))
 
 (defn set-poke-types!

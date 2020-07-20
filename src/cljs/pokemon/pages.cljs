@@ -1,6 +1,7 @@
 (ns pokemon.pages
   (:require
    [reagent.session :as session]
+   [clojure.string :refer [includes?]]
 
    [pokemon.store :refer [store]]
    [pokemon.routes :refer [path-for]]
@@ -39,21 +40,34 @@
   (fn []
     (let [current-page (-> @store :select-store)
           sorting (-> @store :sorting)
-          pokemons (get-in @store [:pokemon (keyword current-page)])]
+          search-term (-> @store :search)
+          pokemons (get-in @store [:pokemon (keyword current-page)])
+          display-pokemons (->>
+                            pokemons
+                            (sort-by sorting)
+                            (filter
+                             (fn [p]
+                               (if (= search-term "")
+                                 true
+                                 (includes? (p :name) search-term)))))
+          pokemons-count (count display-pokemons)
+          fail-search? (zero? pokemons-count)]
       [:section.poke.padding-nav
-       [poke-nav current-page pokemons]
-       [:ul.poke-list (->>
-                       pokemons
-                       (sort-by sorting)
-                       ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
-                       ; Warning: Reactive deref not supported in lazy seq, it should be wrapped in doall
-                       (map (fn [{:keys [id name price]}]
-                              [poke-item
-                               {:name name
-                                :key (str current-page "-" name "-" id)
-                                :poke-id id
-                                :price price
-                                :current-page current-page}])))]])))
+       [poke-nav current-page display-pokemons]
+       [:ul.poke-list
+        (if fail-search?
+          [:li.poke-no-results "No results :("]
+          (->>
+           display-pokemons
+           ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
+           ; Warning: Reactive deref not supported in lazy seq, it should be wrapped in doall
+           (map (fn [{:keys [id name] :as p}]
+                  [poke-item
+                   (merge
+                    p
+                    {:key (str current-page "-" name "-" id)
+                     :poke-id id
+                     :current-page current-page})]))))]])))
 
 (defn pokemon-page []
   (fn []

@@ -236,6 +236,7 @@
       padding: 0 10px; } }
 
 .poke-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex: 0 0 14%;
@@ -300,6 +301,20 @@
     .poke-price {
       font-size: calc(var(--font-size) * 0.9); } }
 
+.poke-discount {
+  position: absolute;
+  color: white;
+  font-size: calc(var(--font-size) * 0.95);
+  text-transform: capitalize;
+  background: #FF7F00;
+  padding: 2px 5px;
+  border-radius: 3px;
+  top: 2rem;
+  right: 0; }
+  @media screen and (max-width: 480px) {
+    .poke-discount {
+      font-size: calc(var(--font-size) * 0.9); } }
+
 .poke-add {
   background-color: var(--main-color);
   color: var(--main-font-color);
@@ -316,6 +331,18 @@
     color: white;
     background-color: #FE0505;
     border: 2px solid black; }
+
+.poke-no-results {
+  color: #222;
+  padding: 0 10px;
+  width: 100%;
+  text-align: center;
+  font-size: calc(var(--font-size) * 5);
+  font-weight: 900;
+  margin: 2rem auto; }
+  @media screen and (max-width: 480px) {
+    .poke-no-results {
+      font-size: calc(var(--font-size) * 3); } }
 
 .footer {
   background: red;
@@ -370,18 +397,15 @@
   max-height: 1.2em; }
 
 .nav-input-text {
+  border-radius: 3px;
+  border: none;
   width: 550px;
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
-  padding: 0 0.5rem; }
+  padding: 0.3rem 0.5rem; }
   @media screen and (max-width: 1024px) {
     .nav-input-text {
       width: 100%; } }
-
-.nav-input-btn {
-  height: 39px;
-  font-size: calc(var(--font-size) * 0.9);
-  text-transform: uppercase; }
 
 .nav-a {
   color: var(--main-font-color); }
