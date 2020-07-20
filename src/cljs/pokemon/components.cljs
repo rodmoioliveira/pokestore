@@ -46,7 +46,6 @@
   [:input.nav-input-text {:type "text"
                           :placeholder "search for a pokemon..."
                           :value (-> @store :search)
-                          ; FIXME: duplicando texto no mobile...
                           :on-change
                           (fn [e] (swap! store
                                          assoc :search (-> e .-target .-value lower-case)))}])
