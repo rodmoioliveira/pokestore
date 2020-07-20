@@ -28,7 +28,7 @@
       [poke-store-select current-page]
       [:span.poke-title "pokemons"]]
      [:nav.poke-nav.poke-nav--sort
-      [:span.poke-title "Sorting by"]
+      [:span.poke-title "Sort by"]
       [sorting-poke-select]
       [:span.poke-count
        [:span (str "(" (count pokemons))]
