@@ -34,7 +34,7 @@
           [:span (str "(" (count pokemons))]
           [:span.poke-results " results"]
           [:span ")"]]]]
-       [sorting-poke-select]
+       ; [sorting-poke-select]
        [:ul.poke-list (->>
                        pokemons
                        (sort-by sorting)
