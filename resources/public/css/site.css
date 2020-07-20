@@ -263,7 +263,7 @@
 
 .poke-name {
   color: #222;
-  font-size: calc(var(--font-size) * 0.95);
+  font-size: calc(var(--font-size) * 1);
   text-transform: capitalize;
   font-weight: bold; }
   @media screen and (max-width: 480px) {
@@ -305,7 +305,8 @@
   font-size: calc(var(--font-size) * 1.2);
   color: var(--main-font-color);
   background-color: var(--main-color);
-  border-top: 1px solid var(--border-color); }
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5);
+  border-top: 1px solid var(--main-color); }
 
 .nav {
   background: red;
