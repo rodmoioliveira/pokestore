@@ -19,22 +19,29 @@
      [:ul.poketype-list
       (->> @store :types (map poke-store-type))]]))
 
+(defn poke-nav
+  []
+  (fn [current-page pokemons]
+    [:div.poke-nav-wrapper
+     [:nav.poke-nav.poke-nav--store
+      [:span.poke-title "Top"]
+      [poke-store-select current-page]
+      [:span.poke-title "pokemons"]]
+     [:nav.poke-nav.poke-nav--sort
+      [:span.poke-title "Sorting by"]
+      [sorting-poke-select]
+      [:span.poke-count
+       [:span (str "(" (count pokemons))]
+       [:span.poke-results " results"]
+       [:span ")"]]]]))
+
 (defn poketype-list-page []
   (fn []
     (let [current-page (-> @store :select-store)
           sorting (-> @store :sorting)
           pokemons (get-in @store [:pokemon (keyword current-page)])]
       [:section.poke.padding-nav
-       [:div.poke-nav-wrapper
-        [:nav.poke-nav
-         [:span.poke-title "Top"]
-         [poke-store-select current-page]
-         [:span.poke-title "pokemons"]
-         [:span.poke-count
-          [:span (str "(" (count pokemons))]
-          [:span.poke-results " results"]
-          [:span ")"]]]]
-       [sorting-poke-select]
+       [poke-nav current-page pokemons]
        [:ul.poke-list (->>
                        pokemons
                        (sort-by sorting)

@@ -164,6 +164,12 @@
   max-width: 70rem;
   margin: 0 auto; }
 
+.poke-nav--store {
+  padding: 0.3rem 10px; }
+
+.poke-nav--sort {
+  padding: 1rem 10px; }
+
 .poke-select {
   font-weight: 900;
   font-size: calc(var(--font-size) * 1.7);
@@ -173,6 +179,13 @@
   color: #222;
   background-color: white;
   padding: 0.5rem; }
+  .poke-nav--sort .poke-select {
+    font-size: calc(var(--font-size) * 1);
+    font-weight: 500;
+    padding: 0.3rem; }
+    @media screen and (max-width: 480px) {
+      .poke-nav--sort .poke-select {
+        font-size: calc(var(--font-size) * 0.9); } }
   @media screen and (max-width: 480px) {
     .poke-select {
       font-size: calc(var(--font-size) * 1.2);
@@ -186,19 +199,23 @@
   font-weight: 900;
   color: #222;
   font-size: calc(var(--font-size) * 1.9); }
+  .poke-nav--sort .poke-title {
+    font-size: calc(var(--font-size) * 1);
+    font-weight: 500; }
+    @media screen and (max-width: 480px) {
+      .poke-nav--sort .poke-title {
+        font-size: calc(var(--font-size) * 0.9); } }
   @media screen and (max-width: 480px) {
     .poke-title {
       font-size: calc(var(--font-size) * 1.2); } }
 
 .poke-count {
   font-weight: 400;
-  font-size: calc(var(--font-size) * 1.9);
-  margin-left: 0.5rem;
+  font-size: calc(var(--font-size) * 1);
   color: #858585; }
   @media screen and (max-width: 480px) {
     .poke-count {
-      font-size: calc(var(--font-size) * 1.2);
-      margin-left: 0.3rem; } }
+      font-size: calc(var(--font-size) * 0.9); } }
 
 @media screen and (max-width: 560px) {
   .poke-results {
