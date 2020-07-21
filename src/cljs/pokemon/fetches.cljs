@@ -32,6 +32,7 @@
                                         :popularity index
                                         :offer? offer?
                                         :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+                                        :type (-> poketype keyword)
                                         :price
                                         (->> p :name (map char-code) (reduce +))}))))
              (remove (fn [{:keys [id]}] (or
@@ -40,6 +41,7 @@
              (mapv (fn [{:keys [discount-rate price] :as p}]
                      (merge p {:price (* (/ (- 100 (- discount-rate)) 100) price)})))
              ((fn [pokemons]
+                ; FIXME: lidar com pokemons que aparecem em duas listas!
                 (swap! store update-in [:pokemon] assoc (-> poketype keyword) pokemons)
                 (swap! store assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
 

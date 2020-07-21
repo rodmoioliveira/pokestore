@@ -65,7 +65,7 @@
    (reitit-ring/router
     (conj
      [["/" {:get {:handler index-handler}}]
-      ["/about" {:get {:handler index-handler}}]
+      ["/cart" {:get {:handler index-handler}}]
       ["/cards" {:get {:handler cards-handler}}]]
      poke-handlers))
    (reitit-ring/routes

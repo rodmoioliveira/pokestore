@@ -67,9 +67,10 @@
 (defn pokeball
   []
   [:li.nav-li.nav-li--pokeball
-   {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))}
    [:small.nav-count (-> @store :cart count)]
-   [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
+   [:a
+    {:href (path-for :cart)}
+    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
 
 (defn nav-title
   []
@@ -95,6 +96,7 @@
    (->> poketypes-keywords
         (map name)
         sort
+        (#(concat % ["cart"]))
         (map (fn [p]
                [:option.poke-option {:value p :key p} (capitalize p)])))])
 
@@ -113,22 +115,10 @@
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
 
-(defn cart
-  []
-  [:section.cart {:data-active (-> @store :cart-view-active?)}
-   [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
-   [:h1.cart-title "Your Pokeball"]
-   [:ul.cart-pokes
-    [:li.cart-poke "1"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]]])
-
 (defn nav
   []
   (let [current-pokestore (-> @store :select-store keyword)
-        nav-active? (some #{current-pokestore} poketypes-keywords)]
+        nav-active? (some #{current-pokestore} (conj poketypes-keywords :cart))]
     [:nav.nav
      [:ul.nav-ul
       [store-icon]

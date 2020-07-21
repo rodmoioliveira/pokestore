@@ -4,14 +4,12 @@
    [clojure.string :refer [includes?]]
 
    [pokemon.store :refer [store]]
-   [pokemon.routes :refer [path-for]]
    [pokemon.util :refer [poketypes-keywords]]
    [pokemon.components :refer [poke-store-type
                                poke-item
                                poke-store-select
                                sorting-poke-select
                                nav
-                               cart
                                footer]]))
 
 (defn home-page []
@@ -26,7 +24,7 @@
   (fn [current-page pokemons]
     [:div.poke-nav-wrapper
      [:nav.poke-nav.poke-nav--store
-      [:span.poke-title "Top"]
+      [:span.poke-title (if (= current-page "cart") "My" "Top")]
       [poke-store-select current-page]
       [:span.poke-title "pokemons"]]
      [:nav.poke-nav.poke-nav--sort
@@ -39,7 +37,7 @@
                              " results")]
        [:span ")"]]]]))
 
-(defn poketype-list-page []
+(defn poke-store-page []
   (fn []
     (let [current-page (-> @store :select-store)
           sorting (-> @store :sorting)
@@ -62,8 +60,6 @@
           [:li.poke-no-results "No results :("]
           (->>
            display-pokemons
-           ; FIXME: http://timothypratley.blogspot.com/2017/01/reagent-deep-dive-part-3-sequences.html
-           ; Warning: Reactive deref not supported in lazy seq, it should be wrapped in doall
            (map (fn [{:keys [id name] :as p}]
                   [poke-item
                    (merge
@@ -72,17 +68,41 @@
                      :poke-id id
                      :current-page current-page})]))))]])))
 
-(defn pokemon-page []
+(defn cart-page []
   (fn []
-    (let [routing-data (session/get :route)
-          item (get-in routing-data [:route-params :poke-id])]
-      [:section.padding-nav
-       [:h1 (str "Item " item " of pokemon")]
-       [:p [:a {:href (path-for :index)} "Back to the list of items"]]])))
+    (let [current-page (-> @store :select-store)
+          sorting (-> @store :sorting)
+          search-term (-> @store :search)
+          cart-pokemons (->> @store
+                             :cart
+                             vec
+                             (map (comp
+                                   #(get-in @store [:pokemon-hash %])
+                                   keyword
+                                   str))
+                             (sort-by sorting)
+                             (filter
+                              (fn [p]
+                                (if (= search-term "")
+                                  true
+                                  (includes? (p :name) search-term)))))
 
-(defn about-page []
-  (fn [] [:section.padding-nav
-          [:h1 "About pokemon"]]))
+          pokemons-count (count cart-pokemons)
+          fail-search? (zero? pokemons-count)]
+      [:section.poke.padding-nav
+       [poke-nav current-page cart-pokemons]
+       [:ul.poke-list
+        (if fail-search?
+          [:li.poke-no-results "No results :("]
+          (->>
+           cart-pokemons
+           (map (fn [{:keys [id name] :as p}]
+                  [poke-item
+                   (merge
+                    p
+                    {:key (str current-page "-" name "-" id)
+                     :poke-id id
+                     :current-page current-page})]))))]])))
 
 (defn current-page
   "Page mounting component"
@@ -92,15 +112,10 @@
       [:main.main
        [nav]
        [page]
-       [footer]
-       [cart]])))
+       [footer]])))
 
 (defn page-for [route]
   (cond
     (some #(= route %) [:index]) home-page
-    (some #(= route %) [:about]) about-page
-    (some #(= route %) poketypes-keywords) poketype-list-page
-    (some #(= route %) (->> poketypes-keywords
-                            (map name)
-                            (map #(str % "-poke"))
-                            (map keyword))) pokemon-page))
+    (some #(= route %) [:cart]) cart-page
+    (some #(= route %) poketypes-keywords) poke-store-page))

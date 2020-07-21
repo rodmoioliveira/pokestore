@@ -26,7 +26,8 @@
      891 923 955 412 892 924
      956 413 893 925 957 894
      926 958 895 927 959}
-   :pokemon {:index true}
+   :pokemon {:index true
+             :cart true}
    :pokemon-hash {}
    :cart #{}
    :cart-view-active? false

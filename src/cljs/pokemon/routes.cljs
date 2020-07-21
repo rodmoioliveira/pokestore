@@ -12,6 +12,7 @@
 (def all-routes
   (conj
    [["/" :index]
+    ["/cart" :cart]
     ["/about" :about]]
    poketypes-routes))
 
