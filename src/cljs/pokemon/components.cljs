@@ -67,6 +67,7 @@
 (defn pokeball
   []
   [:li.nav-li.nav-li--pokeball
+   [:small.nav-count (-> @store :cart count)]
    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
 
 (defn nav-title

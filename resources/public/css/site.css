@@ -400,6 +400,28 @@
 .nav-a {
   color: var(--main-font-color); }
 
+.nav-count {
+  position: absolute;
+  background: #FF7F00;
+  border-radius: 1000px;
+  height: 1.6rem;
+  width: 1.6rem;
+  font-size: calc(var(--font-size) * 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: white;
+  margin: 0;
+  bottom: -5%;
+  right: 2%; }
+  @media screen and (max-width: 768px) {
+    .nav-count {
+      font-size: calc(var(--font-size) * 0.7);
+      height: 1.2rem;
+      width: 1.2rem; } }
+
 .nav-img {
   max-height: 1.2em; }
 
@@ -436,9 +458,11 @@
   .nav-li--store-icon {
     margin-left: 10px; } }
 
-@media screen and (max-width: 1200px) {
-  .nav-li--pokeball {
-    margin-right: 10px; } }
+.nav-li--pokeball {
+  position: relative; }
+  @media screen and (max-width: 1200px) {
+    .nav-li--pokeball {
+      margin-right: 10px; } }
 
 @media screen and (max-width: 1024px) {
   .nav-li--inputs {
