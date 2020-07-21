@@ -67,9 +67,10 @@
 (defn pokeball
   []
   [:li.nav-li.nav-li--pokeball
-   {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))}
    [:small.nav-count (-> @store :cart count)]
-   [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
+   [:a
+    {:href (path-for :cart)}
+    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
 
 (defn nav-title
   []
@@ -95,6 +96,7 @@
    (->> poketypes-keywords
         (map name)
         sort
+        (#(concat % ["cart"]))
         (map (fn [p]
                [:option.poke-option {:value p :key p} (capitalize p)])))])
 
@@ -113,47 +115,10 @@
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
 
-(defn cart
-  []
-  [:section.cart {:data-active (-> @store :cart-view-active?)}
-   [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
-   [:h1.cart-title "Your Pokeball"]
-   [:nav.cart-nav
-    ; TODO: refactor
-    [:ul.cart-pokes
-     (->> @store :cart
-          vec
-          (map (comp
-                (fn [{:keys [id name type price]}]
-                  (let [in-cart? (some? (some (-> @store :cart) [id]))]
-                    [:li.cart-poke
-                     {:key (str "cart-poke-" id)}
-                     [:img.cart-poke-img
-                      {:src
-                       (str
-                        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
-                        id
-                        ".png")}]
-                     [:p.cart-poke-name name]
-                     [:img.cart-poke-type
-                      {:src
-                       (-> poketypes-info type :src)}]
-                     [:p.cart-poke-price (str "$" price)]
-                     [:button.cart-poke-add
-                      {:on-click
-                       (fn []
-                         (if in-cart?
-                           (swap! store update-in [:cart] disj id)
-                           (swap! store update-in [:cart] conj id)))}
-                      (str (if in-cart? "Remove from " "Add to ") "cart")]]))
-                #(get-in @store [:pokemon-hash %])
-                keyword
-                str)))]]])
-
 (defn nav
   []
   (let [current-pokestore (-> @store :select-store keyword)
-        nav-active? (some #{current-pokestore} poketypes-keywords)]
+        nav-active? (some #{current-pokestore} (conj poketypes-keywords :cart))]
     [:nav.nav
      [:ul.nav-ul
       [store-icon]

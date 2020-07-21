@@ -24,6 +24,7 @@
   --main-font-color: white; }
 
 [data-theme='index'],
+[data-theme='cart'],
 [data-theme='about'] {
   --main-color: #F4F4F4;
   --main-font-color: #222; }
@@ -358,8 +359,8 @@
   font-size: calc(var(--font-size) * 1.2);
   color: var(--main-font-color);
   background-color: var(--main-color);
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.5);
-  border-top: 1px solid var(--main-color); }
+  border-top: 1px solid var(--main-font-color);
+  border-bottom: 1px solid var(--main-font-color); }
 
 .nav {
   background: red;
@@ -367,8 +368,7 @@
   text-align: center;
   font-size: calc(var(--font-size) * 1.2);
   background-color: var(--main-color);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  border-bottom: 1px solid var(--main-color);
+  border-bottom: 1px solid var(--main-font-color);
   position: fixed;
   top: 0;
   width: 100%;
