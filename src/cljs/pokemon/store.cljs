@@ -29,5 +29,6 @@
    :pokemon {:index true}
    :pokemon-hash {}
    :cart #{}
+   :cart-view-active? false
    :select-store nil})
 (defonce store (atom initial-state))

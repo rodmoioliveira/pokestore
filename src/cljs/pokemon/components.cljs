@@ -67,6 +67,7 @@
 (defn pokeball
   []
   [:li.nav-li.nav-li--pokeball
+   {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))}
    [:small.nav-count (-> @store :cart count)]
    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
 
@@ -111,6 +112,12 @@
         (map (fn [p]
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
+
+(defn cart
+  []
+  [:section.cart {:data-active (-> @store :cart-view-active?)}
+   [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
+   [:h1.cart-title "Your Pokeball"]])
 
 (defn nav
   []

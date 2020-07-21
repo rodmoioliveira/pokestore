@@ -11,6 +11,7 @@
                                poke-store-select
                                sorting-poke-select
                                nav
+                               cart
                                footer]]))
 
 (defn home-page []
@@ -91,7 +92,8 @@
       [:main.main
        [nav]
        [page]
-       [footer]])))
+       [footer]
+       [cart]])))
 
 (defn page-for [route]
   (cond
