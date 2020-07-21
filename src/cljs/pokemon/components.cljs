@@ -27,26 +27,34 @@
            offer?
            discount-rate]}]
   (fn []
-    [:li.poke-item
-     [:img.poke-img
-      {:src
-       (str
-        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
-        poke-id
-        ".png")}]
-     [:p.poke-info
-      [:span.poke-name name]
-      [:span.poke-price (str "$" price)]
-      (when offer?
-        [:span.poke-discount (str discount-rate "%")])]
-     [:button.poke-add "Add to cart"]]))
+    (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
+      [:li.poke-item
+       [:img.poke-img
+        {:src
+         (str
+          "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+          poke-id
+          ".png")}]
+       [:p.poke-info
+        [:span.poke-name name]
+        [:span.poke-price (str "$" price)]
+        (when offer?
+          [:span.poke-discount (str discount-rate "%")])
+        (when in-cart?
+          [:img.poke-in-cart
+           {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])]
+       [:button.poke-add {:class (when in-cart? "poke-add--in-cart")
+                          :on-click (fn []
+                                      (if in-cart?
+                                        (swap! store update-in [:cart] disj poke-id)
+                                        (swap! store update-in [:cart] conj poke-id)))}
+        (str (if in-cart? "Remove from " "Add to ") "cart")]])))
 
 (defn nav-input-text
   []
   [:input.nav-input-text {:type "text"
                           :placeholder "search for a pokemon..."
                           :value (-> @store :search)
-                          ; FIXME: duplicando texto no mobile...
                           :on-change
                           (fn [e] (swap! store
                                          assoc :search (-> e .-target .-value lower-case)))}])
@@ -59,6 +67,8 @@
 (defn pokeball
   []
   [:li.nav-li.nav-li--pokeball
+   {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))}
+   [:small.nav-count (-> @store :cart count)]
    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]])
 
 (defn nav-title
@@ -102,6 +112,18 @@
         (map (fn [p]
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
+
+(defn cart
+  []
+  [:section.cart {:data-active (-> @store :cart-view-active?)}
+   [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
+   [:h1.cart-title "Your Pokeball"]
+   [:ul.cart-pokes
+    [:li.cart-poke "1"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]]])
 
 (defn nav
   []

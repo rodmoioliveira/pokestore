@@ -66,7 +66,7 @@
               :output-dir "target/cljsbuild/public/js/out"
               :source-map true
               :optimizations :none
-              :pretty-print  true}}
+              :pretty-print true}}
 
             :test
             {:source-paths ["src/cljs" "src/cljc" "spec/cljs"]
@@ -82,21 +82,17 @@
                         :output-dir "target/cljsbuild/public/js/devcards_out"
                         :source-map-timestamp true
                         :optimizations :none
-                        :pretty-print true}}
-            }
-   :test-commands {"unit" ["phantomjs" "runners/speclj" "target/test.js"]}
-   }
-   :doo {:build "test"}
+                        :pretty-print true}}}
+   :test-commands {"unit" ["phantomjs" "runners/speclj" "target/test.js"]}}
+  :doo {:build "test"}
 
   :figwheel
   {:http-server-root "public"
    :server-port 3449
    :nrepl-port 7002
-   :nrepl-middleware [cider.piggieback/wrap-cljs-repl
-                      ]
+   :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
    :css-dirs ["resources/public/css"]
    :ring-handler pokemon.handler/app}
-
 
   :sass {:source-paths ["src/sass"]
          :target-path "resources/public/css"}
@@ -115,14 +111,12 @@
                                   [pjstadig/humane-test-output "0.10.0"]
 
                                   ;; To silence warnings from sass4clj dependecies about missing logger implementation
-                                  [org.slf4j/slf4j-nop "1.7.25"]
-                                   ]
+                                  [org.slf4j/slf4j-nop "1.7.25"]]
 
                    :source-paths ["env/dev/clj"]
                    :plugins [[lein-figwheel "0.5.20"]
                              [speclj "3.3.2"]
-                             [deraen/lein-sass4clj "0.3.1"]
-                             ]
+                             [deraen/lein-sass4clj "0.3.1"]]
 
                    :injections [(require 'pjstadig.humane-test-output)
                                 (pjstadig.humane-test-output/activate!)]

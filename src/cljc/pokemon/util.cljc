@@ -50,6 +50,12 @@
                                                       (get-in pages-themes [(keyword t)])))
          (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) t))))))
 
+(defn hash-by
+  [key acc cur]
+  (assoc acc (-> cur key str keyword) cur))
+
+(defn hash-by-id [v] (reduce (partial hash-by :id) (sorted-map) v))
+
 (def
   poketypes-keywords
   [:normal :fighting :flying

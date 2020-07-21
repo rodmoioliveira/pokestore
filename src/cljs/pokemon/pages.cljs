@@ -11,6 +11,7 @@
                                poke-store-select
                                sorting-poke-select
                                nav
+                               cart
                                footer]]))
 
 (defn home-page []
@@ -33,7 +34,9 @@
       [sorting-poke-select]
       [:span.poke-count
        [:span (str "(" (count pokemons))]
-       [:span.poke-results " results"]
+       [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                             " result"
+                             " results")]
        [:span ")"]]]]))
 
 (defn poketype-list-page []
@@ -89,7 +92,8 @@
       [:main.main
        [nav]
        [page]
-       [footer]])))
+       [footer]
+       [cart]])))
 
 (defn page-for [route]
   (cond
