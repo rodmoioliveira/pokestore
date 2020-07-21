@@ -427,7 +427,7 @@
 
 .nav-input-text {
   border-radius: 3px;
-  border: none;
+  border: 1px solid var(--main-font-color);
   width: 550px;
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
