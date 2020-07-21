@@ -37,7 +37,7 @@
                              " results")]
        [:span ")"]]]]))
 
-(defn poke-stores-page []
+(defn poke-store-page []
   (fn []
     (let [current-page (-> @store :select-store)
           sorting (-> @store :sorting)
@@ -118,4 +118,4 @@
   (cond
     (some #(= route %) [:index]) home-page
     (some #(= route %) [:cart]) cart-page
-    (some #(= route %) poketypes-keywords) poke-stores-page))
+    (some #(= route %) poketypes-keywords) poke-store-page))
