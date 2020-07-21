@@ -117,7 +117,13 @@
   []
   [:section.cart {:data-active (-> @store :cart-view-active?)}
    [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
-   [:h1.cart-title "Your Pokeball"]])
+   [:h1.cart-title "Your Pokeball"]
+   [:ul.cart-pokes
+    [:li.cart-poke "1"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]
+    [:li.cart-poke "2"]]])
 
 (defn nav
   []

@@ -489,7 +489,7 @@
   top: 0;
   z-index: 3;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   transform: translateX(100vw);
   transition: opacity 300ms ease, transform 300ms ease;
   opacity: 0; }
@@ -519,6 +519,9 @@
   font-size: 8vw;
   font-weight: 900;
   margin: 1rem; }
+  @media screen and (max-width: 768px) {
+    .cart-title {
+      font-size: calc(var(--font-size) * 2.8); } }
 
 * {
   font-family: 'Lato', sans-serif; }
