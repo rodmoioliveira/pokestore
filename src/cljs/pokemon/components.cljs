@@ -138,7 +138,7 @@
                      [:img.cart-poke-type
                       {:src
                        (-> poketypes-info type :src)}]
-                     [:p.cart-poke-name (str "$" price)]
+                     [:p.cart-poke-price (str "$" price)]
                      [:button.cart-poke-add
                       {:on-click
                        (fn []
