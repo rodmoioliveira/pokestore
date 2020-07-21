@@ -489,7 +489,7 @@
   top: 0;
   z-index: 3;
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   transform: translateX(100vw);
   transition: opacity 300ms ease, transform 300ms ease;
   opacity: 0; }
@@ -497,6 +497,13 @@
 [data-active="true"] {
   transform: translateX(0);
   opacity: 1; }
+
+.cart-nav {
+  max-width: 70rem;
+  overflow-y: scroll;
+  margin: auto;
+  height: 50%;
+  outline: 1px dashed white; }
 
 .cart-close {
   margin: 2rem auto 0;
@@ -522,6 +529,17 @@
   @media screen and (max-width: 768px) {
     .cart-title {
       font-size: calc(var(--font-size) * 2.8); } }
+
+.cart-pokes {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+
+.cart-poke {
+  display: flex; }
+
+.cart-poke-img {
+  height: 5rem; }
 
 * {
   font-family: 'Lato', sans-serif; }

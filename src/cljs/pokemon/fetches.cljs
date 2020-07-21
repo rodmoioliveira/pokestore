@@ -32,6 +32,7 @@
                                         :popularity index
                                         :offer? offer?
                                         :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+                                        :type (-> poketype keyword)
                                         :price
                                         (->> p :name (map char-code) (reduce +))}))))
              (remove (fn [{:keys [id]}] (or

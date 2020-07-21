@@ -118,12 +118,37 @@
   [:section.cart {:data-active (-> @store :cart-view-active?)}
    [:button.cart-close {:on-click (fn [] (swap! store update-in [:cart-view-active?] not))} "back"]
    [:h1.cart-title "Your Pokeball"]
-   [:ul.cart-pokes
-    [:li.cart-poke "1"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]
-    [:li.cart-poke "2"]]])
+   [:nav.cart-nav
+    ; TODO: refactor
+    [:ul.cart-pokes
+     (->> @store :cart
+          vec
+          (map (comp
+                (fn [{:keys [id name type price]}]
+                  (let [in-cart? (some? (some (-> @store :cart) [id]))]
+                    [:li.cart-poke
+                     {:key (str "cart-poke-" id)}
+                     [:img.cart-poke-img
+                      {:src
+                       (str
+                        "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+                        id
+                        ".png")}]
+                     [:p.cart-poke-name name]
+                     [:img.cart-poke-type
+                      {:src
+                       (-> poketypes-info type :src)}]
+                     [:p.cart-poke-name (str "$" price)]
+                     [:button.cart-poke-add
+                      {:on-click
+                       (fn []
+                         (if in-cart?
+                           (swap! store update-in [:cart] disj id)
+                           (swap! store update-in [:cart] conj id)))}
+                      (str (if in-cart? "Remove from " "Add to ") "cart")]]))
+                #(get-in @store [:pokemon-hash %])
+                keyword
+                str)))]]])
 
 (defn nav
   []
