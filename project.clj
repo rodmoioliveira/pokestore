@@ -58,7 +58,8 @@
               :pretty-print  false}}
             :app
             {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
-             :figwheel {:on-jsload "pokemon.core/mount-root"}
+             :figwheel {:on-jsload "pokemon.core/mount-root"
+                        :open-urls ["http://0.0.0.0:3449"]}
              :compiler
              {:main "pokemon.dev"
               :asset-path "/js/out"
