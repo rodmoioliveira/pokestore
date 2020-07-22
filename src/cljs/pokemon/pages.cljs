@@ -20,12 +20,10 @@
 
 (defn poke-store-page []
   (fn []
-    (let [select-store (-> @store :select-store)
-          sorting (-> @store :sorting)
-          search (-> @store :search)
+    (let [{:keys [select-store sorting search pokemon-hash]} @store
           pokemons (->>
                     (get-in @store [:pokemon (keyword select-store)])
-                    (map #(get-in @store [:pokemon-hash %])))
+                    (map #(get pokemon-hash %)))
           display-pokemons (->>
                             pokemons
                             (sort-by sorting)
@@ -42,11 +40,8 @@
 
 (defn cart-page []
   (fn []
-    (let [select-store (-> @store :select-store)
-          sorting (-> @store :sorting)
-          search (-> @store :search)
-          cart-pokemons (->> @store
-                             :cart
+    (let [{:keys [select-store sorting search cart]} @store
+          cart-pokemons (->> cart
                              vec
                              (map (comp
                                    #(get-in @store [:pokemon-hash %])
@@ -58,7 +53,6 @@
                                 (if (= search "")
                                   true
                                   (includes? (p :name) search)))))
-
           pokemons-count (count cart-pokemons)
           fail-search? (zero? pokemons-count)]
       [:section.poke.padding-nav
