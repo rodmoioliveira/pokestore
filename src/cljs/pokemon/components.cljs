@@ -136,38 +136,48 @@
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
 
+(defn poke-sort-nav
+  "TODO: escrever documentação"
+  [pokemons select-store]
+  [:nav.poke-nav.poke-nav--sort
+   [:div
+    [:span.poke-title "Sort by"]
+    [sorting-poke-select]
+    [:span.poke-count
+     [:span (str "(" (count pokemons))]
+     [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                           " result"
+                           " results")]
+     [:span ")"]]]
+   [:div
+    [:button.poke-buy
+     {:on-click (fn [] (print "click"))
+      :class (when
+              (and (= select-store "cart") (not (zero? (count pokemons))))
+               "poke-buy--active")} "Buy now"]]])
+
+(defn poke-store-nav
+  "TODO: escrever documentação"
+  [pokemons select-store]
+  [:nav.poke-nav.poke-nav--store
+   [:div
+    [:span.poke-title (if (= select-store "cart") "My" "Top")]
+    [poke-store-select select-store]
+    (when-not (= select-store "cart")
+      [:span.poke-title "pokemons"])]
+   [:div
+    (when (= select-store "cart")
+      [:span.poke-title.poke-total
+       [:span "Total: "]
+       [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]])
+
 (defn poke-nav
   "TODO: escrever documentação"
   []
   (fn [select-store pokemons]
     [:div.poke-nav-wrapper
-     [:nav.poke-nav.poke-nav--store
-      [:div
-       [:span.poke-title (if (= select-store "cart") "My" "Top")]
-       [poke-store-select select-store]
-       (when-not (= select-store "cart")
-         [:span.poke-title "pokemons"])]
-      [:div
-       (when (= select-store "cart")
-         [:span.poke-title.poke-total
-          [:span "Total: "]
-          [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]]
-
-     [:nav.poke-nav.poke-nav--sort
-      [:div
-       [:span.poke-title "Sort by"]
-       [sorting-poke-select]
-       [:span.poke-count
-        [:span (str "(" (count pokemons))]
-        [:span.poke-results (if (some #{0 1} [(count pokemons)])
-                              " result"
-                              " results")]
-        [:span ")"]]]
-      [:div
-       [:button.poke-buy
-        {:class (when
-                 (and (= select-store "cart") (not (zero? (count pokemons))))
-                  "poke-buy--active")} "Buy now"]]]]))
+     [poke-store-nav pokemons select-store]
+     [poke-sort-nav pokemons select-store]]))
 
 (defn poke-list
   "TODO: escrever documentação"

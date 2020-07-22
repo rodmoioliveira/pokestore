@@ -333,22 +333,24 @@
   height: 13%; }
 
 .poke-buy {
-  color: white;
-  background-color: #FF7F00;
-  border: 2px solid #FF7F00;
-  font-size: calc(var(--font-size) * 1.2);
+  color: #222;
+  background-color: yellow;
+  border: 2px solid #222;
+  font-size: calc(var(--font-size) * 1.6);
   text-transform: uppercase;
   padding: 0.5rem;
   cursor: pointer;
   border-radius: 3px;
   font-weight: 900;
   opacity: 0;
-  transition: opacity 300ms ease; }
+  transition: opacity 300ms ease;
+  pointer-events: none; }
   .poke-buy--active {
-    opacity: 1; }
+    opacity: 1;
+    pointer-events: initial; }
   @media screen and (max-width: 480px) {
     .poke-buy {
-      font-size: calc(var(--font-size) * 1); } }
+      font-size: calc(var(--font-size) * 1.1); } }
 
 .poke-add {
   background-color: var(--main-color);
@@ -430,7 +432,7 @@
 
 .nav-count {
   position: absolute;
-  background: #FF7F00;
+  background: yellow;
   border-radius: 1000px;
   height: 1.6rem;
   width: 1.6rem;
@@ -440,7 +442,8 @@
   align-items: center;
   font-weight: 700;
   letter-spacing: -1px;
-  color: white;
+  color: #222;
+  border: 2px solid #222;
   margin: 0;
   bottom: -5%;
   right: 2%; }

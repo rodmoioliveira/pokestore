@@ -184,10 +184,10 @@
   height: 13%
 
 .poke-buy
-  color: white
-  background-color: #FF7F00
-  border: 2px solid #FF7F00
-  font-size: calc(var(--font-size) * 1.2)
+  color: #222
+  background-color: yellow
+  border: 2px solid #222
+  font-size: calc(var(--font-size) * 1.6)
   text-transform: uppercase
   padding: 0.5rem
   cursor: pointer
@@ -195,12 +195,14 @@
   font-weight: 900
   opacity: 0
   transition: opacity 300ms ease
+  pointer-events: none
 
   &--active
     opacity: 1
+    pointer-events: initial
 
   @media screen and (max-width: $mobile-width)
-    font-size: calc(var(--font-size) * 1)
+    font-size: calc(var(--font-size) * 1.1)
 
 .poke-add
   background-color: var(--main-color)
