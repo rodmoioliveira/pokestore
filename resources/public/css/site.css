@@ -300,7 +300,7 @@
       padding: 2rem 10px 0.3rem; } }
 
 .poke-nav--sort {
-  padding: 0.3rem 10px 1rem; }
+  padding: 0.3rem 10px 0.6rem; }
 
 .poke-select {
   font-weight: 900;
@@ -312,7 +312,7 @@
   background-color: white;
   padding: 0.5rem; }
   .poke-nav--sort .poke-select {
-    font-size: calc(var(--font-size) * 1);
+    font-size: calc(var(--font-size) * 1.2);
     font-weight: 500;
     padding: 0.3rem; }
     @media screen and (max-width: 480px) {
@@ -332,7 +332,7 @@
   color: #222;
   font-size: calc(var(--font-size) * 1.9); }
   .poke-nav--sort .poke-title {
-    font-size: calc(var(--font-size) * 1);
+    font-size: calc(var(--font-size) * 1.2);
     font-weight: 500; }
     @media screen and (max-width: 480px) {
       .poke-nav--sort .poke-title {
