@@ -1,45 +1,16 @@
 (ns pokemon.pages
   (:require
    [reagent.session :as session]
-   [clojure.string :refer [includes?]]
 
    [pokemon.store :refer [store]]
-   [pokemon.util :refer [poketypes-keywords]]
+   [pokemon.util :refer [poketypes-keywords
+                         get-store-pokemon
+                         get-cart-pokemon]]
    [pokemon.components :refer [poke-store-type
                                poke-nav
                                poke-list
                                nav
                                footer]]))
-
-(defn get-cart-pokemon
-  [cart sorting search]
-  (->> cart
-       vec
-       (map (comp
-             #(get-in @store [:pokemon-hash %])
-             keyword
-             str))
-       (sort-by sorting)
-       (filter
-        (fn [p]
-          (if (= search "")
-            true
-            (includes? (p :name) search))))))
-
-(defn get-store-pokemon
-  [pokemon-hash select-store sorting search]
-  (let [pokemons (->>
-                  (get-in @store [:pokemon (keyword select-store)])
-                  (map #(get pokemon-hash %)))
-        store-pokemon (->>
-                       pokemons
-                       (sort-by sorting)
-                       (filter
-                        (fn [p]
-                          (if (= search "")
-                            true
-                            (includes? (p :name) search)))))]
-    store-pokemon))
 
 (defn home-page []
   (fn []

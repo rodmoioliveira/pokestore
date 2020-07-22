@@ -1,7 +1,7 @@
 (ns pokemon.util
   #?(:cljs
      (:require
-      [clojure.string :refer [replace]]
+      [clojure.string :refer [replace includes?]]
 
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
@@ -88,3 +88,35 @@
       :dragon {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c7/Dragon.png"}
       :dark {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0e/Dark.png"}
       :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}}))
+
+#?(:cljs
+   (defn filter-by
+     [search]
+     (fn [p]
+       (if (= search "")
+         true
+         (includes? (p :name) search)))))
+
+#?(:cljs
+   (defn get-cart-pokemon
+     [cart sorting search]
+     (->> cart
+          vec
+          (map (comp
+                #(get-in @store [:pokemon-hash %])
+                keyword
+                str))
+          (sort-by sorting)
+          (filter (filter-by search)))))
+
+#?(:cljs
+   (defn get-store-pokemon
+     [pokemon-hash select-store sorting search]
+     (let [pokemons (->>
+                     (get-in @store [:pokemon (keyword select-store)])
+                     (map #(get pokemon-hash %)))
+           store-pokemon (->>
+                          pokemons
+                          (sort-by sorting)
+                          (filter (filter-by search)))]
+       store-pokemon)))
