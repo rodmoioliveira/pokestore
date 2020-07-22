@@ -97,11 +97,11 @@
        [:img.nav-img {:src store-icon-src}])]))
 
 (defn poke-store-select
-  [current-page]
+  [select-store]
   [:select.poke-select.poke-select--store
    {:name "poke-store"
     :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
-    :defaultValue current-page}
+    :defaultValue select-store}
    (->> poketypes-keywords
         (map name)
         sort
@@ -124,10 +124,43 @@
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
 
+(defn poke-nav
+  []
+  (fn [select-store pokemons]
+    [:div.poke-nav-wrapper
+     [:nav.poke-nav.poke-nav--store
+      [:span.poke-title (if (= select-store "cart") "My" "Top")]
+      [poke-store-select select-store]
+      [:span.poke-title "pokemons"]]
+     [:nav.poke-nav.poke-nav--sort
+      [:span.poke-title "Sort by"]
+      [sorting-poke-select]
+      [:span.poke-count
+       [:span (str "(" (count pokemons))]
+       [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                             " result"
+                             " results")]
+       [:span ")"]]]]))
+
+(defn poke-list
+  [fail-search? pokemons select-store]
+  [:ul.poke-list
+   (if fail-search?
+     [:li.poke-no-results "No results :("]
+     (->>
+      pokemons
+      (map (fn [{:keys [id name] :as p}]
+             [poke-item
+              (merge
+               p
+               {:key (str select-store "-" name "-" id)
+                :poke-id id
+                :select-store select-store})]))))])
+
 (defn nav
   []
-  (let [current-pokestore (-> @store :select-store keyword)
-        nav-active? (some #{current-pokestore} (conj poketypes-keywords :cart))]
+  (let [select-store (-> @store :select-store keyword)
+        nav-active? (some #{select-store} (conj poketypes-keywords :cart))]
     [:nav.nav
      [:ul.nav-ul
       [nav-icon]
