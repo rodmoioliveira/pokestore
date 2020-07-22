@@ -10,6 +10,8 @@
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!
+                         streamline
+                         purchase-stage-msg
                          poketypes-keywords
                          poketypes-info]]))
 
@@ -82,9 +84,11 @@
 
 (defn nav-cart
   "TODO: escrever documentação"
-  []
+  [purchase-stage]
   [:li.nav-li.nav-li--pokeball
-   [:small.nav-count (-> @store :cart count)]
+   [:small.nav-count
+    {:data-stage (name purchase-stage)}
+    (-> @store :cart count)]
    [:a
     {:href (path-for :cart)}
     [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
@@ -139,22 +143,24 @@
 (defn poke-sort-nav
   "TODO: escrever documentação"
   [pokemons select-store]
-  [:nav.poke-nav.poke-nav--sort
-   [:div
-    [:span.poke-title "Sort by"]
-    [sorting-poke-select]
-    [:span.poke-count
-     [:span (str "(" (count pokemons))]
-     [:span.poke-results (if (some #{0 1} [(count pokemons)])
-                           " result"
-                           " results")]
-     [:span ")"]]]
-   [:div
-    [:button.poke-buy
-     {:on-click (fn [] (print "click"))
-      :class (when
-              (and (= select-store "cart") (not (zero? (count pokemons))))
-               "poke-buy--active")} "Buy now"]]])
+  (let [{:keys [purchase-stage]} @store]
+    [:nav.poke-nav.poke-nav--sort
+     [:div
+      [:span.poke-title "Sort by"]
+      [sorting-poke-select]
+      [:span.poke-count
+       [:span (str "(" (count pokemons))]
+       [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                             " result"
+                             " results")]
+       [:span ")"]]]
+     [:div
+      [:button.poke-buy
+       {:data-stage (name purchase-stage)
+        :on-click streamline
+        :class (when
+                (and (= select-store "cart") (not (zero? (count pokemons))))
+                 "poke-buy--active")} (-> purchase-stage-msg purchase-stage)]]]))
 
 (defn poke-store-nav
   "TODO: escrever documentação"
@@ -198,14 +204,14 @@
 (defn nav
   "TODO: escrever documentação"
   []
-  (let [select-store (-> @store :select-store keyword)
-        nav-active? (some #{select-store} (conj poketypes-keywords :cart))]
+  (let [{:keys [purchase-stage select-store]} @store
+        nav-active? (some #{(keyword select-store)} (conj poketypes-keywords :cart))]
     [:nav.nav
      [:ul.nav-ul
       [nav-icon]
       [nav-title]
       (when nav-active? [search-bar])
-      [nav-cart]]]))
+      [nav-cart purchase-stage]]]))
 
 (defn footer
   "TODO: escrever documentação"

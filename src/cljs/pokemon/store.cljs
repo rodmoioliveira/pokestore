@@ -31,5 +31,6 @@
    :pokemon-ids #{}
    :pokemon-hash {}
    :cart #{}
+   :purchase-stage :buy
    :select-store nil})
 (defonce store (atom initial-state))

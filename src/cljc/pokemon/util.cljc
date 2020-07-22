@@ -126,3 +126,34 @@
                           (sort-by sorting)
                           (filter (filter-by search)))]
        store-pokemon)))
+
+(def purchase-stage-msg
+  {:buy "Buy now"
+   :thanks "Thanks ;)"
+   :shipping "Shipping..."
+   :done "Done!"})
+
+#?(:cljs
+   (defn sleep [f ms]
+     (js/setTimeout f ms)))
+
+#?(:cljs
+   (defn set-purchase-stage!
+     [stage]
+     (swap! store
+            assoc :purchase-stage stage)))
+
+#?(:cljs
+   (defn streamline
+     []
+     (doseq [{:keys [t f]} [{:t 0
+                             :f #(set-purchase-stage! :thanks)}
+                            {:t 2000
+                             :f #(set-purchase-stage! :shipping)}
+                            {:t 4000
+                             :f #(set-purchase-stage! :done)}
+                            {:t 6000
+                             :f #(swap! store assoc :cart #{})}
+                            {:t 6500
+                             :f #(set-purchase-stage! :buy)}]]
+       (sleep f t))))

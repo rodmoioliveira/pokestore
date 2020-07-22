@@ -184,9 +184,6 @@
   height: 13%
 
 .poke-buy
-  color: #222
-  background-color: yellow
-  border: 2px solid #222
   font-size: calc(var(--font-size) * 1.6)
   text-transform: uppercase
   padding: 0.5rem
@@ -194,7 +191,7 @@
   border-radius: 3px
   font-weight: 900
   opacity: 0
-  transition: opacity 300ms ease
+  transition: opacity 300ms ease, background-color 300ms linear -100ms;
   pointer-events: none
 
   &--active
@@ -203,6 +200,27 @@
 
   @media screen and (max-width: $mobile-width)
     font-size: calc(var(--font-size) * 1.1)
+
+[data-stage="buy"]
+  color: #222
+  background-color: yellow
+  border: 2px solid #222
+
+[data-stage="thanks"]
+  color: white
+  background-color: green
+  border: 2px solid #222
+
+[data-stage="shipping"]
+  color: white
+  background-color: blue
+  border: 2px solid #222
+
+[data-stage="done"]
+  color: white
+  background-color: black
+  border: 2px solid #222
+
 
 .poke-add
   background-color: var(--main-color)
