@@ -142,9 +142,17 @@
   (fn [select-store pokemons]
     [:div.poke-nav-wrapper
      [:nav.poke-nav.poke-nav--store
-      [:span.poke-title (if (= select-store "cart") "My" "Top")]
-      [poke-store-select select-store]
-      [:span.poke-title "pokemons"]]
+      [:div
+       [:span.poke-title (if (= select-store "cart") "My" "Top")]
+       [poke-store-select select-store]
+       (when-not (= select-store "cart")
+         [:span.poke-title "pokemons"])]
+      [:div
+       (when (= select-store "cart")
+         [:span.poke-title.poke-total
+          [:span "Total: "]
+          [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]]
+
      [:nav.poke-nav.poke-nav--sort
       [:span.poke-title "Sort by"]
       [sorting-poke-select]
