@@ -42,7 +42,9 @@
     (let [current-page (-> @store :select-store)
           sorting (-> @store :sorting)
           search-term (-> @store :search)
-          pokemons (get-in @store [:pokemon (keyword current-page)])
+          pokemons (->>
+                    (get-in @store [:pokemon (keyword current-page)])
+                    (map #(get-in @store [:pokemon-hash %])))
           display-pokemons (->>
                             pokemons
                             (sort-by sorting)

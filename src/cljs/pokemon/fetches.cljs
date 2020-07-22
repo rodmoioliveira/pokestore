@@ -2,6 +2,7 @@
   (:require
    [cljs.pprint :refer [char-code]]
    [clojure.string :refer [split]]
+   [clojure.set :refer [union]]
 
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poke-url
@@ -38,12 +39,19 @@
              (remove (fn [{:keys [id]}] (or
                                          (> id 9999)
                                          (some #{id} (-> @store :unavailable-pokemon)))))
+             ((fn [pokemons]
+                (swap! store update-in [:pokemon]
+                       assoc (-> poketype keyword) (->> pokemons (map (comp keyword str :id))))
+                pokemons))
+             (remove (fn [{:keys [id]}] (or
+                                         (some #{id} (-> @store :pokemon-ids)))))
              (mapv (fn [{:keys [discount-rate price] :as p}]
                      (merge p {:price (* (/ (- 100 (- discount-rate)) 100) price)})))
              ((fn [pokemons]
-                ; FIXME: lidar com pokemons que aparecem em duas listas!
-                (swap! store update-in [:pokemon] assoc (-> poketype keyword) pokemons)
-                (swap! store assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
+                (swap! store update-in [:pokemon-ids]
+                       union (->> pokemons (map (comp keyword str :id)) set))
+                (swap! store
+                       assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
 
 (defn set-poke-types!
   []
