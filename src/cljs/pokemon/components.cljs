@@ -14,6 +14,7 @@
                          poketypes-info]]))
 
 (defn poke-store-type
+  "TODO: escrever documentação"
   [poketype]
   [:a.poketype-link
    {:href (path-for (-> poketype keyword))
@@ -23,6 +24,7 @@
    [:span.poketype-name poketype]])
 
 (defn poke-image
+  "TODO: escrever documentação"
   [id]
   [:img.poke-img
    {:src
@@ -32,6 +34,7 @@
      ".png")}])
 
 (defn poke-info
+  "TODO: escrever documentação"
   [p in-cart?]
   [:p.poke-info
    [:span.poke-name (p :name)]
@@ -43,6 +46,7 @@
       {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])])
 
 (defn poke-add-btn
+  "TODO: escrever documentação"
   [in-cart? poke-id]
   [:button.poke-add {:class (when in-cart? "poke-add--in-cart")
                      :on-click (fn []
@@ -52,6 +56,7 @@
    (str (if in-cart? "Remove from " "Add to ") "cart")])
 
 (defn poke-item
+  "TODO: escrever documentação"
   [{:keys [poke-id] :as p}]
   (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
     [:li.poke-item
@@ -60,6 +65,7 @@
      [poke-add-btn in-cart? poke-id]]))
 
 (defn nav-search-input
+  "TODO: escrever documentação"
   []
   [:input.nav-input-text {:type "text"
                           :placeholder "search for a pokemon..."
@@ -69,11 +75,13 @@
                                          assoc :search (-> e .-target .-value lower-case)))}])
 
 (defn search-bar
+  "TODO: escrever documentação"
   []
   [:li.nav-li.nav-li--inputs
    [nav-search-input]])
 
 (defn nav-cart
+  "TODO: escrever documentação"
   []
   [:li.nav-li.nav-li--pokeball
    [:small.nav-count (-> @store :cart count)]
@@ -82,6 +90,7 @@
     [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
 
 (defn nav-title
+  "TODO: escrever documentação"
   []
   [:li.nav-li.nav-li--title
    [:a.nav-a
@@ -90,6 +99,7 @@
     [:span "PokeStore"]]])
 
 (defn nav-icon
+  "TODO: escrever documentação"
   []
   (let [store-icon-src (-> @store :select-store keyword poketypes-info :src)]
     [:li.nav-li.nav-li--store-icon
@@ -97,6 +107,7 @@
        [:img.nav-img {:src store-icon-src}])]))
 
 (defn poke-store-select
+  "TODO: escrever documentação"
   [select-store]
   [:select.poke-select.poke-select--store
    {:name "poke-store"
@@ -110,6 +121,7 @@
                [:option.poke-option {:value p :key p} (capitalize p)])))])
 
 (defn sorting-poke-select
+  "TODO: escrever documentação"
   []
   [:select.poke-select.poke-select--sort
    {:name "poke-sorting"
@@ -125,6 +137,7 @@
                 (-> p (split #"-") first capitalize)])))])
 
 (defn poke-nav
+  "TODO: escrever documentação"
   []
   (fn [select-store pokemons]
     [:div.poke-nav-wrapper
@@ -143,6 +156,7 @@
        [:span ")"]]]]))
 
 (defn poke-list
+  "TODO: escrever documentação"
   [fail-search? pokemons select-store]
   [:ul.poke-list
    (if fail-search?
@@ -158,6 +172,7 @@
                 :select-store select-store})]))))])
 
 (defn nav
+  "TODO: escrever documentação"
   []
   (let [select-store (-> @store :select-store keyword)
         nav-active? (some #{select-store} (conj poketypes-keywords :cart))]
@@ -169,6 +184,7 @@
       [nav-cart]]]))
 
 (defn footer
+  "TODO: escrever documentação"
   []
   [:footer.footer
    [:p "Criado por Rodolfo Mói"]])

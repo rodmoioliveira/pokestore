@@ -32,6 +32,7 @@
 
 #?(:cljs
    (defn fetch-then
+     "TODO: escrever documentação"
      [url fns]
      (-> js/window
          (.fetch url)
@@ -42,6 +43,7 @@
 
 #?(:cljs
    (defn set-theme!
+     "TODO: escrever documentação"
      [theme]
      (fn []
        (let [t (replace theme #"-poke" "")]
@@ -51,6 +53,7 @@
          (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) t))))))
 
 (defn hash-by
+  "TODO: escrever documentação"
   [key acc cur]
   (assoc acc (-> cur key str keyword) cur))
 
@@ -91,6 +94,7 @@
 
 #?(:cljs
    (defn filter-by
+     "TODO: escrever documentação"
      [search]
      (fn [p]
        (if (= search "")
@@ -99,6 +103,7 @@
 
 #?(:cljs
    (defn get-cart-pokemon
+     "TODO: escrever documentação"
      [cart sorting search]
      (->> cart
           vec
@@ -111,6 +116,7 @@
 
 #?(:cljs
    (defn get-store-pokemon
+     "TODO: escrever documentação"
      [pokemon-hash select-store sorting search]
      (let [pokemons (->>
                      (get-in @store [:pokemon (keyword select-store)])
