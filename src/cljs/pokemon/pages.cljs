@@ -11,6 +11,36 @@
                                nav
                                footer]]))
 
+(defn get-cart-pokemon
+  [cart sorting search]
+  (->> cart
+       vec
+       (map (comp
+             #(get-in @store [:pokemon-hash %])
+             keyword
+             str))
+       (sort-by sorting)
+       (filter
+        (fn [p]
+          (if (= search "")
+            true
+            (includes? (p :name) search))))))
+
+(defn get-store-pokemon
+  [pokemon-hash select-store sorting search]
+  (let [pokemons (->>
+                  (get-in @store [:pokemon (keyword select-store)])
+                  (map #(get pokemon-hash %)))
+        store-pokemon (->>
+                       pokemons
+                       (sort-by sorting)
+                       (filter
+                        (fn [p]
+                          (if (= search "")
+                            true
+                            (includes? (p :name) search)))))]
+    store-pokemon))
+
 (defn home-page []
   (fn []
     [:section.poketype.padding-nav
@@ -21,17 +51,8 @@
 (defn poke-store-page []
   (fn []
     (let [{:keys [select-store sorting search pokemon-hash]} @store
-          pokemons (->>
-                    (get-in @store [:pokemon (keyword select-store)])
-                    (map #(get pokemon-hash %)))
-          display-pokemons (->>
-                            pokemons
-                            (sort-by sorting)
-                            (filter
-                             (fn [p]
-                               (if (= search "")
-                                 true
-                                 (includes? (p :name) search)))))
+          display-pokemons (get-store-pokemon
+                            pokemon-hash select-store sorting search)
           pokemons-count (count display-pokemons)
           fail-search? (zero? pokemons-count)]
       [:section.poke.padding-nav
@@ -41,18 +62,7 @@
 (defn cart-page []
   (fn []
     (let [{:keys [select-store sorting search cart]} @store
-          cart-pokemons (->> cart
-                             vec
-                             (map (comp
-                                   #(get-in @store [:pokemon-hash %])
-                                   keyword
-                                   str))
-                             (sort-by sorting)
-                             (filter
-                              (fn [p]
-                                (if (= search "")
-                                  true
-                                  (includes? (p :name) search)))))
+          cart-pokemons (get-cart-pokemon cart sorting search)
           pokemons-count (count cart-pokemons)
           fail-search? (zero? pokemons-count)]
       [:section.poke.padding-nav
