@@ -57,7 +57,10 @@
   [key acc cur]
   (assoc acc (-> cur key str keyword) cur))
 
-(defn hash-by-id [v] (reduce (partial hash-by :id) (sorted-map) v))
+(defn hash-by-id
+  "TODO: escrever documentação"
+  [v]
+  (reduce (partial hash-by :id) (sorted-map) v))
 
 (def
   poketypes-keywords
@@ -134,17 +137,21 @@
    :done "Done!"})
 
 #?(:cljs
-   (defn sleep [f ms]
+   (defn sleep
+     "TODO: escrever documentação"
+     [f ms]
      (js/setTimeout f ms)))
 
 #?(:cljs
    (defn set-purchase-stage!
+     "TODO: escrever documentação"
      [stage]
      (swap! store
             assoc :purchase-stage stage)))
 
 #?(:cljs
    (defn streamline
+     "TODO: escrever documentação"
      []
      (doseq [{:keys [t f]} [{:t 0
                              :f #(set-purchase-stage! :thanks)}
