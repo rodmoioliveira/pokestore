@@ -12,6 +12,7 @@
   align-items: baseline
   max-width: 70rem
   margin: 0 auto
+  justify-content: space-between
 
 .poke-nav--store
   padding: 1rem 10px 0.3rem
@@ -20,7 +21,7 @@
     padding: 2rem 10px 0.3rem
 
 .poke-nav--sort
-  padding: 0.3rem 10px 1rem
+  padding: 0.3rem 10px 0.6rem
 
 .poke-select
   font-weight: 900
@@ -33,7 +34,7 @@
   padding: 0.5rem
 
   .poke-nav--sort &
-    font-size: calc(var(--font-size) * 1)
+    font-size: calc(var(--font-size) * 1.2)
     font-weight: 500
     padding: 0.3rem
 
@@ -41,7 +42,7 @@
       font-size: calc(var(--font-size) * 0.9)
 
   @media screen and (max-width: $mobile-width)
-    font-size: calc(var(--font-size) * 1.5)
+    font-size: calc(var(--font-size) * 1.2)
     margin: 0 0.3rem
     padding: 0.3rem
 
@@ -54,14 +55,14 @@
   font-size: calc(var(--font-size) * 1.9)
 
   .poke-nav--sort &
-    font-size: calc(var(--font-size) * 1)
+    font-size: calc(var(--font-size) * 1.2)
     font-weight: 500
 
     @media screen and (max-width: $mobile-width)
       font-size: calc(var(--font-size) * 0.9)
 
   @media screen and (max-width: $mobile-width)
-    font-size: calc(var(--font-size) * 1.5)
+    font-size: calc(var(--font-size) * 1.2)
 
 .poke-count
   font-weight: 400
@@ -70,6 +71,12 @@
 
   @media screen and (max-width: $mobile-width)
     font-size: calc(var(--font-size) * 0.9)
+
+.poke-total-price
+  background: #737373
+  color: white
+  padding: 0.5rem
+  border-radius: 3px
 
 .poke-results
   @media screen and (max-width: 560px)
@@ -175,6 +182,45 @@
   top: 2rem
   left: 0
   height: 13%
+
+.poke-buy
+  font-size: calc(var(--font-size) * 1.6)
+  text-transform: uppercase
+  padding: 0.5rem
+  cursor: pointer
+  border-radius: 3px
+  font-weight: 900
+  opacity: 0
+  transition: opacity 300ms ease, background-color 300ms linear -100ms;
+  pointer-events: none
+
+  &--active
+    opacity: 1
+    pointer-events: initial
+
+  @media screen and (max-width: $mobile-width)
+    font-size: calc(var(--font-size) * 1.1)
+
+[data-stage="buy"]
+  color: #222
+  background-color: yellow
+  border: 2px solid #222
+
+[data-stage="thanks"]
+  color: white
+  background-color: green
+  border: 2px solid #222
+
+[data-stage="shipping"]
+  color: white
+  background-color: blue
+  border: 2px solid #222
+
+[data-stage="done"]
+  color: white
+  background-color: black
+  border: 2px solid #222
+
 
 .poke-add
   background-color: var(--main-color)

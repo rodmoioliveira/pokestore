@@ -1,3 +1,5 @@
+; TODO: https://purelyfunctional.tv/guide/reagent/
+; TODO: https://laptrinhx.com/guide-to-reagent-2944856621/
 (ns pokemon.components
   (:require
    [accountant.core :as accountant]
@@ -8,10 +10,13 @@
    [pokemon.routes :refer [path-for]]
    [pokemon.store :refer [store]]
    [pokemon.util :refer [set-theme!
+                         streamline
+                         purchase-stage-msg
                          poketypes-keywords
                          poketypes-info]]))
 
 (defn poke-store-type
+  "TODO: escrever documentação"
   [poketype]
   [:a.poketype-link
    {:href (path-for (-> poketype keyword))
@@ -20,37 +25,49 @@
    [:img.poketype-img {:src (-> poketype keyword poketypes-info :src)}]
    [:span.poketype-name poketype]])
 
-(defn poke-item
-  [{:keys [poke-id
-           name
-           price
-           offer?
-           discount-rate]}]
-  (fn []
-    (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
-      [:li.poke-item
-       [:img.poke-img
-        {:src
-         (str
-          "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
-          poke-id
-          ".png")}]
-       [:p.poke-info
-        [:span.poke-name name]
-        [:span.poke-price (str "$" price)]
-        (when offer?
-          [:span.poke-discount (str discount-rate "%")])
-        (when in-cart?
-          [:img.poke-in-cart
-           {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])]
-       [:button.poke-add {:class (when in-cart? "poke-add--in-cart")
-                          :on-click (fn []
-                                      (if in-cart?
-                                        (swap! store update-in [:cart] disj poke-id)
-                                        (swap! store update-in [:cart] conj poke-id)))}
-        (str (if in-cart? "Remove from " "Add to ") "cart")]])))
+(defn poke-image
+  "TODO: escrever documentação"
+  [id]
+  [:img.poke-img
+   {:src
+    (str
+     "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
+     id
+     ".png")}])
 
-(defn nav-input-text
+(defn poke-info
+  "TODO: escrever documentação"
+  [p in-cart?]
+  [:p.poke-info
+   [:span.poke-name (p :name)]
+   [:span.poke-price (str "$" (p :price))]
+   (when (p :offer?)
+     [:span.poke-discount (str (p :discount-rate) "%")])
+   (when in-cart?
+     [:img.poke-in-cart
+      {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])])
+
+(defn poke-add-btn
+  "TODO: escrever documentação"
+  [in-cart? poke-id]
+  [:button.poke-add {:class (when in-cart? "poke-add--in-cart")
+                     :on-click (fn []
+                                 (if in-cart?
+                                   (swap! store update-in [:cart] disj poke-id)
+                                   (swap! store update-in [:cart] conj poke-id)))}
+   (str (if in-cart? "Remove from " "Add to ") "cart")])
+
+(defn poke-item
+  "TODO: escrever documentação"
+  [{:keys [poke-id] :as p}]
+  (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
+    [:li.poke-item
+     [poke-image poke-id]
+     [poke-info p in-cart?]
+     [poke-add-btn in-cart? poke-id]]))
+
+(defn nav-search-input
+  "TODO: escrever documentação"
   []
   [:input.nav-input-text {:type "text"
                           :placeholder "search for a pokemon..."
@@ -60,19 +77,24 @@
                                          assoc :search (-> e .-target .-value lower-case)))}])
 
 (defn search-bar
+  "TODO: escrever documentação"
   []
   [:li.nav-li.nav-li--inputs
-   [nav-input-text]])
+   [nav-search-input]])
 
-(defn pokeball
-  []
+(defn nav-cart
+  "TODO: escrever documentação"
+  [purchase-stage]
   [:li.nav-li.nav-li--pokeball
-   [:small.nav-count (-> @store :cart count)]
+   [:small.nav-count
+    {:data-stage (name purchase-stage)}
+    (-> @store :cart count)]
    [:a
     {:href (path-for :cart)}
     [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
 
 (defn nav-title
+  "TODO: escrever documentação"
   []
   [:li.nav-li.nav-li--title
    [:a.nav-a
@@ -80,7 +102,8 @@
      :on-click (set-theme! "index")}
     [:span "PokeStore"]]])
 
-(defn store-icon
+(defn nav-icon
+  "TODO: escrever documentação"
   []
   (let [store-icon-src (-> @store :select-store keyword poketypes-info :src)]
     [:li.nav-li.nav-li--store-icon
@@ -88,11 +111,12 @@
        [:img.nav-img {:src store-icon-src}])]))
 
 (defn poke-store-select
-  [current-page]
+  "TODO: escrever documentação"
+  [select-store]
   [:select.poke-select.poke-select--store
    {:name "poke-store"
     :on-change #(->> % .-target .-value (str "/") accountant/navigate!)
-    :defaultValue current-page}
+    :defaultValue select-store}
    (->> poketypes-keywords
         (map name)
         sort
@@ -101,6 +125,7 @@
                [:option.poke-option {:value p :key p} (capitalize p)])))])
 
 (defn sorting-poke-select
+  "TODO: escrever documentação"
   []
   [:select.poke-select.poke-select--sort
    {:name "poke-sorting"
@@ -115,18 +140,81 @@
                [:option.poke-option {:value p :key p}
                 (-> p (split #"-") first capitalize)])))])
 
-(defn nav
+(defn poke-sort-nav
+  "TODO: escrever documentação"
+  [pokemons select-store]
+  (let [{:keys [purchase-stage]} @store]
+    [:nav.poke-nav.poke-nav--sort
+     [:div
+      [:span.poke-title "Sort by"]
+      [sorting-poke-select]
+      [:span.poke-count
+       [:span (str "(" (count pokemons))]
+       [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                             " result"
+                             " results")]
+       [:span ")"]]]
+     [:div
+      [:button.poke-buy
+       {:data-stage (name purchase-stage)
+        :on-click streamline
+        :class (when
+                (and (= select-store "cart") (not (zero? (count pokemons))))
+                 "poke-buy--active")} (-> purchase-stage-msg purchase-stage)]]]))
+
+(defn poke-store-nav
+  "TODO: escrever documentação"
+  [pokemons select-store]
+  [:nav.poke-nav.poke-nav--store
+   [:div
+    [:span.poke-title (if (= select-store "cart") "My" "Top")]
+    [poke-store-select select-store]
+    (when-not (= select-store "cart")
+      [:span.poke-title "pokemons"])]
+   [:div
+    (when (= select-store "cart")
+      [:span.poke-title.poke-total
+       [:span "Total: "]
+       [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]])
+
+(defn poke-nav
+  "TODO: escrever documentação"
   []
-  (let [current-pokestore (-> @store :select-store keyword)
-        nav-active? (some #{current-pokestore} (conj poketypes-keywords :cart))]
+  (fn [select-store pokemons]
+    [:div.poke-nav-wrapper
+     [poke-store-nav pokemons select-store]
+     [poke-sort-nav pokemons select-store]]))
+
+(defn poke-list
+  "TODO: escrever documentação"
+  [fail-search? pokemons select-store]
+  [:ul.poke-list
+   (if fail-search?
+     [:li.poke-no-results "No results :("]
+     (->>
+      pokemons
+      (map (fn [{:keys [id name] :as p}]
+             [poke-item
+              (merge
+               p
+               {:key (str select-store "-" name "-" id)
+                :poke-id id
+                :select-store select-store})]))))])
+
+(defn nav
+  "TODO: escrever documentação"
+  []
+  (let [{:keys [purchase-stage select-store]} @store
+        nav-active? (some #{(keyword select-store)} (conj poketypes-keywords :cart))]
     [:nav.nav
      [:ul.nav-ul
-      [store-icon]
+      [nav-icon]
       [nav-title]
       (when nav-active? [search-bar])
-      [pokeball]]]))
+      [nav-cart purchase-stage]]]))
 
 (defn footer
+  "TODO: escrever documentação"
   []
   [:footer.footer
    [:p "Criado por Rodolfo Mói"]])

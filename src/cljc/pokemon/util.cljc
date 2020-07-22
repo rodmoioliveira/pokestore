@@ -1,7 +1,7 @@
 (ns pokemon.util
   #?(:cljs
      (:require
-      [clojure.string :refer [replace]]
+      [clojure.string :refer [replace includes?]]
 
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
@@ -32,6 +32,7 @@
 
 #?(:cljs
    (defn fetch-then
+     "TODO: escrever documentação"
      [url fns]
      (-> js/window
          (.fetch url)
@@ -42,6 +43,7 @@
 
 #?(:cljs
    (defn set-theme!
+     "TODO: escrever documentação"
      [theme]
      (fn []
        (let [t (replace theme #"-poke" "")]
@@ -51,10 +53,14 @@
          (-> pokedom/dom :body (.setAttribute (-> pokedom/data-attr :theme) t))))))
 
 (defn hash-by
+  "TODO: escrever documentação"
   [key acc cur]
   (assoc acc (-> cur key str keyword) cur))
 
-(defn hash-by-id [v] (reduce (partial hash-by :id) (sorted-map) v))
+(defn hash-by-id
+  "TODO: escrever documentação"
+  [v]
+  (reduce (partial hash-by :id) (sorted-map) v))
 
 (def
   poketypes-keywords
@@ -88,3 +94,73 @@
       :dragon {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c7/Dragon.png"}
       :dark {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0e/Dark.png"}
       :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}}))
+
+#?(:cljs
+   (defn filter-by
+     "TODO: escrever documentação"
+     [search]
+     (fn [p]
+       (if (= search "")
+         true
+         (includes? (p :name) search)))))
+
+#?(:cljs
+   (defn get-cart-pokemon
+     "TODO: escrever documentação"
+     [cart sorting search]
+     (->> cart
+          vec
+          (map (comp
+                #(get-in @store [:pokemon-hash %])
+                keyword
+                str))
+          (sort-by sorting)
+          (filter (filter-by search)))))
+
+#?(:cljs
+   (defn get-store-pokemon
+     "TODO: escrever documentação"
+     [pokemon-hash select-store sorting search]
+     (let [pokemons (->>
+                     (get-in @store [:pokemon (keyword select-store)])
+                     (map #(get pokemon-hash %)))
+           store-pokemon (->>
+                          pokemons
+                          (sort-by sorting)
+                          (filter (filter-by search)))]
+       store-pokemon)))
+
+(def purchase-stage-msg
+  {:buy "Buy now"
+   :thanks "Thanks ;)"
+   :shipping "Shipping..."
+   :done "Done!"})
+
+#?(:cljs
+   (defn sleep
+     "TODO: escrever documentação"
+     [f ms]
+     (js/setTimeout f ms)))
+
+#?(:cljs
+   (defn set-purchase-stage!
+     "TODO: escrever documentação"
+     [stage]
+     (swap! store
+            assoc :purchase-stage stage)))
+
+#?(:cljs
+   (defn streamline
+     "TODO: escrever documentação"
+     []
+     (doseq [{:keys [t f]} [{:t 0
+                             :f #(set-purchase-stage! :thanks)}
+                            {:t 2000
+                             :f #(set-purchase-stage! :shipping)}
+                            {:t 4000
+                             :f #(set-purchase-stage! :done)}
+                            {:t 6000
+                             :f #(swap! store assoc :cart #{})}
+                            {:t 6500
+                             :f #(set-purchase-stage! :buy)}]]
+       (sleep f t))))

@@ -1,108 +1,47 @@
 (ns pokemon.pages
   (:require
    [reagent.session :as session]
-   [clojure.string :refer [includes?]]
 
    [pokemon.store :refer [store]]
-   [pokemon.util :refer [poketypes-keywords]]
+   [pokemon.util :refer [poketypes-keywords
+                         get-store-pokemon
+                         get-cart-pokemon]]
    [pokemon.components :refer [poke-store-type
-                               poke-item
-                               poke-store-select
-                               sorting-poke-select
+                               poke-nav
+                               poke-list
                                nav
                                footer]]))
 
-(defn home-page []
-  (fn []
-    [:section.poketype.padding-nav
-     [:h1.poketype-title "Choose your store"]
-     [:ul.poketype-list
-      (->> @store :types (map poke-store-type))]]))
-
-(defn poke-nav
+(defn home-page
+  "TODO: escrever documentação"
   []
-  (fn [current-page pokemons]
-    [:div.poke-nav-wrapper
-     [:nav.poke-nav.poke-nav--store
-      [:span.poke-title (if (= current-page "cart") "My" "Top")]
-      [poke-store-select current-page]
-      [:span.poke-title "pokemons"]]
-     [:nav.poke-nav.poke-nav--sort
-      [:span.poke-title "Sort by"]
-      [sorting-poke-select]
-      [:span.poke-count
-       [:span (str "(" (count pokemons))]
-       [:span.poke-results (if (some #{0 1} [(count pokemons)])
-                             " result"
-                             " results")]
-       [:span ")"]]]]))
+  [:section.poketype.padding-nav
+   [:h1.poketype-title "Choose your store"]
+   [:ul.poketype-list
+    (->> @store :types (map poke-store-type))]])
 
-(defn poke-store-page []
-  (fn []
-    (let [current-page (-> @store :select-store)
-          sorting (-> @store :sorting)
-          search-term (-> @store :search)
-          pokemons (get-in @store [:pokemon (keyword current-page)])
-          display-pokemons (->>
-                            pokemons
-                            (sort-by sorting)
-                            (filter
-                             (fn [p]
-                               (if (= search-term "")
-                                 true
-                                 (includes? (p :name) search-term)))))
-          pokemons-count (count display-pokemons)
-          fail-search? (zero? pokemons-count)]
-      [:section.poke.padding-nav
-       [poke-nav current-page display-pokemons]
-       [:ul.poke-list
-        (if fail-search?
-          [:li.poke-no-results "No results :("]
-          (->>
-           display-pokemons
-           (map (fn [{:keys [id name] :as p}]
-                  [poke-item
-                   (merge
-                    p
-                    {:key (str current-page "-" name "-" id)
-                     :poke-id id
-                     :current-page current-page})]))))]])))
+(defn poke-store-page
+  "TODO: escrever documentação"
+  []
+  (let [{:keys [select-store sorting search pokemon-hash]} @store
+        display-pokemons (get-store-pokemon
+                          pokemon-hash select-store sorting search)
+        pokemons-count (count display-pokemons)
+        fail-search? (zero? pokemons-count)]
+    [:section.poke.padding-nav
+     [poke-nav select-store display-pokemons]
+     [poke-list fail-search? display-pokemons select-store]]))
 
-(defn cart-page []
-  (fn []
-    (let [current-page (-> @store :select-store)
-          sorting (-> @store :sorting)
-          search-term (-> @store :search)
-          cart-pokemons (->> @store
-                             :cart
-                             vec
-                             (map (comp
-                                   #(get-in @store [:pokemon-hash %])
-                                   keyword
-                                   str))
-                             (sort-by sorting)
-                             (filter
-                              (fn [p]
-                                (if (= search-term "")
-                                  true
-                                  (includes? (p :name) search-term)))))
-
-          pokemons-count (count cart-pokemons)
-          fail-search? (zero? pokemons-count)]
-      [:section.poke.padding-nav
-       [poke-nav current-page cart-pokemons]
-       [:ul.poke-list
-        (if fail-search?
-          [:li.poke-no-results "No results :("]
-          (->>
-           cart-pokemons
-           (map (fn [{:keys [id name] :as p}]
-                  [poke-item
-                   (merge
-                    p
-                    {:key (str current-page "-" name "-" id)
-                     :poke-id id
-                     :current-page current-page})]))))]])))
+(defn cart-page
+  "TODO: escrever documentação"
+  []
+  (let [{:keys [select-store sorting search cart]} @store
+        cart-pokemons (get-cart-pokemon cart sorting search)
+        pokemons-count (count cart-pokemons)
+        fail-search? (zero? pokemons-count)]
+    [:section.poke.padding-nav
+     [poke-nav select-store cart-pokemons]
+     [poke-list fail-search? cart-pokemons select-store]]))
 
 (defn current-page
   "Page mounting component"
@@ -114,7 +53,9 @@
        [page]
        [footer]])))
 
-(defn page-for [route]
+(defn page-for
+  "TODO: escrever documentação"
+  [route]
   (cond
     (some #(= route %) [:index]) home-page
     (some #(= route %) [:cart]) cart-page
