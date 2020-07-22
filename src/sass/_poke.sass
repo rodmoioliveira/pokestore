@@ -12,10 +12,10 @@
   align-items: baseline
   max-width: 70rem
   margin: 0 auto
+  justify-content: space-between
 
 .poke-nav--store
   padding: 1rem 10px 0.3rem
-  justify-content: space-between
 
   @media screen and (max-width: $tablet-width)
     padding: 2rem 10px 0.3rem
@@ -182,6 +182,25 @@
   top: 2rem
   left: 0
   height: 13%
+
+.poke-buy
+  color: white
+  background-color: #FF7F00
+  border: 2px solid #FF7F00
+  font-size: calc(var(--font-size) * 1.2)
+  text-transform: uppercase
+  padding: 0.5rem
+  cursor: pointer
+  border-radius: 3px
+  font-weight: 900
+  opacity: 0
+  transition: opacity 300ms ease
+
+  &--active
+    opacity: 1
+
+  @media screen and (max-width: $mobile-width)
+    font-size: calc(var(--font-size) * 1)
 
 .poke-add
   background-color: var(--main-color)

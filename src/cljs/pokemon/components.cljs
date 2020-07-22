@@ -154,14 +154,20 @@
           [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]]
 
      [:nav.poke-nav.poke-nav--sort
-      [:span.poke-title "Sort by"]
-      [sorting-poke-select]
-      [:span.poke-count
-       [:span (str "(" (count pokemons))]
-       [:span.poke-results (if (some #{0 1} [(count pokemons)])
-                             " result"
-                             " results")]
-       [:span ")"]]]]))
+      [:div
+       [:span.poke-title "Sort by"]
+       [sorting-poke-select]
+       [:span.poke-count
+        [:span (str "(" (count pokemons))]
+        [:span.poke-results (if (some #{0 1} [(count pokemons)])
+                              " result"
+                              " results")]
+        [:span ")"]]]
+      [:div
+       [:button.poke-buy
+        {:class (when
+                 (and (= select-store "cart") (not (zero? (count pokemons))))
+                  "poke-buy--active")} "Buy now"]]]]))
 
 (defn poke-list
   "TODO: escrever documentação"
