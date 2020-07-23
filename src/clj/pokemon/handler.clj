@@ -50,7 +50,7 @@
    [:meta {:content "https://aqueous-mesa-22699.herokuapp.com/", :property "og:url"}]
    [:meta {:content "PokeStore", :property "og:title"}]
    [:meta {:content "Buy a whole bunch of pokemons!", :property "og:description"}]
-   [:meta {:content "https://img1.goodfon.com/wallpaper/nbig/e/fb/pokemon-pokemons-pikachu-bulbasaur-charmander-squirtle-risun.jpg",
+   [:meta {:content "images/social/social-card.jpg",
            :property "og:image"}]
 
    ; "<!-- Twitter -->"
@@ -59,7 +59,7 @@
    [:meta {:content "PokeStore", :property "twitter:title"}]
    [:meta {:content "Buy a whole bunch of pokemons!",
            :property "twitter:description"}]
-   [:meta {:content "https://img1.goodfon.com/wallpaper/nbig/e/fb/pokemon-pokemons-pikachu-bulbasaur-charmander-squirtle-risun.jpg",
+   [:meta {:content "images/social/social-card.jpg",
            :property "twitter:image"}]
 
    ; "<!-- Color -->"
