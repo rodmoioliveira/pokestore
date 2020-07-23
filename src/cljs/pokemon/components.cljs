@@ -22,7 +22,9 @@
    {:href (path-for (-> poketype keyword))
     :key poketype
     :on-click (set-theme! poketype)}
-   [:img.poketype-img {:src (-> poketype keyword poketypes-info :src)}]
+   [:img.poketype-img
+    {:height 150
+     :src (-> poketype keyword poketypes-info :src)}]
    [:span.poketype-name poketype]])
 
 (defn poke-image
