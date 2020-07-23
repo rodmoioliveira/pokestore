@@ -116,6 +116,12 @@
                 str))
           (reduce +))))
 
+(def sorting-fns
+  {:name (juxt :name :popularity)
+   :popularity (juxt :popularity :name)
+   :price (juxt :price :discount-rate)
+   :discount-rate (juxt :discount-rate :price)})
+
 #?(:cljs
    (defn get-cart-pokemon
      "TODO: escrever documentação"
@@ -126,7 +132,7 @@
                 #(get-in @store [:pokemon-hash %])
                 keyword
                 str))
-          (sort-by sorting)
+          (sort-by (get sorting-fns sorting))
           (filter (filter-by search)))))
 
 #?(:cljs
@@ -138,7 +144,7 @@
                      (map #(get pokemon-hash %)))
            store-pokemon (->>
                           pokemons
-                          (sort-by sorting)
+                          (sort-by (get sorting-fns sorting))
                           (filter (filter-by search)))]
        store-pokemon)))
 
