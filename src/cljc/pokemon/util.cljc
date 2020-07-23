@@ -74,26 +74,26 @@
 #?(:cljs
    (def
      poketypes-info
-     {:index {:src "images/store/star.png"}
-      :cart {:src "images/store/star.png"}
-      :normal {:src "images/types/Normal.png"}
-      :fighting {:src "images/types/Fighting.png"}
-      :flying {:src "images/types/Flying.png"}
-      :poison {:src "images/types/Poison.png"}
-      :ground {:src "images/types/Ground.png"}
-      :rock {:src "images/types/Rock.png"}
-      :bug {:src "images/types/Bug.png"}
-      :ghost {:src "images/types/Ghost.png"}
-      :steel {:src "images/types/Steel.png"}
-      :fire {:src "images/types/Fire.png"}
-      :water {:src "images/types/Water.png"}
-      :grass {:src "images/types/Grass.png"}
-      :electric {:src "images/types/Electric.png"}
-      :psychic {:src "images/types/Psychic.png"}
-      :ice {:src "images/types/Ice.png"}
-      :dragon {:src "images/types/Dragon.png"}
-      :dark {:src "images/types/Dark.png"}
-      :fairy {:src "images/types/Fairy.png"}}))
+     {:index {:src "images/store/star-fs8.png"}
+      :cart {:src "images/store/star-fs8.png"}
+      :normal {:src "images/types/Normal-fs8.png"}
+      :fighting {:src "images/types/Fighting-fs8.png"}
+      :flying {:src "images/types/Flying-fs8.png"}
+      :poison {:src "images/types/Poison-fs8.png"}
+      :ground {:src "images/types/Ground-fs8.png"}
+      :rock {:src "images/types/Rock-fs8.png"}
+      :bug {:src "images/types/Bug-fs8.png"}
+      :ghost {:src "images/types/Ghost-fs8.png"}
+      :steel {:src "images/types/Steel-fs8.png"}
+      :fire {:src "images/types/Fire-fs8.png"}
+      :water {:src "images/types/Water-fs8.png"}
+      :grass {:src "images/types/Grass-fs8.png"}
+      :electric {:src "images/types/Electric-fs8.png"}
+      :psychic {:src "images/types/Psychic-fs8.png"}
+      :ice {:src "images/types/Ice-fs8.png"}
+      :dragon {:src "images/types/Dragon-fs8.png"}
+      :dark {:src "images/types/Dark-fs8.png"}
+      :fairy {:src "images/types/Fairy-fs8.png"}}))
 
 #?(:cljs
    (defn filter-by
