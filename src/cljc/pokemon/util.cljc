@@ -74,26 +74,26 @@
 #?(:cljs
    (def
      poketypes-info
-     {:index {:src "https://icons-for-free.com/iconfiles/png/512/game+go+play+pokemon+icon-1320186971163542651.png"}
-      :cart {:src "https://icons-for-free.com/iconfiles/png/512/game+go+play+pokemon+icon-1320186971163542651.png"}
-      :normal {:src "https://vignette.wikia.nocookie.net/pokemongo/images/f/fb/Normal.png"}
-      :fighting {:src "https://vignette.wikia.nocookie.net/pokemongo/images/3/30/Fighting.png"}
-      :flying {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/7f/Flying.png"}
-      :poison {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/05/Poison.png"}
-      :ground {:src "https://vignette.wikia.nocookie.net/pokemongo/images/8/8f/Ground.png"}
-      :rock {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0b/Rock.png"}
-      :bug {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/7d/Bug.png"}
-      :ghost {:src "https://vignette.wikia.nocookie.net/pokemongo/images/a/ab/Ghost.png"}
-      :steel {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c9/Steel.png"}
-      :fire {:src "https://vignette.wikia.nocookie.net/pokemongo/images/3/30/Fire.png"}
-      :water {:src "https://vignette.wikia.nocookie.net/pokemongo/images/9/9d/Water.png"}
-      :grass {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c5/Grass.png"}
-      :electric {:src "https://vignette.wikia.nocookie.net/pokemongo/images/2/2f/Electric.png"}
-      :psychic {:src "https://vignette.wikia.nocookie.net/pokemongo/images/2/21/Psychic.png"}
-      :ice {:src "https://vignette.wikia.nocookie.net/pokemongo/images/7/77/Ice.png"}
-      :dragon {:src "https://vignette.wikia.nocookie.net/pokemongo/images/c/c7/Dragon.png"}
-      :dark {:src "https://vignette.wikia.nocookie.net/pokemongo/images/0/0e/Dark.png"}
-      :fairy {:src "https://vignette.wikia.nocookie.net/pokemongo/images/4/43/Fairy.png"}}))
+     {:index {:src "images/store/star.png"}
+      :cart {:src "images/store/star.png"}
+      :normal {:src "images/types/Normal.png"}
+      :fighting {:src "images/types/Fighting.png"}
+      :flying {:src "images/types/Flying.png"}
+      :poison {:src "images/types/Poison.png"}
+      :ground {:src "images/types/Ground.png"}
+      :rock {:src "images/types/Rock.png"}
+      :bug {:src "images/types/Bug.png"}
+      :ghost {:src "images/types/Ghost.png"}
+      :steel {:src "images/types/Steel.png"}
+      :fire {:src "images/types/Fire.png"}
+      :water {:src "images/types/Water.png"}
+      :grass {:src "images/types/Grass.png"}
+      :electric {:src "images/types/Electric.png"}
+      :psychic {:src "images/types/Psychic.png"}
+      :ice {:src "images/types/Ice.png"}
+      :dragon {:src "images/types/Dragon.png"}
+      :dark {:src "images/types/Dark.png"}
+      :fairy {:src "images/types/Fairy.png"}}))
 
 #?(:cljs
    (defn filter-by

@@ -31,7 +31,7 @@
   [:img.poke-img
    {:width 150
     :height 150
-    :src (str "images/" id ".png")}])
+    :src (str "images/pokemon/" id ".png")}])
 
 (defn poke-info
   "TODO: escrever documentação"
@@ -43,7 +43,7 @@
      [:span.poke-discount (str (p :discount-rate) "%")])
    (when in-cart?
      [:img.poke-in-cart
-      {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}])])
+      {:src "images/store/pokeball.png"}])])
 
 (defn poke-add-btn
   "TODO: escrever documentação"
@@ -89,7 +89,7 @@
     (-> @store :cart count)]
    [:a
     {:href (path-for :cart)}
-    [:img.nav-img {:src "https://cdn.iconscout.com/icon/free/png-256/pokemon-pokeball-game-go-34722.png"}]]])
+    [:img.nav-img {:src "images/store/pokeball.png"}]]])
 
 (defn nav-title
   "TODO: escrever documentação"
