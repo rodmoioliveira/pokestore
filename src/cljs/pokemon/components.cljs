@@ -217,4 +217,7 @@
   "TODO: escrever documentação"
   []
   [:footer.footer
-   [:p "Criado por Rodolfo Mói"]])
+   [:a.who
+    {:target "_blank"
+     :href "https://github.com/rodmoioliveira/pokestore"}
+    "Who is behind this?"]])
