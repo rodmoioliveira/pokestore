@@ -1,7 +1,10 @@
 (ns pokemon.util
   #?(:cljs
      (:require
-      [clojure.string :refer [replace includes?]]
+      [clojure.string :refer [replace
+                              lower-case
+                              trim
+                              includes?]]
 
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
@@ -102,7 +105,9 @@
      (fn [p]
        (if (= search "")
          true
-         (includes? (p :name) search)))))
+         (includes?
+          (-> p :name lower-case trim)
+          (-> search lower-case trim))))))
 
 #?(:cljs
    (defn get-cart-total

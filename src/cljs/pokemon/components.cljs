@@ -4,7 +4,6 @@
   (:require
    [accountant.core :as accountant]
    [clojure.string :refer [capitalize
-                           lower-case
                            split]]
 
    [pokemon.routes :refer [path-for]]
@@ -74,7 +73,7 @@
                           :value (-> @store :search)
                           :on-change
                           (fn [e] (swap! store
-                                         assoc :search (-> e .-target .-value lower-case)))}])
+                                         assoc :search (-> e .-target .-value)))}])
 
 (defn search-bar
   "TODO: escrever documentação"

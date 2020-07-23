@@ -1,7 +1,7 @@
 (ns pokemon.fetches
   (:require
    [cljs.pprint :refer [char-code]]
-   [clojure.string :refer [split]]
+   [clojure.string :refer [split replace]]
    [clojure.set :refer [union]]
 
    [pokemon.store :refer [store]]
@@ -34,8 +34,8 @@
                                         :offer? offer?
                                         :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
                                         :type (-> poketype keyword)
-                                        :price
-                                        (->> p :name (map char-code) (reduce +))}))))
+                                        :price (->> p :name (map char-code) (reduce +))
+                                        :name (-> p :name (replace #"-" " "))}))))
              (remove (fn [{:keys [id]}] (or
                                          (> id 9999)
                                          (some #{id} (-> @store :unavailable-pokemon)))))
