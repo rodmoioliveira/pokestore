@@ -216,7 +216,8 @@
   "TODO: escrever documentação"
   []
   [:footer.footer
-   [:a.who
+   [:p.footer-copy "PokeStore @ For lazy hunters!"]
+   [:a.footer-who
     {:target "_blank"
      :href "https://github.com/rodmoioliveira/pokestore"}
     "Who is behind this?"]])
