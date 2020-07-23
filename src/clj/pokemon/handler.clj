@@ -32,25 +32,19 @@
    [:meta {:content "Global", :name "distribution"}]
    [:meta {:content "General", :name "rating"}]
 
-   [:link {:href "favicon/apple-icon-57x57.png", :sizes "57x57", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-60x60.png", :sizes "60x60", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-72x72.png", :sizes "72x72", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-76x76.png", :sizes "76x76", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-114x114.png", :sizes "114x114", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-120x120.png", :sizes "120x120", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-144x144.png", :sizes "144x144", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-152x152.png", :sizes "152x152", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/apple-icon-180x180.png", :sizes "180x180", :rel "apple-touch-icon"}]
-   [:link {:href "favicon/android-icon-192x192.png", :sizes "192x192", :type "image/png", :rel "icon"}]
+   ; "<!-- Favicon -->"
+   [:link {:href "favicon/apple-touch-icon.png", :sizes "180x180", :rel "apple-touch-icon"}]
    [:link {:href "favicon/favicon-32x32.png", :sizes "32x32", :type "image/png", :rel "icon"}]
-   [:link {:href "favicon/favicon-96x96.png", :sizes "96x96", :type "image/png", :rel "icon"}]
    [:link {:href "favicon/favicon-16x16.png", :sizes "16x16", :type "image/png", :rel "icon"}]
+   [:link {:color "#ff0000", :href "favicon/safari-pinned-tab.svg", :rel "mask-icon"}]
+   [:link {:href "favicon/favicon.ico", :rel "shortcut icon"}]
    [:link {:href "manifest/manifest.json", :rel "manifest"}]
    [:meta {:content "#f4f4f4", :name "msapplication-TileColor"}]
-   [:meta {:content "favicon/ms-icon-144x144.png", :name "msapplication-TileImage"}]
 
+   ; "<!-- Urls -->"
    [:meta {:content "https://aqueous-mesa-22699.herokuapp.com/", :name "url"}]
    [:meta {:content "https://aqueous-mesa-22699.herokuapp.com/", :name "identifier-URL"}]
+
    ; "<!-- Open Graph / Facebook -->"
    [:meta {:content "website", :property "og:type"}]
    [:meta {:content "https://aqueous-mesa-22699.herokuapp.com/", :property "og:url"}]
@@ -58,6 +52,7 @@
    [:meta {:content "Buy a whole bunch of pokemons!", :property "og:description"}]
    [:meta {:content "https://img1.goodfon.com/wallpaper/nbig/e/fb/pokemon-pokemons-pikachu-bulbasaur-charmander-squirtle-risun.jpg",
            :property "og:image"}]
+
    ; "<!-- Twitter -->"
    [:meta {:content "summary_large_image", :property "twitter:card"}]
    [:meta {:content "https://aqueous-mesa-22699.herokuapp.com/", :property "twitter:url"}]
@@ -67,8 +62,13 @@
    [:meta {:content "https://img1.goodfon.com/wallpaper/nbig/e/fb/pokemon-pokemons-pikachu-bulbasaur-charmander-squirtle-risun.jpg",
            :property "twitter:image"}]
 
+   ; "<!-- Color -->"
    [:meta {:name "theme-color" :content "#f4f4f4" :id "chrome-theme"}]
+
+   ; "<!-- Fonts -->"
    [:link {:href "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" :rel "stylesheet"}]
+
+   ; "<!-- Styles -->"
    (include-css (if (env :dev) "/css/site.css" "/css/site.min.css"))])
 
 (defn loading-page []
