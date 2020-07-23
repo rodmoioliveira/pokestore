@@ -29,11 +29,7 @@
   "TODO: escrever documentação"
   [id]
   [:img.poke-img
-   {:src
-    (str
-     "https://raw.githubusercontent.com/rodmoioliveira/desafio-loja-pokemon/master/src/images/"
-     id
-     ".png")}])
+   {:src (str "images/" id ".png")}])
 
 (defn poke-info
   "TODO: escrever documentação"
