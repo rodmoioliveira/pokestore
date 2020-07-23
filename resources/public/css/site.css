@@ -484,17 +484,20 @@
 [data-stage="thanks"] {
   color: white;
   background-color: green;
-  border: 2px solid #222; }
+  border: 2px solid #222;
+  pointer-events: none; }
 
 [data-stage="shipping"] {
   color: white;
   background-color: blue;
-  border: 2px solid #222; }
+  border: 2px solid #222;
+  pointer-events: none; }
 
 [data-stage="done"] {
   color: white;
   background-color: black;
-  border: 2px solid #222; }
+  border: 2px solid #222;
+  pointer-events: none; }
 
 .poke-add {
   background-color: var(--main-color);
