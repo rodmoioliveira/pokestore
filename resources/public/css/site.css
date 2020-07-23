@@ -162,7 +162,8 @@
   width: 550px;
   height: 35px;
   font-size: calc(var(--font-size) * 1.1);
-  padding: 0.3rem 0.5rem; }
+  padding: 0.3rem 0.5rem;
+  outline: none; }
   @media screen and (max-width: 1024px) {
     .nav-input-text {
       width: 100%; } }
@@ -195,12 +196,57 @@
     .nav-li--pokeball {
       margin-right: 10px; } }
 
-@media screen and (max-width: 1024px) {
-  .nav-li--inputs {
-    padding: 0 10px;
-    margin-top: 1rem;
-    flex: 1 1 100%;
-    order: 2; } }
+.nav-li--inputs {
+  position: relative; }
+  @media screen and (max-width: 1024px) {
+    .nav-li--inputs {
+      padding: 0 10px;
+      margin-top: 1rem;
+      flex: 1 1 100%;
+      order: 2; } }
+
+.nav-btn-clean {
+  margin: 0;
+  background-color: var(--main-color);
+  border: 2px solid var(--main-color);
+  height: 2rem;
+  width: 2rem;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  border-radius: 1000px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+  outline: none; }
+  @media screen and (min-width: 1024px) {
+    .nav-btn-clean {
+      right: -2%; } }
+
+.nav-btn-clean--active {
+  opacity: 1;
+  pointer-events: initial; }
+
+.clean-btn-strip1,
+.clean-btn-strip2 {
+  position: absolute;
+  top: 50%;
+  right: 38.5%;
+  transform: translate(-50%, -50%);
+  background-color: var(--main-font-color);
+  content: "";
+  height: 1rem;
+  width: 0.2rem;
+  display: block; }
+
+.clean-btn-strip1 {
+  transform: translate(-50%, -50%) rotate(45deg); }
+
+.clean-btn-strip2 {
+  transform: translate(-50%, -50%) rotate(-45deg); }
 
 .padding-nav {
   padding-top: 5rem; }

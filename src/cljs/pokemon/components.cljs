@@ -67,19 +67,32 @@
 
 (defn nav-search-input
   "TODO: escrever documentação"
-  []
+  [search]
   [:input.nav-input-text {:type "text"
                           :placeholder "search for a pokemon..."
-                          :value (-> @store :search)
+                          :value search
                           :on-change
                           (fn [e] (swap! store
                                          assoc :search (-> e .-target .-value)))}])
 
+(defn nav-btn-clean
+  "TODO: escrever documentação"
+  [has-search?]
+  [:button.nav-btn-clean
+   {:on-click (fn [] (swap! store
+                            assoc :search ""))
+    :class (when has-search? "nav-btn-clean--active")}
+   [:span.clean-btn-strip1]
+   [:span.clean-btn-strip2]])
+
 (defn search-bar
   "TODO: escrever documentação"
   []
-  [:li.nav-li.nav-li--inputs
-   [nav-search-input]])
+  (let [search (-> @store :search)
+        has-search? (not= search "")]
+    [:li.nav-li.nav-li--inputs
+     [nav-search-input search]
+     [nav-btn-clean has-search?]]))
 
 (defn nav-cart
   "TODO: escrever documentação"
