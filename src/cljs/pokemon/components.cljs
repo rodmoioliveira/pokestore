@@ -29,7 +29,9 @@
   "TODO: escrever documentação"
   [id]
   [:img.poke-img
-   {:src (str "images/" id ".png")}])
+   {:width 150
+    :height 150
+    :src (str "images/" id ".png")}])
 
 (defn poke-info
   "TODO: escrever documentação"
