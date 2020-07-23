@@ -1,3 +1,4 @@
+; https://code.thheller.com/blog/shadow-cljs/2019/03/03/code-splitting-clojurescript.html
 (defproject pokemon "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "https://github.com/rodmoioliveira/pokestore"
