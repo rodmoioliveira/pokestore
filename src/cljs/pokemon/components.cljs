@@ -142,7 +142,7 @@
 
 (defn poke-sort-nav
   "TODO: escrever documentação"
-  [pokemons select-store]
+  [pokemons select-store total]
   (let [{:keys [purchase-stage]} @store]
     [:nav.poke-nav.poke-nav--sort
      [:div
@@ -159,12 +159,12 @@
        {:data-stage (name purchase-stage)
         :on-click streamline
         :class (when
-                (and (= select-store "cart") (not (zero? (count pokemons))))
+                (and (= select-store "cart") (not (zero? total)))
                  "poke-buy--active")} (-> purchase-stage-msg purchase-stage)]]]))
 
 (defn poke-store-nav
   "TODO: escrever documentação"
-  [pokemons select-store]
+  [select-store total]
   [:nav.poke-nav.poke-nav--store
    [:div
     [:span.poke-title (if (= select-store "cart") "My" "Top")]
@@ -175,15 +175,15 @@
     (when (= select-store "cart")
       [:span.poke-title.poke-total
        [:span "Total: "]
-       [:span.poke-total-price (str "$" (->> pokemons (map :price) (reduce +)))]])]])
+       [:span.poke-total-price (str "$" total)]])]])
 
 (defn poke-nav
   "TODO: escrever documentação"
   []
-  (fn [select-store pokemons]
+  (fn [select-store pokemons total]
     [:div.poke-nav-wrapper
-     [poke-store-nav pokemons select-store]
-     [poke-sort-nav pokemons select-store]]))
+     [poke-store-nav select-store total]
+     [poke-sort-nav pokemons select-store total]]))
 
 (defn poke-list
   "TODO: escrever documentação"

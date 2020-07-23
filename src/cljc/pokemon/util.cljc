@@ -105,6 +105,18 @@
          (includes? (p :name) search)))))
 
 #?(:cljs
+   (defn get-cart-total
+     "TODO: escrever documentação"
+     [cart]
+     (->> cart
+          vec
+          (map (comp
+                #(get-in @store [:pokemon-hash % :price])
+                keyword
+                str))
+          (reduce +))))
+
+#?(:cljs
    (defn get-cart-pokemon
      "TODO: escrever documentação"
      [cart sorting search]

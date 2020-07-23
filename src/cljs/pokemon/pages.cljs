@@ -5,6 +5,7 @@
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poketypes-keywords
                          get-store-pokemon
+                         get-cart-total
                          get-cart-pokemon]]
    [pokemon.components :refer [poke-store-type
                                poke-nav
@@ -37,10 +38,11 @@
   []
   (let [{:keys [select-store sorting search cart]} @store
         cart-pokemons (get-cart-pokemon cart sorting search)
+        total (get-cart-total cart)
         pokemons-count (count cart-pokemons)
         fail-search? (zero? pokemons-count)]
     [:section.poke.padding-nav
-     [poke-nav select-store cart-pokemons]
+     [poke-nav select-store cart-pokemons total]
      [poke-list fail-search? cart-pokemons select-store]]))
 
 (defn current-page
