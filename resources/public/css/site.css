@@ -248,8 +248,11 @@
 .clean-btn-strip2 {
   transform: translate(-50%, -50%) rotate(-45deg); }
 
-.padding-nav {
-  padding-top: 5rem; }
+.poketype.padding-nav {
+  padding-top: 8rem; }
+  @media screen and (max-width: 768px) {
+    .poketype.padding-nav {
+      padding-top: 6.5rem; } }
 
 .poke.padding-nav {
   padding-top: 5rem; }
@@ -267,17 +270,6 @@
   margin: 0 auto 2rem;
   padding: 0 10px;
   max-width: 70rem; }
-
-.poketype-title {
-  color: #222;
-  font-weight: 400;
-  text-align: center;
-  font-size: calc(var(--font-size) * 3);
-  margin: 2rem auto 0.5rem; }
-  @media screen and (max-width: 768px) {
-    .poketype-title {
-      font-size: calc(var(--font-size) * 2);
-      margin: 1rem; } }
 
 .poketype-list {
   list-style-type: none;
