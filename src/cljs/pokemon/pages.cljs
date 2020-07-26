@@ -10,7 +10,6 @@
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poketypes-keywords
                          get-store-pokemon
-                         poketypes-info
                          get-cart-total
                          get-cart-pokemon]]
    [pokemon.components :refer [poke-store-type
@@ -56,7 +55,6 @@
   (let [routing-data (session/get :route)
         pokename (get-in routing-data [:route-params :id])
         details (-> @store (get-in [:pokemon-details (-> pokename keyword)]))]
-    (->> details clj->js js/console.log)
     [:section.details
      [:img.details-poke-img
       {:width 150
