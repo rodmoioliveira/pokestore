@@ -28,11 +28,12 @@
 
 (defn poke-image
   "TODO: escrever documentação"
-  [id]
-  [:img.poke-img
-   {:width 150
-    :height 150
-    :src (str "images/pokemon/" id "-fs8.png")}])
+  [id name]
+  [:a {:href (path-for :details {:id name})}
+   [:img.poke-img
+    {:width 150
+     :height 150
+     :src (str "images/pokemon/" id "-fs8.png")}]])
 
 (defn poke-info
   "TODO: escrever documentação"
@@ -58,10 +59,10 @@
 
 (defn poke-item
   "TODO: escrever documentação"
-  [{:keys [poke-id] :as p}]
+  [{:keys [poke-id name] :as p}]
   (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
     [:li.poke-item
-     [poke-image poke-id]
+     [poke-image poke-id name]
      [poke-info p in-cart?]
      [poke-add-btn in-cart? poke-id]]))
 

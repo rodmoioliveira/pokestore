@@ -6,17 +6,32 @@
 
    [pokemon.store :refer [store]]
    [pokemon.util :refer [poke-url
+                         poke-url-pokemon
                          poketypes-keywords
                          hash-by-id
                          poke-url-type
-                         ; fetch-then
-                         fetch-then-async]]))
+                         fetch-async]]))
 
-(defn fetch-pokemon
+(defn fetch-details
+  "TODO: escrever documentação"
+  [pokename]
+  (when-not (-> @store (get-in [:pokemon-details (-> pokename keyword)]))
+    (fetch-async
+     (str
+      poke-url
+      poke-url-pokemon
+      pokename)
+     [(fn [res]
+        (->> res
+             ((fn [poke-details]
+                (swap! store update-in [:pokemon-details]
+                       assoc (-> pokename keyword) poke-details)))))])))
+
+(defn fetch-store
+  "TODO: escrever documentação"
   [poketype]
-  (when-not
-   (-> @store (get-in [:pokemon (-> poketype keyword)]))
-    (fetch-then-async
+  (when-not (-> @store (get-in [:pokemon (-> poketype keyword)]))
+    (fetch-async
      (str
       poke-url
       poke-url-type
@@ -55,6 +70,7 @@
                        assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
 
 (defn set-poke-types!
+  "TODO: escrever documentação"
   []
   (->> poketypes-keywords
        (map name)

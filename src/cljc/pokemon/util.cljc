@@ -13,6 +13,7 @@
 
 (def poke-url "https://pokeapi.co/api/v2/")
 (def poke-url-type "type/")
+(def poke-url-pokemon "pokemon/")
 (def pages-themes
   {:index "#f4f4f4"
    :normal "#75505B"
@@ -36,7 +37,7 @@
    :shadow "#705898"})
 
 #?(:cljs
-   (defn fetch-then-async
+   (defn fetch-async
      [url fns]
      (go
        (let [res (<p! (-> js/window (.fetch url)))
@@ -91,26 +92,27 @@
 #?(:cljs
    (def
      poketypes-info
-     {:index {:src "images/store/star-fs8.png"}
-      :cart {:src "images/store/star-fs8.png"}
-      :normal {:src "images/types/Normal-fs8.png"}
-      :fighting {:src "images/types/Fighting-fs8.png"}
-      :flying {:src "images/types/Flying-fs8.png"}
-      :poison {:src "images/types/Poison-fs8.png"}
-      :ground {:src "images/types/Ground-fs8.png"}
-      :rock {:src "images/types/Rock-fs8.png"}
-      :bug {:src "images/types/Bug-fs8.png"}
-      :ghost {:src "images/types/Ghost-fs8.png"}
-      :steel {:src "images/types/Steel-fs8.png"}
-      :fire {:src "images/types/Fire-fs8.png"}
-      :water {:src "images/types/Water-fs8.png"}
-      :grass {:src "images/types/Grass-fs8.png"}
-      :electric {:src "images/types/Electric-fs8.png"}
-      :psychic {:src "images/types/Psychic-fs8.png"}
-      :ice {:src "images/types/Ice-fs8.png"}
-      :dragon {:src "images/types/Dragon-fs8.png"}
-      :dark {:src "images/types/Dark-fs8.png"}
-      :fairy {:src "images/types/Fairy-fs8.png"}}))
+     {:index {:src "/images/store/star-fs8.png"}
+      :cart {:src "/images/store/star-fs8.png"}
+      :details {:src "/images/store/star-fs8.png"}
+      :normal {:src "/images/types/Normal-fs8.png"}
+      :fighting {:src "/images/types/Fighting-fs8.png"}
+      :flying {:src "/images/types/Flying-fs8.png"}
+      :poison {:src "/images/types/Poison-fs8.png"}
+      :ground {:src "/images/types/Ground-fs8.png"}
+      :rock {:src "/images/types/Rock-fs8.png"}
+      :bug {:src "/images/types/Bug-fs8.png"}
+      :ghost {:src "/images/types/Ghost-fs8.png"}
+      :steel {:src "/images/types/Steel-fs8.png"}
+      :fire {:src "/images/types/Fire-fs8.png"}
+      :water {:src "/images/types/Water-fs8.png"}
+      :grass {:src "/images/types/Grass-fs8.png"}
+      :electric {:src "/images/types/Electric-fs8.png"}
+      :psychic {:src "/images/types/Psychic-fs8.png"}
+      :ice {:src "/images/types/Ice-fs8.png"}
+      :dragon {:src "/images/types/Dragon-fs8.png"}
+      :dark {:src "/images/types/Dark-fs8.png"}
+      :fairy {:src "/images/types/Fairy-fs8.png"}}))
 
 #?(:cljs
    (defn filter-by

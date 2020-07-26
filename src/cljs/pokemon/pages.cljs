@@ -44,15 +44,28 @@
      [poke-nav select-store cart-pokemons total]
      [poke-list fail-search? cart-pokemons select-store]]))
 
+(defn details-page
+  "TODO: escrever documentação"
+  []
+  (let [routing-data (session/get :route)
+        pokename (get-in routing-data [:route-params :id])]
+    (-> @store (get-in [:pokemon-details (-> pokename keyword)]) clj->js js/console.log)
+    [:section.details.padding-nav
+     [:h1 "details"]
+     [:h1 "details"]
+     [:h1 "details"]
+     [:h1 "details"]
+     [:h1 pokename]
+     [:h1 "details"]]))
+
 (defn current-page
   "Page mounting component"
   []
-  (fn []
-    (let [page (:current-page (session/get :route))]
-      [:main.main
-       [nav]
-       [page]
-       [footer]])))
+  (let [page (:current-page (session/get :route))]
+    [:main.main
+     [nav]
+     [page]
+     [footer]]))
 
 (defn page-for
   "TODO: escrever documentação"
@@ -60,4 +73,5 @@
   (cond
     (some #(= route %) [:index]) home-page
     (some #(= route %) [:cart]) cart-page
+    (some #(= route %) [:details]) details-page
     (some #(= route %) poketypes-keywords) poke-store-page))

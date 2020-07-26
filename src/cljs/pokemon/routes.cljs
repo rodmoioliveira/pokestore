@@ -13,6 +13,8 @@
   (conj
    [["/" :index]
     ["/cart" :cart]
+    ["/details"
+     ["/:id" :details]]
     ["/about" :about]]
    poketypes-routes))
 

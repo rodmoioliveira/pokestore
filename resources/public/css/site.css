@@ -24,6 +24,7 @@
   --main-font-color: white; }
 
 [data-theme='index'],
+[data-theme='details'],
 [data-theme='cart'],
 [data-theme='about'] {
   --main-color: #F4F4F4;

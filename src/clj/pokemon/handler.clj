@@ -112,6 +112,10 @@
     (conj
      [["/" {:get {:handler index-handler}}]
       ["/cart" {:get {:handler index-handler}}]
+      ["/details"
+       ["/:id" {:get
+                {:handler index-handler
+                 :parameters {:path {:id string?}}}}]]
       ["/cards" {:get {:handler cards-handler}}]]
      poke-handlers))
    (reitit-ring/routes

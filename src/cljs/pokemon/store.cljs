@@ -30,6 +30,7 @@
              :cart true}
    :pokemon-ids #{}
    :pokemon-hash {}
+   :pokemon-details {}
    :cart #{}
    :purchase-stage :buy
    :select-store nil})
