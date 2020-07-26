@@ -1,34 +1,32 @@
 .details
-  padding: 7rem 10px
+  padding: 7rem 10px 0
   margin: 0 auto 2rem
   max-width: 70rem
 
-.details-base-wrapper
-  display: flex
+  @media (max-width: $tablet-width)
+    padding: 5rem 10px 0
 
 .details-h2
-  font-size: calc(var(--font-size) * 2.5)
+  font-size: calc(var(--font-size) * 2.4)
   padding: 0.5rem 0
-  margin: 0 auto
+  margin: 2rem auto 0.2rem
 
-.margin-top
-  margin-top: 2rem
+  @media (max-width: $tablet-width)
+    font-size: calc(var(--font-size) * 2)
+    margin: 1.2rem auto 0
 
-.details-base-info
-  margin-left: 1rem
-
-.base-info-p
+.tag-name
   font-size: calc(var(--font-size) * 1.2)
-  margin: 0
+  font-weight: 900
 
-// .details-stats-list,
+  @media (max-width: $tablet-width)
+    font-size: calc(var(--font-size) * 1)
 
-.details-type
-  display: flex
-  align-items: center
+.tag-value
+  font-size: calc(var(--font-size) * 1.2)
 
-.details-type-item
-  margin: 0 0.5rem
+  @media (max-width: $tablet-width)
+    font-size: calc(var(--font-size) * 1)
 
 .details-list
   list-style-type: none
@@ -50,9 +48,10 @@
   min-width: 4rem
 
 .details-poke-img
-  height: 16rem
+  height: 15rem
   width: auto
+  margin: 2rem auto 0
+  display: block
 
-.details-type-img
-  height: 2rem
-  width: auto
+  @media (max-width: $tablet-width)
+    height: 12rem
