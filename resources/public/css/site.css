@@ -19,6 +19,26 @@
   --fairy: #971844;
   --unknown: rebeccapurple;
   --shadow: #705898;
+  --normal-f: white;
+  --fighting-f: white;
+  --flying-f: white;
+  --poison-f: white;
+  --ground-f: white;
+  --rock-f: white;
+  --bug-f: white;
+  --ghost-f: white;
+  --steel-f: white;
+  --fire-f: #B01C25;
+  --water-f: white;
+  --grass-f: white;
+  --electric-f: #222;
+  --psychic-f: white;
+  --ice-f: #222;
+  --dragon-f: white;
+  --dark-f: white;
+  --fairy-f: white;
+  --unknown-f: rebeccapurple;
+  --shadow-f: white;
   --border-color: gray;
   --font-size: 1rem;
   --main-font-color: white; }
@@ -68,14 +88,14 @@
 
 [data-theme='electric'] {
   --main-color: var(--electric);
-  --main-font-color: black; }
+  --main-font-color: #222; }
 
 [data-theme='psychic'] {
   --main-color: var(--psychic); }
 
 [data-theme='ice'] {
   --main-color: var(--ice);
-  --main-font-color: black; }
+  --main-font-color: #222; }
 
 [data-theme='dragon'] {
   --main-color: var(--dragon); }
@@ -573,16 +593,53 @@
   margin: 0 auto 2rem;
   max-width: 70rem; }
 
-.details-poke-img {
-  height: 10rem;
-  width: auto; }
+.details-base-wrapper {
+  display: flex; }
 
-.details-type-list {
-  list-style-type: none;
-  padding: o; }
+.details-h2 {
+  font-size: calc(var(--font-size) * 2.5);
+  padding: 0.5rem 0;
+  margin: 0 auto; }
+
+.margin-top {
+  margin-top: 2rem; }
+
+.details-base-info {
+  margin-left: 1rem; }
+
+.base-info-p {
+  font-size: calc(var(--font-size) * 1.2);
+  margin: 0; }
+
+.details-type {
+  display: flex;
+  align-items: center; }
 
 .details-type-item {
-  max-width: 1rem; }
+  margin: 0 0.5rem; }
+
+.details-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0; }
+
+.details-tag {
+  padding: 0.5rem;
+  border: 1px solid #dadada;
+  margin: 2px;
+  border-radius: 3px; }
+
+.details-tag-link {
+  text-decoration: none;
+  text-align: center;
+  min-width: 4rem; }
+
+.details-poke-img {
+  height: 16rem;
+  width: auto; }
 
 .details-type-img {
   height: 2rem;

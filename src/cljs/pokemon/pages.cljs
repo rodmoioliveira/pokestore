@@ -58,75 +58,73 @@
         details (-> @store (get-in [:pokemon-details (-> pokename keyword)]))]
     (->> details clj->js js/console.log)
     [:section.details
-     [:h2 "Name"]
-     [:h2
-      (-> pokename (split #"-") (#(map capitalize %)) (#(join " " %)))]
-     [:h2 "Base Exp"]
-     [:h2 (-> details :base_experience)]
-     [:h2 "height"]
-     [:h2 (-> details :height)]
-     [:h2 "weight"]
-     [:h2 (-> details :weight)]
-     [:img.details-poke-img
-      {:width 150
-       :height 150
-       :src (str "/images/pokemon/" (-> details :id) "-fs8.png")}]
-     [:h2 "Stats"]
-     [:ul.details-stats-list
+     [:div.details-base-wrapper
+      [:img.details-poke-img
+       {:width 150
+        :height 150
+        :src (str "/images/pokemon/" (-> details :id) "-fs8.png")}]
+      [:div.details-base-info
+       [:h2.details-h2 "Info"]
+       [:p.base-info-p [:span "Name: "] [:span (-> pokename (split #"-") (#(map capitalize %)) (#(join " " %)))]]
+       [:p.base-info-p [:span "ID: "] [:span (-> details :id)]]
+       [:p.base-info-p [:span "Base Exp: "] [:span (-> details :base_experience)]]
+       [:p.base-info-p [:span "Height: "] [:span (-> details :height)]]
+       [:p.base-info-p [:span "Weight: "] [:span (-> details :weight)]]
+       [:div.details-type
+        [:span.base-info-p "Type: "]
+        [:ul.details-list
+         (->> details
+              :types (map
+                      (comp
+                       (fn [t]
+                         [:a.details-tag-link
+                          {:href (path-for (keyword t))
+                           :key t
+                           :style {:color (str "var(--" t "-f)")}}
+                          [:li.details-tag
+                           {:style {:backgroundColor (str "var(--" t ")")
+                                    :border (str "1px solid " "var(--" t ")")}}
+                           t]])
+                       (fn [t] (get-in t [:type :name])))))]]]]
+
+     [:h2.details-h2.margin-top "Stats"]
+     [:ul.details-list
       (->> details
            :stats (map
                    (comp
                     (fn [{:keys [stat-value stat-name]}]
-                      [:li.details-stats-item
+                      [:li.details-tag
                        {:key (str pokename "-" stat-name "-" stat-value)}
                        (str stat-name stat-value)])
                     (fn [s]
                       {:stat-value (-> s (get-in [:base_stat]))
                        :stat-name (-> s (get-in [:stat :name]) (replace #"-" " "))}))))]
-     [:h2 "Abilities"]
-     [:ul.details-ability-list
+     [:h2.details-h2.margin-top "Abilities"]
+     [:ul.details-list
       (->> details
            :abilities (map
                        (comp
                         (fn [a]
-                          [:li.details-ability-item
+                          [:li.details-tag
                            {:key (str pokename "-" a)}
                            a])
                         (fn [a]
                           (-> a (get-in [:ability :name]) (replace #"-" " "))))))]
-     [:h2 "Type"]
-     [:ul.details-type-list
-      (->> details
-           :types (map
-                   (comp
-                    (fn [{:keys [type src]}]
-                      [:li.details-type-item
-                       {:key (name type)}
-                       [:a
-                        {:href (path-for type)}
-                        [:img.details-type-img
-                         {:width 150
-                          :height 150
-                          :src src}]]])
-                    (fn [k] {:type k
-                             :src (get-in poketypes-info [k :src])})
-                    keyword
-                    (fn [t] (get-in t [:type :name])))))]
-     [:h2 "Held Items"]
-     [:ul.details-held-items
+     [:h2.details-h2.margin-top "Held Items"]
+     [:ul.details-list
       (->> details
            :held_items (map
                         (comp
-                         (fn [i] [:li.details-held-item
+                         (fn [i] [:li.details-tag
                                   {:key (str pokename "-" i)}
                                   i])
                          (fn [t] (-> t (get-in [:item :name]) (replace #"-" " "))))))]
-     [:h2 "Moves"]
-     [:ul.details-moves-list
+     [:h2.details-h2.margin-top "Moves"]
+     [:ul.details-list
       (->> details
            :moves (map
                    (comp
-                    (fn [m] [:li.details-moves-item
+                    (fn [m] [:li.details-tag
                              {:key (str pokename "-" m)}
                              m])
                     (fn [t] (-> t (get-in [:move :name]) (replace #"-" " "))))))]]))
