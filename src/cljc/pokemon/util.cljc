@@ -5,6 +5,8 @@
                               lower-case
                               trim
                               includes?]]
+      [cljs.core.async :refer [go]]
+      [cljs.core.async.interop :refer-macros [<p!]]
 
       [pokemon.store :refer [store]]
       [pokemon.dom :as pokedom])))
@@ -32,6 +34,18 @@
    :dark "#040706"
    :fairy "#971844"
    :shadow "#705898"})
+
+#?(:cljs
+   (defn fetch-then-async
+     [url fns]
+     (go
+       (let [res (<p! (-> js/window (.fetch url)))
+             data (<p! (-> res .json))]
+         (try
+           (-> data
+               (js->clj :keywordize-keys true)
+               ((fn [v] (doseq [f fns] (f v)))))
+           (catch js/Error err (js/console.log (ex-cause err))))))))
 
 #?(:cljs
    (defn fetch-then
