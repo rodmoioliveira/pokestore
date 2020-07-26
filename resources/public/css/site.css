@@ -635,7 +635,8 @@
   border: 1px solid #dadada;
   margin: 2px;
   border-radius: 3px;
-  font-size: calc(var(--font-size) * 1.2); }
+  font-size: calc(var(--font-size) * 1.2);
+  cursor: pointer; }
   @media (max-width: 768px) {
     .tag-btn {
       font-size: calc(var(--font-size) * 1); } }

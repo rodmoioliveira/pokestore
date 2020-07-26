@@ -61,12 +61,19 @@
       {:width 150
        :height 150
        :src (str "/images/pokemon/" (-> details :id) "-fs8.png")}]
-     [:h2.details-h2 (-> pokename (split #"-") (#(map capitalize %)) (#(join " " %)))]
+     [:h2.details-h2 "Info"]
      [:ul.details-list
+      [:li.details-tag
+       [:span.tag-name "Name: "]
+       [:span.tag-value (-> pokename (split #"-") (#(map capitalize %)) (#(join " " %)))]]
       [:li.details-tag [:span.tag-name "ID: "] [:span.tag-value (-> details :id)]]
       [:li.details-tag [:span.tag-name "Base Exp: "] [:span.tag-value (-> details :base_experience)]]
-      [:li.details-tag [:span.tag-name "Height: "] [:span.tag-value (-> details :height)]]
-      [:li.details-tag [:span.tag-name "Weight: "] [:span.tag-value (-> details :weight)]]]
+      [:li.details-tag
+       [:span.tag-name "Height: "]
+       [:span.tag-value (str (-> details :height (/ 10)) "m")]]
+      [:li.details-tag
+       [:span.tag-name "Weight: "]
+       [:span.tag-value (str (-> details :weight (/ 10)) "kg")]]]
      [:h2.details-h2 "In Cart?"]
      [:ul.details-list
       [:li
