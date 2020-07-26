@@ -9,13 +9,14 @@
                          poketypes-keywords
                          hash-by-id
                          poke-url-type
-                         fetch-then]]))
+                         ; fetch-then
+                         fetch-then-async]]))
 
 (defn fetch-pokemon
   [poketype]
   (when-not
    (-> @store (get-in [:pokemon (-> poketype keyword)]))
-    (fetch-then
+    (fetch-then-async
      (str
       poke-url
       poke-url-type
