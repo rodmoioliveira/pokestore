@@ -20,7 +20,7 @@
      (str
       poke-url
       poke-url-pokemon
-      pokename)
+      (replace pokename #" " "-"))
      [(fn [res]
         (->> res
              ((fn [poke-details]

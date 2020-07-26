@@ -4,6 +4,7 @@
   (:require
    [accountant.core :as accountant]
    [clojure.string :refer [capitalize
+                           replace
                            split]]
 
    [pokemon.routes :refer [path-for]]
@@ -29,11 +30,11 @@
 (defn poke-image
   "TODO: escrever documentação"
   [id name]
-  [:a {:href (path-for :details {:id name})}
+  [:a {:href (path-for :details {:id (replace name #" " "-")})}
    [:img.poke-img
     {:width 150
      :height 150
-     :src (str "images/pokemon/" id "-fs8.png")}]])
+     :src (str "/images/pokemon/" id "-fs8.png")}]])
 
 (defn poke-info
   "TODO: escrever documentação"
@@ -45,7 +46,7 @@
      [:span.poke-discount (str (p :discount-rate) "%")])
    (when in-cart?
      [:img.poke-in-cart
-      {:src "images/store/pokeball-fs8.png"}])])
+      {:src "/images/store/pokeball-fs8.png"}])])
 
 (defn poke-add-btn
   "TODO: escrever documentação"
@@ -104,7 +105,7 @@
     (-> @store :cart count)]
    [:a
     {:href (path-for :cart)}
-    [:img.nav-img {:src "images/store/pokeball-fs8.png"}]]])
+    [:img.nav-img {:src "/images/store/pokeball-fs8.png"}]]])
 
 (defn nav-title
   "TODO: escrever documentação"
