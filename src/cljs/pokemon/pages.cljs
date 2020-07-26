@@ -54,7 +54,8 @@
   []
   (let [routing-data (session/get :route)
         pokename (get-in routing-data [:route-params :id])
-        details (-> @store (get-in [:pokemon-details (-> pokename keyword)]))]
+        details (-> @store (get-in [:pokemon-details (-> pokename keyword)]))
+        in-cart? (some? (some (-> @store :cart) [(-> details :id)]))]
     [:section.details
      [:img.details-poke-img
       {:width 150
@@ -66,6 +67,18 @@
       [:li.details-tag [:span.tag-name "Base Exp: "] [:span.tag-value (-> details :base_experience)]]
       [:li.details-tag [:span.tag-name "Height: "] [:span.tag-value (-> details :height)]]
       [:li.details-tag [:span.tag-name "Weight: "] [:span.tag-value (-> details :weight)]]]
+     [:h2.details-h2 "In Cart?"]
+     [:ul.details-list
+      [:li
+       [:button.tag-btn
+        {:on-click (fn []
+                     (if in-cart?
+                       (swap! store update-in [:cart] disj (-> details :id))
+                       (swap! store update-in [:cart] conj (-> details :id))))
+         :style {:backgroundColor (str "var(--" in-cart? ")")
+                 :border (str "1px solid var(--" in-cart? ")")
+                 :color (str "var(--" in-cart? "-f)")}}
+        (str in-cart?)]]]
      [:h2.details-h2 "Type"]
      [:ul.details-list
       (->> details
