@@ -1,3 +1,4 @@
+; TODO: abstrair funcions de swap!
 (ns pokemon.fetches
   (:require
    [cljs.pprint :refer [char-code]]
