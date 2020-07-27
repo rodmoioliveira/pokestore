@@ -133,8 +133,7 @@
                           [:li.details-tag
                            {:key (str pokename "-" a)}
                            [:span.tag-value a]])
-                        (fn [a]
-                          (-> a (get-in [:ability :name]) (replace #"-" " "))))))]
+                        (fn [a] (-> a (get-in [:ability :name]) (replace #"-" " "))))))]
      [:h2.details-h2 "Moves"]
      [:ul.details-list
       (->> details

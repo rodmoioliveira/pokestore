@@ -5,6 +5,7 @@
                               lower-case
                               trim
                               includes?]]
+      [cljs.pprint :refer [char-code]]
       [cljs.core.async :refer [go]]
       [cljs.core.async.interop :refer-macros [<p!]]
 
@@ -203,3 +204,21 @@
                             {:t 6500
                              :f #(set-purchase-stage! :buy)}]]
        (sleep f t))))
+
+(defn apply-discount
+  "TODO: escrever documentação"
+  [discount-rate price]
+  (* (/ (- 100 (- discount-rate)) 100) price))
+
+#?(:cljs
+   (defn create-offer
+     "TODO: escrever documentação"
+     [id p]
+     (let [offer? (> (rand-int 101) 90)
+           discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)]
+       {:id id
+        :popularity id
+        :offer? offer?
+        :discount-rate discount-rate
+        :price (->> p :name (map char-code) (reduce +) (apply-discount discount-rate))
+        :name (-> p :name (replace #"-" " "))})))
