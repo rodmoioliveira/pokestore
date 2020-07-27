@@ -39,6 +39,7 @@
 
 #?(:cljs
    (defn fetch-async
+     "TODO: escrever documentação"
      [url fns]
      (go
        (let [res (<p! (-> js/window (.fetch url)))
