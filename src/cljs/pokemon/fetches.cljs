@@ -13,17 +13,15 @@
                          fetch-async]]))
 
 (defn create-offer
-  [p]
-  (let [offer? (> (rand-int 101) 90)
-        id (-> (split (-> p :url) #"/")
-               last
-               int)]
-    (merge p {:id id
-              :popularity id
-              :offer? offer?
-              :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
-              :price (->> p :name (map char-code) (reduce +))
-              :name (-> p :name (replace #"-" " "))})))
+  "TODO: escrever documentação"
+  [id p]
+  (let [offer? (> (rand-int 101) 90)]
+    {:id id
+     :popularity id
+     :offer? offer?
+     :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+     :price (->> p :name (map char-code) (reduce +))
+     :name (-> p :name (replace #"-" " "))}))
 
 (defn fetch-details
   "TODO: escrever documentação"
@@ -37,16 +35,9 @@
      [(fn [res]
         (->> res
              ((fn [poke-details]
-                (let [offer? (> (rand-int 101) 90)
-                      {:keys [id name]} poke-details
+                (let [{:keys [id]} poke-details
                       in-hash? (some? (get-in @store [:pokemon-hash (-> id str keyword)]))
-                      poke-offer {:id id
-                                  :popularity id
-                                  :offer? offer?
-                                  :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
-                                  :price (->> name (map char-code) (reduce +))
-                                  :name (-> name (replace #"-" " "))}]
-
+                      poke-offer (create-offer id poke-details)]
                   (when-not in-hash?
                     (swap! store
                            assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id [poke-offer]))))
@@ -65,7 +56,13 @@
      [(fn [res]
         (->> res
              :pokemon
-             (mapv (comp create-offer :pokemon))
+             (mapv (comp
+                    (fn [p]
+                      (let [id (-> (split (-> p :url) #"/")
+                                   last
+                                   int)]
+                        (merge p (create-offer id p))))
+                    :pokemon))
              (remove (fn [{:keys [id]}] (or
                                          (> id 9999)
                                          (some #{id} (-> @store :unavailable-pokemon)))))
