@@ -34,6 +34,11 @@
      {:style style :class class}
      (map-indexed #(with-meta %2 {:key %1}) children)]))
 
+(defn ul-details-list
+  [& children]
+  [:ul.details-list
+   (map-indexed #(with-meta %2 {:key %1}) children)])
+
 (defn poke-store-type
   "TODO: escrever documentação"
   [poketype]

@@ -19,6 +19,7 @@
                                span-tag-name
                                span-tag-value
                                li-details-tag
+                               ul-details-list
                                nav
                                footer]]))
 
@@ -66,7 +67,7 @@
        :height 150
        :src (str "/images/pokemon/" (-> details :id) "-fs8.png")}]
      [h2-details "Info"]
-     [:ul.details-list
+     [ul-details-list
       [li-details-tag
        {}
        [span-tag-name "Name: "]
@@ -82,7 +83,7 @@
        [span-tag-name "Weight: "]
        [span-tag-value (str (-> details :weight (/ 10)) "kg")]]]
      [h2-details "Price"]
-     [:ul.details-list
+     [ul-details-list
       [li-details-tag
        {:class "details-tag--price"}
        [span-tag-value (-> @store
@@ -94,7 +95,7 @@
                            (get-in [:pokemon-hash (-> details :id str keyword) :discount-rate])
                            (#(str % "%")))]]]
      [h2-details "In Cart?"]
-     [:ul.details-list
+     [ul-details-list
       [:li
        [:button.tag-btn
         {:on-click (fn []
@@ -106,7 +107,7 @@
                  :color (str "var(--" in-cart? "-f)")}}
         (str in-cart?)]]]
      [h2-details "Type"]
-     [:ul.details-list
+     [ul-details-list
       (->> details
            :types (map
                    (comp
@@ -121,7 +122,7 @@
                         [span-tag-value t]]])
                     (fn [t] (get-in t [:type :name])))))]
      [h2-details "Stats"]
-     [:ul.details-list
+     [ul-details-list
       (->> details
            :stats (map
                    (comp
@@ -134,7 +135,7 @@
                       {:stat-value (-> s (get-in [:base_stat]))
                        :stat-name (-> s (get-in [:stat :name]) (replace #"-" " "))}))))]
      [h2-details "Abilities"]
-     [:ul.details-list
+     [ul-details-list
       (->> details
            :abilities (map
                        (comp
@@ -144,7 +145,7 @@
                            [span-tag-value a]])
                         (fn [a] (-> a (get-in [:ability :name]) (replace #"-" " "))))))]
      [h2-details "Moves"]
-     [:ul.details-list
+     [ul-details-list
       (->> details
            :moves (map
                    (comp
