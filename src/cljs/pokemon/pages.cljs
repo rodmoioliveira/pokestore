@@ -74,6 +74,16 @@
       [:li.details-tag
        [:span.tag-name "Weight: "]
        [:span.tag-value (str (-> details :weight (/ 10)) "kg")]]]
+     [:h2.details-h2 "Price"]
+     [:ul.details-list
+      [:li.details-tag.details-tag--price
+       [:span.tag-value (-> @store
+                            (get-in [:pokemon-hash (-> details :id str keyword) :price])
+                            (#(str "$" %)))]]
+      [:li.details-tag.details-tag--discount
+       [:span.tag-value (-> @store
+                            (get-in [:pokemon-hash (-> details :id str keyword) :discount-rate])
+                            (#(str % "%")))]]]
      [:h2.details-h2 "In Cart?"]
      [:ul.details-list
       [:li
