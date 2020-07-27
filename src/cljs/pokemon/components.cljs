@@ -4,6 +4,7 @@
   (:require
    [accountant.core :as accountant]
    [clojure.string :refer [capitalize
+                           replace
                            split]]
 
    [pokemon.routes :refer [path-for]]
@@ -13,6 +14,35 @@
                          purchase-stage-msg
                          poketypes-keywords
                          poketypes-info]]))
+
+(defn h2-details
+  "TODO: escrever documentação"
+  [t]
+  [:h2.details-h2 t])
+
+(defn span-tag-name
+  "TODO: escrever documentação"
+  [t]
+  [:span.tag-name t])
+
+(defn span-tag-value
+  "TODO: escrever documentação"
+  [t]
+  [:span.tag-value t])
+
+(defn li-details-tag
+  "TODO: escrever documentação"
+  [props & children]
+  (let [{:keys [style class]} props]
+    [:li.details-tag
+     {:style style :class class}
+     (map-indexed #(with-meta %2 {:key %1}) children)]))
+
+(defn ul-details-list
+  "TODO: escrever documentação"
+  [& children]
+  [:ul.details-list
+   (map-indexed #(with-meta %2 {:key %1}) children)])
 
 (defn poke-store-type
   "TODO: escrever documentação"
@@ -28,11 +58,12 @@
 
 (defn poke-image
   "TODO: escrever documentação"
-  [id]
-  [:img.poke-img
-   {:width 150
-    :height 150
-    :src (str "images/pokemon/" id "-fs8.png")}])
+  [id name]
+  [:a {:href (path-for :details {:id (replace name #" " "-")})}
+   [:img.poke-img
+    {:width 150
+     :height 150
+     :src (str "/images/pokemon/" id "-fs8.png")}]])
 
 (defn poke-info
   "TODO: escrever documentação"
@@ -44,7 +75,7 @@
      [:span.poke-discount (str (p :discount-rate) "%")])
    (when in-cart?
      [:img.poke-in-cart
-      {:src "images/store/pokeball-fs8.png"}])])
+      {:src "/images/store/pokeball-fs8.png"}])])
 
 (defn poke-add-btn
   "TODO: escrever documentação"
@@ -58,10 +89,10 @@
 
 (defn poke-item
   "TODO: escrever documentação"
-  [{:keys [poke-id] :as p}]
+  [{:keys [poke-id name] :as p}]
   (let [in-cart? (some? (some (-> @store :cart) [poke-id]))]
     [:li.poke-item
-     [poke-image poke-id]
+     [poke-image poke-id name]
      [poke-info p in-cart?]
      [poke-add-btn in-cart? poke-id]]))
 
@@ -103,7 +134,7 @@
     (-> @store :cart count)]
    [:a
     {:href (path-for :cart)}
-    [:img.nav-img {:src "images/store/pokeball-fs8.png"}]]])
+    [:img.nav-img {:src "/images/store/pokeball-fs8.png"}]]])
 
 (defn nav-title
   "TODO: escrever documentação"

@@ -8,7 +8,8 @@
    [accountant.core :as accountant]
 
    [pokemon.fetches :refer [set-poke-types!
-                            fetch-pokemon]]
+                            fetch-details
+                            fetch-store]]
    [pokemon.pages :refer [page-for
                           current-page]]
    [pokemon.routes :refer [router]]
@@ -29,14 +30,16 @@
       (let [match (reitit/match-by-path router path)
             current-page (:name (:data match))
             route-params (:path-params match)
-            theme (-> current-page name)]
+            store (-> current-page name)]
         (reagent/after-render clerk/after-render!)
         (session/put! :route {:current-page (page-for current-page)
                               :route-params route-params})
         (clerk/navigate-page! path)
         ; FIXME: fetch duplicado
-        (fetch-pokemon theme)
-        ((set-theme! theme))))
+        (if (= store "details")
+          (fetch-details (-> route-params :id))
+          (fetch-store store))
+        ((set-theme! store))))
     :path-exists?
     (fn [path]
       (boolean (reitit/match-by-path router path)))})
