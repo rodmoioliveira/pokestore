@@ -135,15 +135,6 @@
                            [:span.tag-value a]])
                         (fn [a]
                           (-> a (get-in [:ability :name]) (replace #"-" " "))))))]
-     [:h2.details-h2 "Held Items"]
-     [:ul.details-list
-      (->> details
-           :held_items (map
-                        (comp
-                         (fn [i] [:li.details-tag
-                                  {:key (str pokename "-" i)}
-                                  [:span.tag-value i]])
-                         (fn [t] (-> t (get-in [:item :name]) (replace #"-" " "))))))]
      [:h2.details-h2 "Moves"]
      [:ul.details-list
       (->> details
