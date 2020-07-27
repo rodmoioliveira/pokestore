@@ -15,6 +15,25 @@
                          poketypes-keywords
                          poketypes-info]]))
 
+(defn h2-details
+  [t]
+  [:h2.details-h2 t])
+
+(defn span-tag-name
+  [t]
+  [:span.tag-name t])
+
+(defn span-tag-value
+  [t]
+  [:span.tag-value t])
+
+(defn li-details-tag
+  [props & children]
+  (let [{:keys [style class]} props]
+    [:li.details-tag
+     {:style style :class class}
+     (map-indexed #(with-meta %2 {:key %1}) children)]))
+
 (defn poke-store-type
   "TODO: escrever documentação"
   [poketype]
