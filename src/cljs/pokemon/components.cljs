@@ -16,18 +16,22 @@
                          poketypes-info]]))
 
 (defn h2-details
+  "TODO: escrever documentação"
   [t]
   [:h2.details-h2 t])
 
 (defn span-tag-name
+  "TODO: escrever documentação"
   [t]
   [:span.tag-name t])
 
 (defn span-tag-value
+  "TODO: escrever documentação"
   [t]
   [:span.tag-value t])
 
 (defn li-details-tag
+  "TODO: escrever documentação"
   [props & children]
   (let [{:keys [style class]} props]
     [:li.details-tag
@@ -35,6 +39,7 @@
      (map-indexed #(with-meta %2 {:key %1}) children)]))
 
 (defn ul-details-list
+  "TODO: escrever documentação"
   [& children]
   [:ul.details-list
    (map-indexed #(with-meta %2 {:key %1}) children)])
