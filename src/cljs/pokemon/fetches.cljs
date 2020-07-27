@@ -12,6 +12,19 @@
                          poke-url-type
                          fetch-async]]))
 
+(defn create-offer
+  [p]
+  (let [offer? (> (rand-int 101) 90)
+        id (-> (split (-> p :url) #"/")
+               last
+               int)]
+    (merge p {:id id
+              :popularity id
+              :offer? offer?
+              :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+              :price (->> p :name (map char-code) (reduce +))
+              :name (-> p :name (replace #"-" " "))})))
+
 (defn fetch-details
   "TODO: escrever documentação"
   [pokename]
@@ -24,8 +37,21 @@
      [(fn [res]
         (->> res
              ((fn [poke-details]
-                (swap! store update-in [:pokemon-details]
-                       assoc (-> pokename keyword) poke-details)))))])))
+                (let [offer? (> (rand-int 101) 90)
+                      {:keys [id name]} poke-details
+                      in-hash? (some? (get-in @store [:pokemon-hash (-> id str keyword)]))
+                      poke-offer {:id id
+                                  :popularity id
+                                  :offer? offer?
+                                  :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
+                                  :price (->> name (map char-code) (reduce +))
+                                  :name (-> name (replace #"-" " "))}]
+
+                  (when-not in-hash?
+                    (swap! store
+                           assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id [poke-offer]))))
+                  (swap! store update-in [:pokemon-details]
+                         assoc (-> pokename keyword) poke-details))))))])))
 
 (defn fetch-store
   "TODO: escrever documentação"
@@ -39,19 +65,7 @@
      [(fn [res]
         (->> res
              :pokemon
-             (mapv :pokemon)
-             (map-indexed (fn [index p]
-                            (let [offer? (> (rand-int 101) 90)]
-                              (merge p {:id
-                                        (-> (split (-> p :url) #"/")
-                                            last
-                                            int)
-                                        :popularity index
-                                        :offer? offer?
-                                        :discount-rate (if offer? (-> [(- 25) (- 50) (- 75)] shuffle first) 0)
-                                        :type (-> poketype keyword)
-                                        :price (->> p :name (map char-code) (reduce +))
-                                        :name (-> p :name (replace #"-" " "))}))))
+             (mapv (comp create-offer :pokemon))
              (remove (fn [{:keys [id]}] (or
                                          (> id 9999)
                                          (some #{id} (-> @store :unavailable-pokemon)))))
@@ -66,8 +80,13 @@
              ((fn [pokemons]
                 (swap! store update-in [:pokemon-ids]
                        union (->> pokemons (map (comp keyword str :id)) set))
-                (swap! store
-                       assoc :pokemon-hash (merge (-> @store :pokemon-hash) (hash-by-id pokemons)))))))])))
+                (doseq [pokemon pokemons]
+                  (let [poke-hash (hash-by-id [pokemon])
+                        id (-> pokemon :id str keyword)
+                        in-hash? (some? (get-in @store [:pokemon-hash id]))]
+                    (when-not in-hash?
+                      (swap! store
+                             assoc :pokemon-hash (merge (-> @store :pokemon-hash) poke-hash)))))))))])))
 
 (defn set-poke-types!
   "TODO: escrever documentação"
