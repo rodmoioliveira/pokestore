@@ -92,6 +92,11 @@
    :dragon :dark :fairy])
 
 #?(:cljs
+   (defn mobile?
+     []
+     (<= (-> js/window .-innerWidth) 695)))
+
+#?(:cljs
    (def
      poketypes-info
      {:index {:src "/images/store/star-fs8.png"}

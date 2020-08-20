@@ -13,7 +13,9 @@
    [pokemon.pages :refer [page-for
                           current-page]]
    [pokemon.routes :refer [router]]
-   [pokemon.util :refer [set-theme!]]))
+   [pokemon.util :refer [set-theme!
+                         mobile?
+                         poketypes-keywords]]))
 
 (set-poke-types!)
 
@@ -38,7 +40,10 @@
         ; FIXME: fetch duplicado
         (if (= store "details")
           (fetch-details (-> route-params :id))
-          (fetch-store store))
+          (if (mobile?)
+            (fetch-store store)
+            (doseq [p poketypes-keywords]
+              (-> p name fetch-store))))
         ((set-theme! store))))
     :path-exists?
     (fn [path]
